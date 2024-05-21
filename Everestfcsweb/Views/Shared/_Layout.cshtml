@@ -74,7 +74,7 @@
                 <li class="nav-link dropdown">
                     <a class="font-weight-bold text-uppercase text-xs text-dark text-muted dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-circle text-dark text-muted font-weight-bold fa-1x img-circle rounded-circle"></i>&nbsp; @currentUserData.Usermodel.Fullname</a>
                     <div class="dropdown-menu bg-white">
-                        <div class="row" hidden>
+                        <div class="row" >
                             <div class="col-sm-12">
                                 <input id="systemLoggedinedUtcnameid" value="@currentUserData.Usermodel.Utcname">
                                 <input id="systemLoggedinedTenantid" value="@currentUserData.Usermodel.Tenantid">
@@ -147,8 +147,8 @@
                             <a href="javascript: void(0);" class="nav-link">
                                 <i class="nav-icon fa fa-truck"></i><p>Suppliers<i class="fa fa-angle-left right"></i></p>
                             </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_SUPPLIERS" style="display:none;">
+                            <ul class="nav nav-treeview ml-2 main" id="CAN_VIEW_SUPPLIERS" style="display:none;">
+                                <li class="nav-item">
                                     <a asp-controller="SettingsManagement" asp-action="Systemsupplierslist" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i><p>Suppliers</p>
                                     </a>
@@ -160,8 +160,8 @@
                             <a href="javascript: void(0);" class="nav-link">
                                 <i class="nav-icon fa fa-charging-station"></i><p>Stations<i class="fa fa-angle-left right"></i></p>
                             </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_STATIONS" style="display:none;">
+                            <ul class="nav nav-treeview ml-2 main" id="CAN_VIEW_STATIONS" style="display:none;">
+                                <li class="nav-item">
                                     <a asp-controller="StationManagement" asp-action="Index" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i><p>Stations</p>
                                     </a>
