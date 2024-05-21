@@ -20,6 +20,7 @@ namespace Everestfcsweb.Controllers
         }
 
         #region System Permissions
+        [HttpGet]
         public async Task<IActionResult> Systempermissionlist()
         {
             var data = await bl.Getsystempermissiondata(SessionUserData.Token);
