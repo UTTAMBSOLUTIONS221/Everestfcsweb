@@ -1315,7 +1315,7 @@ namespace Everestfcsweb.Controllers
         }
         private static void AddCellToHeader(PdfPTable tableLayout, string cellText)
         {
-            tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.TIMES_ROMAN, 8, 1, BaseColor.DarkGray)))
+            tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.FontFamily.TIMES_ROMAN, 8, 1, BaseColor.DARK_GRAY)))
             {
                 HorizontalAlignment = Element.ALIGN_LEFT,
                 Padding = 3,
@@ -1327,7 +1327,7 @@ namespace Everestfcsweb.Controllers
         {
             if (count % 2 == 0)
             {
-                tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.TIMES_ROMAN, 7, 1, BaseColor.DarkGray)))
+                tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.FontFamily.TIMES_ROMAN, 7, 1, BaseColor.DARK_GRAY)))
                 {
                     HorizontalAlignment = Element.ALIGN_LEFT,
                     Padding = 3,
@@ -1336,7 +1336,7 @@ namespace Everestfcsweb.Controllers
             }
             else
             {
-                tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.TIMES_ROMAN, 7, 1, BaseColor.DarkGray)))
+                tableLayout.AddCell(new PdfPCell(new Phrase(cellText, new Font(Font.FontFamily.TIMES_ROMAN, 7, 1, BaseColor.DARK_GRAY)))
                 {
                     HorizontalAlignment = Element.ALIGN_LEFT,
                     Padding = 3,
@@ -1347,7 +1347,7 @@ namespace Everestfcsweb.Controllers
         }
         private static void AddCellToFooter(PdfPTable tableLayout, string label, string value)
         {
-            PdfPCell cell = new PdfPCell(new Phrase(label, new Font(Font.TIMES_ROMAN, 8, 1, BaseColor.DarkGray)))
+            PdfPCell cell = new PdfPCell(new Phrase(label, new Font(Font.FontFamily.TIMES_ROMAN, 8, 1, BaseColor.DARK_GRAY)))
             {
                 Colspan = 3, // Column span for the label
                 HorizontalAlignment = Element.ALIGN_RIGHT,
@@ -1356,7 +1356,7 @@ namespace Everestfcsweb.Controllers
             };
             tableLayout.AddCell(cell);
 
-            PdfPCell valueCell = new PdfPCell(new Phrase(value, new Font(Font.TIMES_ROMAN, 8, 1, BaseColor.DarkGray)))
+            PdfPCell valueCell = new PdfPCell(new Phrase(value, new Font(Font.FontFamily.TIMES_ROMAN, 8, 1, BaseColor.DARK_GRAY)))
             {
                 Colspan = 1, // Column span for the value
                 HorizontalAlignment = Element.ALIGN_LEFT,
