@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Everestfcsweb.Models.SystemStationData>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h6 class="font-weight-bold text-sm card-title">Stations</h6>
+                    </div>
+                    <div class="col-sm-4 float-right pull-right">
+                        <a asp-action="AddSystemStation" asp-controller="StationManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_STATION" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Station</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 table-responsive">
+                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            <th>Automated</th>
+                            <th>Code</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Sname</td>
+                                    <td>@item.Semail</td>
+                                    <td>@item.Phonenumber</td>
+                                    <td>
+                                        @if (item.IsActive)
+                                        {
+                                            <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger badge-info-xs text-uppercase font-weight-bold">Inactive</span>
+                                        }
+                                        @if (item.IsDeleted)
+                                        {
+                                            <span class="badge badge-danger badge-info-xs text-uppercase font-weight-bold">Deleted</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Notdeleted</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.Extra)
+                                        {
+                                            <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Automated</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-warning badge-warning-xs text-uppercase text-white font-weight-bold">Not Automated</span>
+                                        }
+                                    </td>
+                                    <td>@item.Stationcode</td>
+                                    <td class="text-right">
+                                        <a asp-action="Details" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-stationcode="@Guid.NewGuid()" asp-route-StationId="@item.StationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_VIEW_STATION_DETAILS">Tanks and Pumps</a>
+                                        <a asp-action="Shiftlistings" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-stationcode="@Guid.NewGuid()" asp-route-StationId="@item.StationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_VIEW_STATION_SHIFTS">Manage Shifts</a>
+                                        @if (item.Extra)
+                                        {
+                                            <a onclick="switchtomanualsystemstationdata(event)" data-Entryid="@item.StationId" data-Status="false" class="switchtomanualbtn btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_SWITCH_TO_MANUAL"><span id="buttonText">SWITCH TO MANUAL</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span></a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="automatesystemstationdata(event)" data-Entryid="@item.StationId" data-Status="true" class="switchtoautobtn btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_AUTOMATE_STATION"><span id="buttonText">AUTOMATE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span></a>
+                                        }
+                                        <a asp-action="AddSystemStation" asp-controller="StationManagement" asp-route-StationId="@item.StationId" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_STATION" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        @if (item.IsActive)
+                                        {
+                                            <a onclick="tenantdeactivatethis(event)" data-Tablename="SystemStations" data-Columname="IsActive" data-Status="0" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase" id="CAN_DEACTIVATE_STATION">Deactivate</a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="tenantactivatethis(event)" data-Tablename="SystemStations" data-Columname="IsActive" data-Status="1" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_ACTIVATE_STATION">Activate</a>
+                                        }
+                                        @if (item.IsDeleted)
+                                        {
+                                            <a onclick="tenantrestorethis(event)" data-Tablename="SystemStations" data-Columname="IsDeleted" data-Status="0" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_RESTORE_STATION">Restore</a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="tenantdeletethis(event)" data-Tablename="SystemStations" data-Columname="IsDeleted" data-Status="1" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase" id="CAN_DELETE_STATION">Delete</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

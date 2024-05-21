@@ -1,0 +1,99 @@
+﻿@model Everestfcsweb.Entities.Stationpumps
+@{
+    var SystemProducts = ViewData["SystemProductslists"] as List<SelectListItem>;
+    var SystemTanks = ViewData["SystemTankslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Station Pump </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+             <input asp-for="@Model.Pumpid" id="StationPumpId" hidden />
+             <input asp-for="@Model.Stationid" id="StationId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Pump Name</label>
+                <input class="form-control form-control-sm" asp-for="@Model.Pumpname" id="StationPumpnameId" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Pump Model</label>
+                <input class="form-control form-control-sm" asp-for="@Model.Pumpmodel" id="StationPumpmodelId" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="form-group">
+                <label class="font-weight-light">Tank</label>
+                <select class="form-control form-control-sm font-weight-light select2" id="SystemstationtankId" asp-for="@Model.Tankid" asp-items="@SystemTanks">
+                    <option value="">---Select---</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Number of Nozzles</label>
+                <select class="form-control form-control-sm font-weight-light" asp-for="@Model.Pumpnozzle" id="StationnumberofnozzleId" onclick="generatesystemstationpumpnozzles()">
+                    <option value="0">---Select---</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Is Double Sided</label>
+                <input class="form-control form-control-sm" type="checkbox" asp-for="@Model.IsDoubleSided" id="StationIsDoubleSidedId" onclick="makenozzleifdoublesidedreadonly()" />
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="col-sm-12">
+        <label class="font-weight-light">Station Pump Nozzle(s) Entry <span class="required-sup">*</span></label>
+        <div class="row">
+            <div class="col-sm-12 table-responsive" style="min-height:100px">
+                <table class="table table-sm nowrap text-nowrap" style="width:100%" id="stationpumpnozzletable">
+                    <thead><tr><th class="font-weight-light text-sm" hidden>Name</th><th class="font-weight-light" hidden>Side</th><th class="font-weight-light" hidden>Tank</th></tr></thead>
+                    <tbody class="font-weight-light text-sm">
+                        @if (Model.StationPumpNozzles != null && Model.StationPumpNozzles.Any())
+                        {
+                            foreach (var nozzle in Model.StationPumpNozzles)
+                            {
+                                <tr>
+                                    <td>@nozzle.Nozzle</td>
+                                    <td hidden>@nozzle.Side</td>
+                                    <td hidden>@nozzle.TankName</td>
+                                    @* <td>
+                                        <select class='form-control form-control-sm font-weight-light' id='SystemstationtankpumpId' asp-for="@nozzle.Tankid" asp-items="@SystemTanks">
+                                         <option value=''>-- Select--</option>
+                                        </select>
+                                    </td> *@
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" id="savesystemstationpumpBtn" onclick="savesystemstationpumpdata();">
+        <span id="buttonText">SAVE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+        </button>
+</div>

@@ -1,0 +1,52 @@
+﻿@{
+    var Systemstationslists = ViewData["Systemstationslists"] as List<SelectListItem>;
+}
+<form id="form_id">
+    <div class="modal-header">
+        <h5 class="text-sm modal-title" id="FuelcardsystemModalLabel">Shift Statement Report</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="font-weight-light">Start Date</label>
+                    <input class="form-control form-control-sm" type="date" required name="startdate" id="startdate" />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="font-weight-light">End Date</label>
+                    <input class="form-control form-control-sm" type="date" required name="enddate" id="enddate" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="font-weight-light">Stations</label>
+                    <select class="form-control form-control-sm font-weight-light select2" onchange="getStationShifts(this.value)" asp-items="@Systemstationslists" name="stationid" id="stationid">
+                        <option value="">--select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12" id="Stationshiftrow" style="display:none;">
+            <div class="form-group">
+                <label class="font-weight-light">Shifts</label>
+                <select class="form-control form-control-sm font-weight-light select2" name="shiftId" id="StationShiftid">
+                    <option value="">--Select Shift ---</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+        <button class="btn btn-sm btn-info font-weight-bold" type="button" id="allReportGeneratingBtn" onclick="SingleShiftStatementOnClick();">
+            <span id="buttonText">GENERATE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+        </button>
+    </div>
+</form>
+

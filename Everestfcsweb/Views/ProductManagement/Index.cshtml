@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Everestfcsweb.Models.SystemProductModelData>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header py-1">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h6 class="font-weight-bold text-sm card-title">Products</h6>
+                    </div>
+                    <div class="col-sm-4">
+                        <a asp-action="Addsystemproduct" asp-controller="ProductManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_PRODUCT" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Product</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive table-responsive-sm">
+                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>UOM</th>
+                            <th>Productcode</th>
+                            <th>Status</th>
+                            <th>Createdby</th>
+                            <th>CreatedOn</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model!=null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.ProductVariationName</td>
+                                    <td>@item.CategoryName</td>
+                                    <td>@item.UomName</td>
+                                    <td>@item.Barcode</td>
+                                    <td>
+                                        @if (item.IsActive)
+                                        {
+                                            <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger badge-info-xs text-uppercase font-weight-bold">Inactive</span>
+                                        }
+                                        @if (item.IsDeleted)
+                                        {
+                                            <span class="badge badge-danger badge-info-xs text-uppercase font-weight-bold">Deleted</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Notdeleted</span>
+                                        }
+                                    </td>
+                                    <td>@item.CreatedBy</td>
+                                    <td>@item.DateCreated</td>
+                                    <td>
+                                        <a asp-action="Editsystemproduct" asp-controller="ProductManagement" asp-route-code="@Guid.NewGuid()" asp-route-ProductvariationId="@item.ProductVariationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_PRODUCT" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        @if (item.IsActive)
+                                        {
+                                            <a onclick="deactivatethis(event)" data-Tablename="SystemProductvariation" data-Columname="Isactive" data-Status="0" data-Columnidname="ProductvariationId" data-Entryid="@item.ProductVariationId" id="CAN_DEACTIVATE_PRODUCT" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="activatethis(event)" data-Tablename="SystemProductvariation" data-Columname="Isactive" data-Status="1" data-Columnidname="ProductvariationId" data-Entryid="@item.ProductVariationId" id="CAN_ACTIVATE_PRODUCT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
+                                        }
+                                        @if (item.IsDeleted)
+                                        {
+                                            <a onclick="restorethis(event)" data-Tablename="SystemProductvariation" data-Columname="Isdeleted" data-Status="0" data-Columnidname="ProductvariationId" data-Entryid="@item.ProductVariationId" id="CAN_RESTORE_PRODUCT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="deletethis(event)" data-Tablename="SystemProductvariation" data-Columname="Isdeleted" data-Status="1" data-Columnidname="ProductvariationId" data-Entryid="@item.ProductVariationId" id="CAN_DELETE_PRODUCT" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

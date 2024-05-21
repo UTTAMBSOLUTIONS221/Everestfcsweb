@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Everestfcsweb.Models.Communicationtemplatedata>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header py-1">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h6 class="font-weight-bold text-sm card-title">System Templates</h6>
+                    </div>
+                    <div class="col-sm-4">
+                        <a asp-action="Addcommunicationtemplate" asp-controller="CommunicationTemplate" asp-route-Templateid="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white float-right font-weight-bold text-uppercase" id="CAN_ADD_TEMPLATES" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Template</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive table-responsive-sm">
+                <table class="table table-bordered table-striped compact table-sm nowrap text-nowrap" id="AllsystemDataTables">
+                    <thead class="text-uppercase">
+                        <tr>
+                            <th>Title</th>
+                            <th>Subject</th>
+                            <th>Body</th>
+                            <th>Isemail</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Templatename</td>
+                                    <td>@item.Templatesubject</td>
+                                    <td>@Html.Raw(item.Templatebody)</td>
+                                    <td>
+                                        @if (item.Isemailsms)
+                                        {
+                                            <span class="badge badge-warning badge-info-xs text-uppercase font-weight-bold text-white">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-warning badge-info-xs text-uppercase font-weight-bold text-white">No</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.Isactive)
+                                        {
+                                            <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger badge-info-xs text-uppercase font-weight-bold">Inactive</span>
+                                        }
+                                        @if (item.Isdeleted)
+                                        {
+                                            <span class="badge badge-danger badge-info-xs text-uppercase font-weight-bold">Deleted</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Notdeleted</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="Addcommunicationtemplate" asp-controller="CommunicationTemplate" asp-route-Templateid="@item.Templateid" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_TEMPLATES" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        @if (item.Isactive)
+                                        {
+                                            <a onclick="deactivatethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isactive" data-Status="0" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_DEACTIVATE_TEMPLATES" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="activatethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isactive" data-Status="1" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_ACTIVATE_TEMPLATES" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
+                                        }
+                                        @if (item.Isdeleted)
+                                        {
+                                            <a onclick="restorethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isdeleted" data-Status="0" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_RESTORE_TEMPLATES" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="deletethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isdeleted" data-Status="1" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_DELETE_TEMPLATES" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

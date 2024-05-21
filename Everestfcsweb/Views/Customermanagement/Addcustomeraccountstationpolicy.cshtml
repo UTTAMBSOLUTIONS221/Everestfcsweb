@@ -1,0 +1,32 @@
+﻿@model Everestfcsweb.Entities.AccountStationspolicy
+@{
+    var Systemstations = ViewData["Systemstationslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">@Model.Masknumber Account Station  Policy</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.Masknumber" id="AccountmaskId" hidden />
+            <input asp-for="@Model.AccountStationId" id="AccountStationId" hidden />
+            <input asp-for="@Model.AccountId" id="PolicyAccountId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="font-weight-light">Station/outlet</label>
+                <select class="form-control form-control-sm font-weight-light select2" multiple id="SystemstationId" asp-for="@Model.StationId" asp-items="@Systemstations">
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savecustomeraccountstationpolicy();">Submit</button>
+</div>

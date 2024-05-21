@@ -1,0 +1,498 @@
+﻿@{
+    var SystemStationsList = ViewData["Systemstationslists"] as List<SelectListItem>;
+    var Systempaymentmodeslists = ViewData["Systempaymentmodeslists"] as List<Everestfcsweb.Models.ListModel>;
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5 class="text-sm modal-title text-uppercase" id="SocialPesaModalLabel"><strong>New Sale</strong></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row p-1" id="Offlinesaleentrypoint">
+                    <div class="col-sm-6">
+                        <div class="card pt-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label class="font-weight-light">Outlet: </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <select onchange="getStationStaffs(this.value)" class="form-control form-control-sm salcat select2" id="cat-select" asp-items="@SystemStationsList">
+                                                    <option value="0">--Select Outlet ---</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label class="font-weight-light">Staff: </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <select class="form-control form-control-sm font-weight-light select2" id="StationUserid">
+                                                    <option value="0">--Select Staff ---</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row srtModal dryModal pt-0 pb-1">
+                                    <input placeholder="Search.." class="form-control form-control-sm search-prod" id="search-item" />
+                                    <div class="row col-sm-12 pt-2" id="product-panel">
+                                        <p class="pl-2">
+                                            Select Station to show items.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                Changing Station will clear the cart.
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12"><div id="productList" class="table-responsive"></div></div>
+                                        </div>
+                                        <div class="row productspaymentmodesdata" style="display:none;">
+                                            <div class="col-sm-12 text-right">
+                                                <a onclick="ResetSalesCart()" class="btn-secondary btn-xs btn-outline-secondary text-white font-weight-bold text-uppercase">Clear</a>
+                                                <a asp-action="CustomerOfflineSalePaymode" asp-controller="SaleManagement" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pay</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="confirmIssue" style="display:none;">
+                            <div id="issuanceConfirmation" style="overflow:hidden;"></div>
+                            <div id="saleInfo">
+                                <input id="accountNumberId" hidden />
+                                <input id="balance" hidden />
+                                <input id="totalTicket" hidden />
+                                <input id="agreementtype" hidden />
+                                <input id="uid" hidden />
+                                <input id="vehicles" value="0" hidden />
+                                <input id="customerVehiclesId" hidden />
+                                <input id="paymentModeNameId" hidden />
+                                <input id="paymentModeId" hidden />
+                                <input id="cardNumberId" hidden />
+                                <input id="accountNumber" hidden />
+                                <input id="transactionDateId" hidden />
+                                <input id="payreferenceId" hidden />
+                                <p class="font-weight-normal text-sm">
+                                    STATION : &emsp; <b class="font-weight-normal" id="stationName"></b> <br />
+                                    PAYMENT MODE : &emsp; <b class="font-weight-normal" id="paymentModeName"></b><br />
+                                    TRANSACTION DATE : &emsp; <b class="font-weight-normal" id="transactionDate"></b><br />
+                                    TRANSACTION REFERENCE : &emsp; <b class="font-weight-normal" id="transactionReference"></b><br />
+                                    ATTENDANT : &emsp; <b class="font-weight-normal" id="attendantName"></b><br />
+                                    CARD : &emsp; <b class="font-weight-normal" id="cardNumber">N/A</b>
+                                </p>
+                            </div>
+                            <hr style="border-top: 1px solid #ccc;" />
+                            <div class="row pb-2">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button class="btn-secondary btn-xs btn-outline-secondary text-white font-weight-bold text-uppercase btn-block revertIssueSubmit">BACK</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button id="confirmAndPayBtn" class="btn-info btn-xs btn-info text-white font-weight-bold text-uppercase btn-block" onclick="submitAndValidateSaleIssue()">
+                                                <span id="buttonText">Confirm And PAY</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        function getStationStaffs(stationid) {
+            ResetSalesCart();
+            var onj = "<option value=''>Select Staff</option>";
+            if (stationid == "" || stationid == 0) { $('#StationUserid').html(onj); return; }
+            $.get("/SaleManagement/GetSystemStationStaffDropDownDataById/" + stationid, null, function (data) {
+                $.each(data, function (a, x) { onj = onj + "<option value='" + x.Value + "'>" + x.Text + "</option>"; })
+                $('#StationUserid').html(onj);
+            });
+            $('#search-item').val('');
+            getProducts(stationid, '');
+        }
+        function ResetSalesCart() {
+            $.ajax({
+                type: "POST",
+                url: "/SaleManagement/ResetCart",
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function getProducts(stationId, cahra) {
+            $('#product-panel').addClass('saleBoard-disabled')
+            $.get('/ProductManagement/GetSystemStationProductDataById/' + stationId + '?character=' + cahra, null, function (data) {
+                var object = ""; var countcte = 0; var cahrency = "";
+                $.each(data, function (a, x) {
+                    var bth = '<button onclick="AddProducttoCart(' + "'" + x.ProductVariationId + "'" + ',' + "'" + x.ProductVariationName + "'" + ',' + "'" + x.ProductPrice + "'" + ',' + "'" + 0 + "'" + ',' + "'" + 0 + "'" + ')" class="btn btn-info btn-xs" style="width:100%;padding:1px;">ADD TO CART</button>';
+                    object += ' <div class="col-sm-3">' +
+                        ' <div class="small-box bg-aqua"> ' +
+                        '  <div class="inner">' +
+                        '     <center style="width:100%;height:50px;align-content:center;">' +
+                        '        <img src="/imgs/default-image.jpg" style="background-size:contain;max-height:100%;max-width:100%;" />' +
+                        '   </center>' +
+                        ' <h6 class="text-center text-sm font-weight-bold p-0" style="margin-top:0px !Important">' + x.ProductVariationName + '</h6>' +
+                        ' <h6 class="text-center text-sm font-weight-bold p-0" style="margin-top:0px !Important">' + x.ProductPrice + ' ' + cahrency + ' </h6>' + bth + ' </div>' +
+                        '  </div>' +
+                        '   </div>';
+                    countcte++;
+                    if ((countcte % 4) == 0) { object += ' <div class="clearfix"></div>'; }
+                });
+                $('#product-panel').removeClass('saleBoard-disabled')
+                $('#product-panel').html(object);
+            });
+        }
+
+        function AddProducttoCart(productVariationId, productName, productPrice, productDiscount, productCode) {
+            if ($('#cat-select').val() == "") {
+                Swal.fire("Sale", "Station cannot be empty.", "warning");
+                return;
+            }
+            if ($('#StationUserid').val() == "") {
+                Swal.fire("Sale", "Sellling attendant cannot be empty.", "warning");
+                return;
+            }
+            var data = { "ProductVariationId": productVariationId, "ProductName": productName, "ProductPrice": productPrice, "ProductDiscount": productDiscount, "ProductCode": productCode };
+            $.ajax({
+                type: "POST",
+                url: "/SaleManagement/AddProductdatatocart",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                    $('.productspaymentmodesdata').show();
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function Loadcustomerpaymentdataitems(Paymentmodename) {
+            var inp = Paymentmodename.toLowerCase();
+            $('.tref').slideUp();
+            $('.cashdata').slideUp();
+            if (inp.includes("cash money") || inp.includes("cash")) { $('#TransactionReference').val(''); $('.cashdata').slideDown(); }
+            else if (inp.includes("bank card")) { $('.pcard').slideDown(); }
+            else if (inp.includes("everest card") || inp.includes("card")) { $('.pcard').slideDown(); }
+            else if (inp.includes("redeem voucher") || inp.includes("ivoucher")) { $('.pcard').slideDown(); }
+            else if (inp.includes("lpo")) { $('.plpo').slideDown(); }
+            else if (inp.includes("cheque")) { $('.pcheque').slideDown(); }
+            $('.c-element-selected').addClass('c-element');
+            // Paymentmodename.parent().removeClass('c-element');
+            if (Paymentmodename.toLowerCase() != "") { $('#submit-sale').prop("disabled", false); } else { $('#submit-sale').prop("disabled", true); }
+        };
+
+        function searchCard() {
+            var item = $('#cardmask').val();
+            var pay = $("#medium option:selected").text().toLowerCase();
+            var station = $('#cat-select').val();
+            if (item == "") {
+                Swal.fire("Sale", "please fill in the card number", "warning");
+                $('.blockOverlay').hide();
+                return;
+            }
+            if (pay == "") {
+                Swal.fire("Sale", "please select payment mode", "warning");
+                $('.blockOverlay').hide();
+                return;
+            }
+
+            var data = { "CardNo": item, "StationId": station, "PaymantModeName": pay };
+            $.ajax({
+                type: "POST",
+                url: "/SaleManagement/GetCardDetails",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('.maskDetails').html(data.output);
+                    $('.maskDetails').show();
+                    $('#accountNumber').val(data.AccountNumber);
+                    $('#accountNumberId').val(data.AccountId);
+                    $('#agreementtype').val(data.Agreementtypename);
+                    $('#balance').val(data.Balance);
+                    $('#totalquantity').val(data.Quantity);
+                    $('#totalTicket').val(data.TotalTicket);
+                    $('#uid').val(data.Uid);
+                    var ft = "<option value=''>Select</option>";
+                    $.each(data.CustomerAccountEquipment, function (a, x) { ft = ft + "<option value='" + x.EquipmentId + "'>" + x.EquipmentRegNo + "</option>" });
+                    $('#customerVehicles').select2();
+                    if (data.CustomerAccountEquipment.length > 0) { $('#customerVehicles').html(ft); } else { $('#customerVehicles').html(''); }
+                    if (data.CustomerAccountEquipment.length > 0) { $('.vehicles').show(); } else { $('.vehicles').hide(); }
+                    $('.carddata').slideDown();
+                },
+                error: function () {
+                    Swal.fire("Sale", "Something went wrong!.", "error");
+                }
+            });
+        }
+        function continueSale() {
+            var s = checkAvailability($("#medium option:selected").text());
+            if (s)
+                SaleProducts();
+        }
+
+        function SaleProducts() {
+            var inp = $('#medium option:selected').text().toLowerCase();
+            $.get("/SaleManagement/GetSaleItems", null, function (data) {
+                if (data == false) {
+                    Swal.fire("Sale", "Add atleast one product to the cart first", "error")
+                } else {
+                    $("#stationName").html($('#cat-select option:selected').text());
+                    $("#paymentModeName").html($('#medium option:selected').text());
+                    $("#paymentModeNameId").val($('#medium option:selected').text());
+                    $("#paymentModeId").val($('#medium option:selected').val());
+                    if (inp.includes("cash money") || inp.includes("cash")) {
+                        // $("#RecievedAnountdata").html($('#RecievedAnount').val());
+                        // $("#RecievedAnountdataId").val($('#RecievedAnount').val());
+                        $("#transactionDate").html($('#transactiondate1').val());
+                        $("#transactionDateId").val($('#transactiondate1').val());
+                        $("#transactionReference").html($('#payreference1').val());
+                        $("#payreferenceId").val($('#payreference1').val());
+                    }else{
+                        $("#transactionDate").html($('#transactiondate').val());
+                        $("#transactionDateId").val($('#transactiondate').val());
+                        $("#transactionReference").html($('#payreference').val());
+                        $("#payreferenceId").val($('#payreference').val());
+                    }
+                    $("#attendantName").html($('#StationUserid option:selected').text());
+                    $("#cardNumber").html($('#cardmask').val() == "" ? "N/A" : $('#cardmask').val());
+                    $("#cardNumberId").val($('#cardmask').val() == "" ? "N/A" : $('#cardmask').val());
+                    $("#customerVehiclesId").val($('#customerVehicles').val());
+                    $('#Offlinesaleentrypoint').slideUp('slow');
+                    $('#issuanceConfirmation').html(data);
+                    $('.homeIssue').slideUp('slow');
+                    $('.confirmIssue').slideDown('slow');
+                    $('.revertIssueSubmit').show();
+                    $('#FuelcardsystemModalLarge').modal('toggle');
+                }
+            });
+        }
+
+        $('#issuanceConfirmation').on('keyup', '.discount-amount', function () {
+            var x = 0; var xt = 0;
+            try {
+                var elems = document.getElementsByClassName('discount-amount');
+
+                x = parseFloat($(this).val());
+                x = (isNaN(x)) ? 0 : x;
+                for ($i = 0; $i < elems.length; $i++) { var a = parseFloat(elems[$i].value); a = (isNaN(a)) ? 0 : a; xt += a; }
+            } catch (e) { }
+            var tt = parseFloat($('#tt-app').val());
+            $('#total-amount-pay').html((tt - xt).toFixed(2));
+
+            //update adjuscent child
+            $par = $(this).parent();
+            $pd = $par.prev();
+            $pda = $pd.prev();
+            var attitude = parseFloat($pd.html()) * parseFloat($pda.html());
+            $par2 = isNaN(attitude) ? $par.next().html((parseFloat($pd.html()) - x).toFixed(2)) : $par.next().html((attitude - x).toFixed(2));
+        });
+        function checkAvailability(inpl) {
+            var poststatus = true;
+            var paymode = inpl.toLowerCase();
+            if ($('#transactiondate').val() == "" && $('#transactiondate1').val() == "") { msg = 'Transaction Date is required.'; poststatus = false; }
+             if (paymode.toLowerCase().includes('credit')) {
+                if (customerid == "") { msg = 'Sale by ' + inpl + ' requires Customer identity.'; poststatus = false; }
+            } else if (paymode.toLowerCase().includes('everest card') || paymode.toLowerCase().includes('card') || paymode.toLowerCase().includes('voucher') || paymode.toLowerCase().includes('ivoucher')) {
+                if ($('#mask').val() == "") { msg = 'Sale by ' + inpl + ' requires Card Number.'; poststatus = false; }
+                else {
+                    if ($('#accountNumber').val() == "") { msg = 'Sale by ' + inpl + ' requires an Account.'; poststatus = false; }
+                }
+            } else if (paymode.toLowerCase().includes('bank card')) {
+                if (ref == "") { msg = 'Sale by ' + inpl + ' requires Reference.'; poststatus = false; }
+            } else if (paymode.toLowerCase().includes('voucher') || paymode.toLowerCase().includes('ivoucher')) {
+                if ($('#mask').val() == "") { msg = 'Sale by ' + inpl + ' requires Card Number.'; poststatus = false; }
+                else {
+                    if ($('#accountNumber').val() == "") { msg = 'Sale by ' + inpl + ' requires an Account.'; poststatus = false; }
+                }
+            } else if (paymode.toLowerCase().includes('cheque')) {
+                if ($('#chequenumber').val() == "") { msg = 'Sale by ' + inpl + ' requires Cheque Number.'; poststatus = false; }
+            }
+            if (!poststatus)
+                Swal.fire("Sale", msg, "error");
+            return poststatus;
+        }
+
+        function submitAndValidateSaleIssue() {
+            document.getElementById("confirmAndPayBtn").disabled = true;
+            document.getElementById("processingSpinner").style.display = "inline-block";
+            document.getElementById("buttonText").innerText = "Processing...";
+            var inpl = $('#paymentModeNameId').val();
+            if (inpl.toLowerCase().includes("card") || inpl.toLowerCase().includes("everestprocard") || inpl.toLowerCase().includes("voucher") || inpl.toLowerCase().includes("ivoucher")) {
+                var inpl1 = $('#paymentModeNameId').val();
+      
+                $('#amount-due').html($('#total-amount-pay').html());
+                $('#total-amount-payable').html($('#total-amount-pay').html());
+                $('#payed-amount').val($('#total-amount-pay').html());
+                $("#amount-due").html(0);
+                if (parseFloat($("#amount-due").html()) > 0) {
+                    Swal.fire("Sale", "Transaction cannot be completed without Full Payment.", "error");
+                    document.getElementById("confirmAndPayBtn").disabled = false;
+                    document.getElementById("processingSpinner").style.display = "none";
+                    document.getElementById("buttonText").innerText = "Confirm And PAY";
+
+                } else {
+                    var elemset = document.getElementById("sales-posted");
+                    var items = elemset.getElementsByClassName('discount-amount');
+                    $Discounts = [];
+                    $.each(items, function (x, a) {
+                        $m = items[x].value;
+                        $v = items[x].getAttribute('data-id');
+                        var t = { "Id": $v, "Amount": $m };
+                        $Discounts.push(t);
+                    })
+                    $ngh = {
+                        Note: $('#note').val(), TransactionDate: $('#transactionDateId').val(), TenantId: $('#systemLoggedinedTenantid').val(), AccountId: $('#accountNumberId').val(), AccountNumber: $('#accountNumber').val(),
+                        CardUID: $('#uid').val(), Amount: parseFloat($('#payed-amount').val()), StationId: $('#cat-select').val(),
+                        Userid: $("#StationUserid").val(), PaymentModeId: $("#paymentModeId").val(), Discounts: $Discounts,
+                        Mask: $("#cardNumberId").val(), PayModeName: $("#paymentModeNameId").val(),
+                        ChequeNumber: $("#chequenumber").val(), SaleReference: $("#payreferenceId").val(), CustomerVehicleId: $("#customerVehiclesId").val(),
+                        CreatedbyId: $('#systemLoggedinedUserid').val(), ModifiedId: $('#systemLoggedinedUserid').val(),
+                        Datecreated: new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0].replace('T', ' '),
+                        Datemodified: new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0].replace('T', ' '),
+                    }
+                    $.post("/SaleManagement/RegisterOfflineSale", $ngh, function (response) {
+                        if (response.RespStatus == 0) {
+                            Swal.fire('Saved!', response.RespMessage, 'success');
+                            window.location.href = '/SaleManagement/Index';
+                        } else if (response.RespStatus == 1) {
+                            Swal.fire("Offline Sale  Not Posted", response.RespMessage, "warning");
+                        }
+                        else {
+                            Swal.fire("Oops! Something Went Wrong", "Database Error has occured. Kindly Contact our support team.", "error");
+                        }
+                        document.getElementById("confirmAndPayBtn").disabled = false;
+                        document.getElementById("processingSpinner").style.display = "none";
+                        document.getElementById("buttonText").innerText = "Confirm And PAY";
+                    });
+                }
+            }
+        }
+
+
+
+
+        $('.amount').keyup(function () {
+            var cash = document.getElementsByName('amount')[0].value;
+            var totalAmount = document.getElementById('total-amount-payable').innerHTML;
+            //due
+            var due = parseFloat(cash) < parseFloat(totalAmount) ? parseFloat(totalAmount) - parseFloat(cash) : 0;
+            var change = parseFloat(cash) > parseFloat(totalAmount) ? parseFloat(cash) - parseFloat(totalAmount) : 0;
+            $("#amount-due").html(due.toFixed(2));
+            $("#change").html(change.toFixed(2));
+        });
+
+
+
+        function DeleteSaleItem(ProductVariationId) {
+            var data = { "ProductVariationId": ProductVariationId };
+            $.ajax({
+                type: "POST",
+                url: "/SaleManagement/DeleteSaleItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function UpdateSaleItem(ProductVariationId, qty) {
+            var data = {
+                "ProductVariationId": ProductVariationId,
+                "Qty": qty
+            };
+            $.ajax({
+                type: "POST",
+                url: "/SaleManagement/UpdateSaleItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+        function UpdatePriceItem(ProductVariationId, amount) {
+            var data = {
+                "ProductVariationId": ProductVariationId,
+                "Amt": amount
+            };
+            $.ajax({
+                type: "POST",
+                url: "/SaleManagement/UpdatePriceItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+        function UpdateAmountItem(ProductVariationId, Amt) {
+            var data = {
+                "ProductVariationId": ProductVariationId,
+                "Amt": Amt
+            };
+            $.ajax({
+                type: "POST",
+                url: "/SaleManagement/UpdateAmountItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+    </script>
+}

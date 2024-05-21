@@ -1,0 +1,219 @@
+﻿@model Everestfcsweb.Entities.SystemTenantAccount
+@{
+    Layout = null;
+    ViewData["Title"] = "Registersystemtenant";
+    var Countrylists = ViewData["SystemCountrylists"] as List<SelectListItem>;
+    var Phonecodelists = ViewData["Systemphonecodelists"] as List<SelectListItem>;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVEREST</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="~/lib/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="~/lib/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/lib/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
+    <link href="~/lib/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css" rel="stylesheet" />
+    <link href="~/lib/plugins/bs-stepper/css/bs-stepper.min.css" rel="stylesheet" />
+    <link href="~/lib/plugins/datatables-bs4/css/datatables.bootstrap4.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link href="~/lib/plugins/datatables-buttons/css/buttons.bootstrap4.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link href="~/dist/css/adminlte.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body class="hold-transition mt-5">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <div class="card card-info card-outline">
+                <div class="card-header pt-1 pb-1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h6 class="card-title text-sm">General Settings</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body login-card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input asp-for="Tenantid" class="form-control form-control-sm font-weight-light" id="SystemTenantAccountid" hidden />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Company Name</label>
+                                <input class="form-control form-control-sm font-weight-light" asp-for="Tenantname" id="SystemTenantAccountTenantnameid" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Company Email</label>
+                                <input class="form-control form-control-sm font-weight-light" type="email" asp-for="TenantEmail" id="SystemTenantAccountTenantEmailid" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Phone Number</label>
+                                <div class="input-group input-group-sm border">
+                                    <div class="input-group-prepend">
+                                        <select class="form-control form-control-sm font-weight-light input-group-text" asp-for="Phoneid" id="inputGroup-sizing-sm" asp-items="@Phonecodelists">
+                                            <option value="0">Code</option>
+                                        </select>
+                                    </div>
+                                    <input type="number" class="form-control form-control-sm" aria-label="Small" asp-for="Phonenumber" id="PhonenumberId" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Company PIN</label>
+                                <input class="form-control form-control-sm font-weight-light" asp-for="TenantPIN" id="SystemTenantAccountTenantpinid" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3" hidden>
+                            <div class="form-group">
+                                <label class="font-weight-light">Company Reference</label>
+                                <input class="form-control form-control-sm font-weight-light" asp-for="TenantReference" id="SystemTenantAccountTenantReferenceid" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Decimals</label>
+                                <input class="form-control form-control-sm font-weight-light" asp-for="NoOfDecimalPlaces" id="SystemTenantAccountNoofDecimalPlacesid" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Company Logo</label>
+                                <input class="form-control form-control-sm font-weight-light" type="file" onchange="companyImageFileChanged(event)" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="font-weight-light">CC Email <input type="checkbox" asp-for="IsCCEmail" id="SystemTenantAccountIsccemailid" /></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="font-weight-light">Apply Tax  <input type="checkbox" asp-for="ApplyTax" id="SystemTenantAccountApplyTaxid" /></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Send Email <input type="checkbox" asp-for="IsEmailEnabled" id="SystemTenantAccountIsEmailEnabledid" /></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="font-weight-light">Send SMS  <input type="checkbox" asp-for="IsSmsEnabled" id="SystemTenantAccountIsSmsEnabledid" /></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Truncate Email  <input type="checkbox" asp-for="IsTemplateTrancated" id="SystemTenantAccountIsTemplateTrancatedid" /></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Country</label>
+                                <select class="form-control form-control-sm font-weight-light" asp-for="Countryid" asp-items="@Countrylists" id="SystemTenantAccountCountryid">
+                                    <option>--Select Country--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Company Subdomain</label>
+                                <div class="input-group input-group-sm border">
+                                    <div class="input-group-prepend">
+                                        <span class="form-control form-control-sm font-weight-light input-group-text" id="basic-addon1">@@</span>
+                                    </div>
+                                    <input class="form-control form-control-sm" aria-label="Small" asp-for="Tenantsubdomain" id="SystemTenantAccountTenantSubdomainid" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">CC Email Address</label>
+                                <input class="form-control form-control-sm font-weight-light" asp-for="CCEmail" type="email" id="SystemTenantAccountCcEmailid" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Email Server</label>
+                                <input class="form-control form-control-sm font-weight-light" asp-for="EmailAddress" type="email" id="SystemTenantAccountEmailAddressid" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Server Password</label>
+                                <input class="form-control form-control-sm font-weight-light" asp-for="EmailPassword" id="SystemTenantAccountEmailPasswordid" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Sms Username</label>
+                                <input class="form-control form-control-sm font-weight-light" asp-for="Messageusername" id="SystemTenantAccountMessageUsernameid" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Sms Key</label>
+                                <input class="form-control form-control-sm font-weight-light" asp-for="Messageapikey" id="SystemTenantAccountMessageApiKeyid" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div id="Uttambsolutionsimagespreviewcontainer"></div>
+                        </div>
+                        <div class="col-sm-8" hidden>
+                            <div class="form-group">
+                                <label class="font-weight-light">Images Url</label>
+                                <input class="form-control form-control-sm" id="UttambsolutionsimagesurlId" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <div class="row">
+                            <div class="col-sm-8"></div>
+                            <div class="col-sm-4">
+                                <button class="btn btn-sm btn-info font-weight-bold float-right" id="RegisterSystemTenantsDataBtn" type="button" onclick="unauthsavesystemtenantaccountsettingdata();">
+                                    <span id="buttonText">REGISTER</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/plugins/jquery/jquery.min.js"></script>
+    <script src="~/lib/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/lib/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/plugins/datatables-buttons/js/datatables.buttons.min.js"></script>
+    <script src="~/lib/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/lib/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/lib/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
+    <script src="~/lib/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/dist/adminlte.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-storage.js"></script>
+    <script src="~/js/customermanagement.js"></script>
+    <script src="~/js/uploadcompanyimagesjavascript.js"></script>
+</body>
+</html>

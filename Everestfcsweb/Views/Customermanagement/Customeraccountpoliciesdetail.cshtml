@@ -1,0 +1,200 @@
+﻿@model Everestfcsweb.Models.CustomerAccountDetails
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">@Model.MaskNumber Account Policies</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <h4 class="text-sm">@Model.MaskNumber what can it Consume?</h4>
+                                </div>
+                                <div class="col-sm-5">
+                                    <a asp-action="Addcustomeraccountproductpolicy" asp-controller="CustomerManagement" asp-route-AccountId="@Model.AccountId" asp-route-MaskNumber="@Model.MaskNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account Product Policy</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-2">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Product</th>
+                                            <th class="font-weight-light">Limit</th>
+                                            <th class="font-weight-light">Period</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                            <th class="font-weight-light">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Accountproductspolicy != null)
+                                        {
+                                            foreach (var item in Model.Accountproductspolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light">@item.Productvariationname</td>
+                                                    <td class="font-weight-light">@item.LimitValue</td>
+                                                    <td class="font-weight-light">@item.LimitPeriod</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                    <td class="font-weight-light">
+                                                        <a asp-action="Addcustomeraccountproductpolicy" asp-controller="CustomerManagement" asp-route-AccountId="@Model.AccountId" asp-route-AccountProductId="@item.AccountProductId" asp-route-MaskNumber="@Model.MaskNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <h4 class="text-sm">@Model.MaskNumber where can it Consume?</h4>
+                                </div>
+                                <div class="col-sm-5">
+                                    <a asp-action="Addcustomeraccountstationpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountStationId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account Station Policy</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-2">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables1">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Station</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                            <th class="font-weight-light">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Accountstationspolicy != null)
+                                        {
+                                            foreach (var item in Model.Accountstationspolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light">@item.Stationname</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                    <td class="font-weight-light">
+                                                        <a onclick="permanentdeletestationthis(event)" data-Tablename="AccountStations" data-Columnidname="AccountStationId" data-Entryid="@item.AccountStationId" data-AccountId="@Model.AccountId" data-MaskNumber="@Model.MaskNumber" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase float-right">Remove</a>
+@* 
+                                                        <a asp-action="Addcustomeraccountstationpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountStationId="@item.AccountStationId" asp-route-MaskNumber="@Model.MaskNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    *@ 
+                                                </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <h4 class="text-sm">@Model.MaskNumber When can it Consume?</h4>
+                                </div>
+                                <div class="col-sm-5">
+                                    <a asp-action="Addcustomeraccountweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountWeekDaysId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account Weekday(s) Policy</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-2">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables2">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Days</th>
+                                            <th class="font-weight-light">Starttime</th>
+                                            <th class="font-weight-light">Endtime</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                            <th class="font-weight-light">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Accountweekdayspolicy != null)
+                                        {
+                                            foreach (var item in Model.Accountweekdayspolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light text-wrap">@item.WeekDays</td>
+                                                    <td class="font-weight-light">@item.StartTime</td>
+                                                    <td class="font-weight-light">@item.EndTime</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                    <td class="font-weight-light">
+                                                        <a asp-action="Addcustomeraccountweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountWeekDaysId="@item.AccountWeekDaysId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <h4 class="text-sm">@Model.MaskNumber how can it Consume?</h4>
+                                </div>
+                                <div class="col-sm-5">
+                                    <a asp-action="Addcustomeraccountfrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountFrequencyId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account frequency Policy</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-2">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables3">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Frequency</th>
+                                            <th class="font-weight-light">Period</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                            <th class="font-weight-light">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Accountfrequencypolicy != null)
+                                        {
+                                            foreach (var item in Model.Accountfrequencypolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light">@item.Frequency</td>
+                                                    <td class="font-weight-light">@item.FrequencyPeriod</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                    <td class="font-weight-light">
+                                                        <a asp-action="Addcustomeraccountfrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountFrequencyId="@item.AccountFrequencyId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

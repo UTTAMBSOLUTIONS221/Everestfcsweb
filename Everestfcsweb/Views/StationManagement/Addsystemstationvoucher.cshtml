@@ -1,0 +1,59 @@
+﻿@model Everestfcsweb.Entities.ShiftVoucher
+@{
+    var SystemPaymentmodes = ViewData["SystemPaymentmodes"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title text-uppercase" id="SocialPesaModalLabel">@Model.CashCollection Detail</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.ShiftVoucherId" id="ShiftVoucherId" hidden />
+            <input asp-for="@Model.ShiftId" id="ShiftId" hidden />
+            <input asp-for="@Model.AttendantId" id="AttendantId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Entry Type</label>
+                <select class="form-control form-control-sm font-weight-light" onchange="hideordisplayvouchernameandchangecolumn()" asp-for="@Model.VoucherType" id="VoucherTypeId">
+                    <option value="">--select--</option>
+                    <option value="Payment">Money Payment</option>
+                    <option value="Contra">Money Recieved</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Payment Mode</label>
+                <select class="form-control form-control-sm font-weight-light" id="VoucherModeId" asp-for="@Model.VoucherModeId" asp-items="@SystemPaymentmodes">
+                    <option value="">--select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="voucherDetails">
+        <div class="col-sm-6" id="voucherNameColumn">
+            <div class="form-group">
+                <label class="font-weight-light">Entry Name</label>
+                <input class="form-control form-control-sm" id="VoucherNameId" asp-for="@Model.VoucherName" />
+            </div>
+        </div>
+        <div class="col-sm-6" id="voucherAmountColumn">
+            <div class="form-group">
+                <label class="font-weight-light">Amount</label>
+                <input class="form-control form-control-sm" id="VoucherAmountId" asp-for="@Model.VoucherAmount" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" id="savesystemstationshiftvoucherBtn" onclick="savesystemstationshiftvoucherdata();">
+        <span id="buttonText">SAVE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+    </button>
+</div>

@@ -1,0 +1,205 @@
+﻿@model Everestfcsweb.Models.LoyaltyFormulaandFormulaRules
+@{
+    ViewData["Title"] = "Formulalist";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header py-1">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h6 class="font-weight-bold text-sm card-title">Formulas</h6>
+                    </div>
+                    <div class="col-sm-4">
+                        @if (Model.Formula == null || !Model.Formula.Any())
+                        {
+                            <a asp-action="Addsystemformula" asp-controller="LoyaltyManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_FORMULA" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Formula</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    @if (Model.Formula != null)
+                    {
+                        @foreach (var data in Model.Formula)
+                        {
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <h6 class="card-title text-sm">Formula Name: @data.FormulaName</h6>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <h6 class="card-title text-sm">Award Type: @data.ValueType </h6>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a asp-action="Editsystemformula" asp-controller="LoyaltyManagement" asp-route-code="@Guid.NewGuid()" asp-route-FormulaId="@data.FormulaId" id="CAN_EDIT_FORMULA" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body pt-0 pb-1">
+                                                <div class="row mt-1">
+                                                    <div class="col-sm-12 table-responsive">
+                                                        <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="font-weight-light text-sm">Start Value</th>
+                                                                    <th class="font-weight-light text-sm">End Value</th>
+                                                                    <th class="font-weight-light text-sm">Formula</th>
+                                                                    <th class="font-weight-light text-sm">IsApproved</th>
+                                                                    <th class="font-weight-light text-sm">Actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @if (data.SystemFormulaRules != null)
+                                                                {
+                                                                    foreach (var item in data.SystemFormulaRules)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@item.Range1</td>
+                                                                            @if (item.IsRangetoInfinity)
+                                                                            {
+                                                                                <td>Infinity</td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <td>@item.Range2</td>
+                                                                            }
+                                                                            <td>@item.Formula</td>
+                                                                            <td>
+                                                                                @if (item.IsApproved)
+                                                                                {
+                                                                                    <span class="badge badge-info badge-info-xs font-weight-bold text-uppercase">Approved</span>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <span class="badge badge-danger badge-info-xs font-weight-bold text-uppercase">Pending</span>
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                <a asp-action="Editsystemformularule" asp-controller="LoyaltyManagement" asp-route-code="@Guid.NewGuid()" asp-route-FormulaRuleId="@item.FormulaRuleId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_FORMULA_RULES" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                                                @if (item.IsApproved)
+                                                                                {
+                                                                                    <a onclick="rejectthis(event)" data-Tablename="LFormulaRules" data-Columname="IsApproved" data-Status="0" data-Columnidname="FormulaRuleId" data-Entryid="@item.FormulaRuleId" id="CAN_REJECT_FORMULA_RULES" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold font-weight-bold text-uppercase">Reject</a>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <a onclick="approvethis(event)" data-Tablename="LFormulaRules" data-Columname="IsApproved" data-Status="1" data-Columnidname="FormulaRuleId" data-Entryid="@item.FormulaRuleId" id="CAN_APPROVE_FORMULA_RULES" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Approve</a>
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        function addrangetoinfinityvalueandmakeitreadonly() {
+            var checkbox_required = $("#FormularuleinfinityId");
+            if (checkbox_required.is(':checked')) {
+                $('#FormularuleendvalueId').attr('readonly', true);
+                $('#FormularuleendvalueId').val(0);
+            } else {
+                $('#FormularuleendvalueId').attr('readonly', false);
+                $('#FormularuleendvalueId').val("");
+            }
+        }
+
+        $("body").on("click", "#setformula", function () {
+            if ($("#loyaltypointsvalueId").val() == "" || $("#rewardvaluetypevalueId").val() == "") {
+                return false;
+            } else {
+                var Rewardvaluemultiplier = $("#loyaltypointsvalueId").val() / $("#rewardvaluetypevalueId").val();
+                var Rewardformula = ("r = v * " + Rewardvaluemultiplier);
+                $("#FormularuleformulaId").val(Rewardformula);
+                $("#loyaltypointsvalueId").val("");
+                $("#rewardvaluetypevalueId").val("")
+            }
+        });
+
+
+
+        $("body").on("click", "#addformularules", function () {
+            if ($("#FormularulestartvalueId").val() == "" || $("#FormularuleendvalueId").val() == "" || $("#FormularuleformulaId").val() == "") {
+                return false;
+            } else {
+                var Formularulestartvalue = $("#FormularulestartvalueId");
+                var Formularuleendvalue = $("#FormularuleendvalueId");
+                var Formularuleformula = $("#FormularuleformulaId");
+                var Formularuleinfinity = $("#FormularuleinfinityId");
+
+                //Get the reference of the Table's TBODY element.
+                var tBody = $("#formularulestable > TBODY")[0];
+
+                //Add Row.
+                var row = tBody.insertRow(-1);
+
+                //Add Name cell.
+                var cell = $(row.insertCell(-1));
+                cell.html(Formularulestartvalue.val());
+
+                cell = $(row.insertCell(-1));
+                cell.html(Formularuleendvalue.val()).hide();
+
+                cell = $(row.insertCell(-1));
+                if (Formularuleinfinity.val() === "on")
+                {
+                    cell.html(true).hide();
+                } else 
+                {
+                    cell.html(false).hide();
+                }
+               
+
+                if ($('#FormularuleinfinityId').is(":checked")) {
+                    cell = $(row.insertCell(-1));
+                    cell.html("Infinity");
+                } else {
+                    cell = $(row.insertCell(-1));
+                    cell.html(Formularuleendvalue.val());
+                }
+                cell = $(row.insertCell(-1));
+                cell.html(Formularuleformula.val());
+
+                cell = $(row.insertCell(-1));
+                var btnRemove = $("<button class=\"btn btn-xs btn-danger\">Remove</button>");
+                btnRemove.attr("type", "button");
+                btnRemove.attr("onclick", "Remove(this);");
+                btnRemove.val("Remove");
+                cell.append(btnRemove);
+
+                //Clear the TextBoxes.
+                $("#FormularulestartvalueId").val("");
+                $("#FormularuleendvalueId").val("");
+                $("#FormularuleformulaId").val("");
+                $("#FormularuleinfinityId").val("");
+            }
+        });
+        function Remove(button) {
+            var row = $(button).closest("TR");
+            if (confirm("Do you want to remove this")) {
+                var table = $("#formularulestable")[0];
+                table.deleteRow(row[0].rowIndex);
+            }
+        };
+    </script>
+}

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Everestfcsweb.Models.SystemUserRoles>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h6 class="font-weight-bold text-sm card-title">User Roles</h6>
+                    </div>
+                    <div class="col-sm-2">
+                        <a asp-action="Addsystemrole" asp-controller="StaffManagement" asp-area="" id="CAN_ADD_ROLE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Role</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped compact table-sm table-responsive-sm table-sm" id="AllsystemDataTables">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Rolename</td>
+                                <td>@item.Roledescription</td>
+                                <td class="text-nowrap">
+                                    @if (item.IsActive)
+                                    {
+                                        <span class="badge badge-info badge-info-xs text-uppercase">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger badge-info-xs  text-uppercase">Inactive</span>
+                                    }
+                                    @if (item.IsDeleted)
+                                    {
+                                        <span class="badge badge-danger badge-info-xs text-uppercase">Deleted</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-info badge-info-xs text-uppercase">Notdeleted</span>
+                                    }
+                                </td>
+                                <td class="text-right">
+                                    <a asp-action="Addsystemrole" asp-controller="StaffManagement" asp-area="" asp-route-RoleId="@item.RoleId" id="CAN_EDIT_ROLE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                    @if (item.IsActive)
+                                    {
+                                        <a onclick="deactivatethis(event)" data-Tablename="Systemroles" data-Columname="Isactive" data-Status="0" data-Columnidname="RoleId" data-Entryid="@item.RoleId" id="CAN_DEACTIVATE_ROLE" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="activatethis(event)" data-Tablename="Systemroles" data-Columname="Isactive" data-Status="1" data-Columnidname="RoleId" data-Entryid="@item.RoleId" id="CAN_ACTIVATE_ROLE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
+                                    }
+                                    @if (item.IsDeleted)
+                                    {
+                                        <a onclick="restorethis(event)" data-Tablename="Systemroles" data-Columname="Isdeleted" data-Status="0" data-Columnidname="RoleId" data-Entryid="@item.RoleId" id="CAN_RESTORE_ROLE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="deletethis(event)" data-Tablename="Systemroles" data-Columname="Isdeleted" data-Status="1" data-Columnidname="RoleId" data-Entryid="@item.RoleId" id="CAN_DELETE_ROLE" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
+                                    }
+                                   </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        function checkAllOtherPermissions() {
+            var checkBox = document.getElementById("staffRolesCheckAll");
+            if (checkBox.checked == true) {
+                $('.permission-checkbox').prop('checked', true);
+            } else {
+                $('.permission-checkbox').prop('checked', false);
+            }
+        }
+    </script>
+}

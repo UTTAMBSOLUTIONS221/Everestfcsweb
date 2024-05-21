@@ -1,0 +1,54 @@
+﻿@{
+    var Systemstations = ViewData["Systemstationslists"] as List<SelectListItem>;
+    var Systemproducts = ViewData["SystemProductslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">PRICE LIST DETAILS </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Pricelist Name</label>
+                <input class="form-control form-control-sm" id="pricelistnameId" />
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Product</label>
+                <select class="form-control form-control-sm font-weight-light" id="stationproductId" asp-items="@Systemproducts">
+                    <option value="0">--Select Products ---</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Price</label>
+                <input type="number" class="form-control form-control-sm" id="stationpriceId" />
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Vat</label>
+                <input type="number" class="form-control form-control-sm" id="stationpricevatId" />
+            </div>
+        </div>
+    </div>
+    <h5 class="text-sm font-weight-light">Stations</h5>
+    <hr />
+    <div class="row">
+        @foreach (var item in Systemstations)
+        {
+            <div class="col-sm-3">
+                <label class="font-weight-light"><input type="checkbox" id="stationproductpriceId" value="@item.Value" />&nbsp; @item.Text</label>
+            </div>
+        }
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savesystempricelistdata();">Save</button>
+</div>

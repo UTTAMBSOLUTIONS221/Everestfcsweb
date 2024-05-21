@@ -1,0 +1,93 @@
+﻿@model Everestfcsweb.Entities.StationDailyDip
+@{
+    var SystemTanks = ViewData["SystemTankslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Station Dip</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.StationDipId" id="StationDipId" hidden />
+            <input asp-for="@Model.StationId" id="StationId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="font-weight-light">Tank</label>
+                <select class="form-control form-control-sm font-weight-light" id="SystemstationtankId" onchange="Getsystemstationtankdetaildata(this.value)" asp-for="@Model.TankId" asp-items="@SystemTanks">
+                    <option value="">---Select---</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="SyatemStationTankPreviousDetails" style="@(Model.StationDipId == 0 ? "display: none;" : "")">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="font-weight-light">Previous Dips</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.PreviousDipReading" id="StationPreviousDipReadingId" readonly />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="font-weight-light">Current Dips</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.CurrentDipReading" id="StationCurrentDipReadingId" oninput="calculateTankReadings()" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="font-weight-light">Current Meters</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.CurrentMeterReading" id="StationCurrentMeterReadingId" readonly />
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row" hidden>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="font-weight-light">Variance Dips</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.TankVariance" id="StationTankVarianceId" readonly />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="font-weight-light">Previous Meters</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.PreviousMeterReading" id="StationPreviousMeterReadingId" readonly />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="font-weight-light">Variance Meters</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.MeterVariance" id="StationMeterVarianceId" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="font-weight-light">Tank Sale</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.TankSale" id="StationTankSaleId" readonly />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="font-weight-light">Meter Sale</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.MeterSale" id="StationMeterSaleId" readonly />
+                    </div>
+                </div>
+            </div>
+       </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" id="savesystemstationtankdipsBtn" onclick="savesystemstationtankdipsdata();">
+        <span id="buttonText">SAVE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+    </button>
+</div>

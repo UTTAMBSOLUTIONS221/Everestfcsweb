@@ -1,0 +1,65 @@
+﻿@model Everestfcsweb.Entities.Systemgadgets
+@{
+    var Systemstations = ViewData["Systemstationslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Tenant Gadget</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.GadgetId" id="SystemGadgetId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Gadget Name</label>
+                <input class="form-control form-control-sm" asp-for="@Model.GadgetName" id="GadgetnameId" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Gadget Description</label>
+                <input class="form-control form-control-sm" asp-for="@Model.Descriptions" id="GadgetDescriptionId" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Gadget Emei 1</label>
+                <input class="form-control form-control-sm" asp-for="@Model.Imei1" id="GadgetEmei1Id" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Gadget Emei 2</label>
+                <input class="form-control form-control-sm" asp-for="@Model.Imei12" id="GadgetEmei2Id" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Gadget Serialnumber</label>
+                <input class="form-control form-control-sm" asp-for="@Model.Serialnumber" id="GadgetSerialnumberId" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Gadget Station</label>
+                <select class="form-control form-control-sm font-weight-light" asp-for="@Model.StationId" id="GadgetStationId" asp-items="@Systemstations">
+                    <option value="0">--Select Station ---</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savesystemtenantgadgetdata();">Save</button>
+</div>

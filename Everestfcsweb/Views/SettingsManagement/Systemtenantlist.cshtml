@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Everestfcsweb.Models.SystemTenantAccountData>
+@{
+    ViewData["Title"] = "Systemtenantlist";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header py-1">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h6 class="font-weight-bold text-sm card-title">Tenants</h6>
+                    </div>
+                    <div class="col-sm-4">
+                        <a asp-action="Addsystemtenant" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-TenantId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_TENANTS" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Tenant</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive table-responsive-sm">
+                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                    <thead>
+                        <tr>
+                            <th>Tenant Name</th>
+                            <th>Tenant PIN</th>
+                            <th>Tenant Reference</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Subdomain</th>
+                            <th>Emailserver</th>
+                            <th>Server Password</th>
+                            <th>Sms Username</th>
+                            <th>Sms Key</th>
+                            <th>Send Email</th>
+                            <th>Send Sms</th>
+                            <th>Is Email CC</th>
+                            <th>CC Email</th>
+                            <th>Country</th>
+                            <th>Utc Offset</th>
+                            <th>Currency</th>
+                            <th>RegisteredOn</th>
+                            <th>RegisteredBy</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model!=null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Tenantname</td>
+                                    <td>@item.TenantPIN</td>
+                                    <td>@item.TenantReference</td>
+                                    <td>@item.TenantEmail</td>
+                                    <td>@item.Phonenumber</td>
+                                    <td>@item.Tenantsubdomain</td>
+                                    <td>@item.EmailAddress</td>
+                                    <td>@item.EmailPassword</td>
+                                    <td>@item.Messageusername</td>
+                                    <td>@item.Messageapikey</td>
+                                    <td>
+                                        @if (item.IsEmailEnabled)
+                                        {
+                                            <span class="badge badge-info badge-info-xs font-weight-bold text-uppercase">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger badge-info-xs font-weight-bold text-uppercase">No</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.IsSmsEnabled)
+                                        {
+                                            <span class="badge badge-info badge-info-xs font-weight-bold text-uppercase">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger badge-info-xs font-weight-bold text-uppercase">No</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.IsCCEmail)
+                                        {
+                                            <span class="badge badge-info badge-info-xs font-weight-bold text-uppercase">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger badge-info-xs font-weight-bold text-uppercase">No</span>
+                                        }
+                                    </td>
+                                    <td>@item.CCEmail</td>
+                                    <td>@item.Countryname</td>
+                                    <td>@item.Utcname</td>
+                                    <td>@item.Currencyname</td>
+                                    <td>@item.DateCreated</td>
+                                    <td>@item.Createdby</td>
+                                    <td>
+                                        <a asp-action="Addsystemtenant" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-TenantId="@item.Tenantid" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_EDIT_TENANTS" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-storage.js"></script>
+    <script src="~/js/customermanagement.js"></script>
+    <script src="~/js/uploadcompanyimagesjavascript.js"></script>
+}

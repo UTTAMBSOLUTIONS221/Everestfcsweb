@@ -1,0 +1,49 @@
+﻿@model Everestfcsweb.Entities.SystemTenantCard
+@{
+    var Systemcardtype = ViewData["SystemCardTypelists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Tenant Cards</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.CardId" id="SystemCardId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Card UID</label>
+                <input class="form-control form-control-sm" type="number" asp-for="@Model.CardUID" id="CardUIDId" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Card SNO</label>
+                <input class="form-control form-control-sm" asp-for="@Model.CardSNO" id="CardSNOId" />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="font-weight-light">Card Type</label>
+                <select class="form-control form-control-sm font-weight-light select2" asp-for="@Model.TagtypeId" id="CardTypeId" asp-items="@Systemcardtype">
+                    <option value="0">--Select Card Type ---</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" id="saveSystemCardId" onclick="savesystemtenantcarddata();">
+        <span id="buttonText">SAVE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+    </button>
+</div>

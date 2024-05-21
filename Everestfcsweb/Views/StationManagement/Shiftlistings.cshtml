@@ -1,0 +1,156 @@
+﻿@model IEnumerable<Everestfcsweb.Entities.SystemStationShift>
+@{
+    ViewData["Title"] = "Shiftlistings";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h6 class="font-weight-bold text-sm card-title text-uppercase">Stations Shifts</h6>
+                    </div>
+                    <div class="col-sm-4 float-right pull-right">
+                        <a asp-action="Addsystemstationshift" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-shiftcode="@Guid.NewGuid()" asp-route-ShiftId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_STATION_SHIFT">New Shift</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row mt-1">
+                    <div class="col-sm-12 table-responsive">
+                        <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables1">
+                            <thead>
+                                <tr>
+                                    <th>LOCATION</th>
+                                    <th>SHIFTCODE</th>
+                                    <th>SHIFTTYPE</th>
+                                    <th>SHIFTDATE</th>
+                                    <th class="text-right">SHIFT AMOUNT</th>
+                                    <th class="text-right">BANKED AMOUNT</th>
+                                    <th class="text-right">SHIFT BALANCE</th>
+                                    @* <th class="text-right">EXPECTEDAMOUNT</th>
+                                    <th class="text-right">AVAILABLEAMOUNT</th>
+                                    <th class="text-right">GAIN/LOSS</th>
+                                    <th class="text-right">% GAIN/LOSS</th> *@
+                                    <th class="text-right">STATUS</th>
+                                    <th class="text-right">ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.StationName</td>
+                                            <td>@item.ShiftCode</td>
+                                            <td>@item.ShiftCategory</td>
+                                            <td>@item.ShiftDateTime.ToString("yyyy-MM-dd")</td>
+                                            <td class ="text-right">@item.ShiftTotalAmount.ToString("#,##0.00")</td>
+                                            <td class ="text-right">@item.ShiftBankedAmount.ToString("#,##0.00")</td>
+                                            <td class ="text-right">@item.ShiftBalance.ToString("#,##0.00")</td>
+                                           @*  <td class ="text-right">@item.ExpectedPumpAmount.ToString("#,##0.00")</td>
+                                            <td class ="text-right">@item.ExpectedTankAmount.ToString("#,##0.00")</td>
+                                            <td class ="text-right">@item.GainLoss.ToString("#,##0.00")</td>
+                                            <td class ="text-right">@item.PercentGainLoss.ToString("#,##0.00")</td>
+                                           *@  <td>
+                                                @if (item.ShiftStatus == 0)
+                                                {
+                                                    <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Open</span>
+                                                }
+                                                else if (item.ShiftStatus == 1)
+                                                {
+                                                    <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Closed</span>
+                                                }
+                                            </td>
+                                            <td class="text-right"><a asp-action="Addsystemstationshift" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-shiftcode="@Guid.NewGuid()" asp-route-ShiftId="@item.ShiftId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_MANAGE_SHIFT_DETAILS">Shift Details</a></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(".closing-read").change(function () {
+            var row = $(this).closest("tr");
+            var openingRead = parseInt(row.find(".opening-read").val());
+            var closingRead = parseInt(row.find(".closing-read").val());
+            var saleQuantity = closingRead - openingRead;
+            row.find(".sale-quantity").val(saleQuantity);
+        });
+        var inputs = document.querySelectorAll('input[type="number"]');
+        inputs.forEach(function (input) {
+            input.addEventListener('input', function () {
+                if (parseFloat(this.value) < 0) {
+                    this.value = 0;
+                }
+            });
+        });
+        $("body").on("click", "#AssignStationShiftAttendant", function () {
+            if ($('#StationattendantId').val() == 0) {
+                Swal.fire("Attendant Not Assigned", 'Attendant is Required', "warning");
+                return;
+            } else if ($('#StationwarehouseId').val() == 0) {
+                Swal.fire("Attendant Not Assigned", 'Warehouse is Required', "warning");
+                return;
+            } else if ($('#StationopeningmeterreaingId').val() == '') {
+                Swal.fire("Attendant Not Assigned", 'Meter Reading is Required', "warning");
+                return;
+            } else {
+                var Stationattendant = $("#StationattendantId");
+                var Stationwarehouse = $("#StationwarehouseId");
+                var Stationopeningmeter = $("#StationopeningmeterreaingId");
+
+
+                //Get the reference of the Table's TBODY element.
+                var tBody = $("#Stationshiftdatatable > TBODY")[0];
+
+                //Add Row.
+                var row = tBody.insertRow(-1);
+                //Add Name cell.
+                var cell = $(row.insertCell(-1));
+                cell.html($('#StationattendantId').find("option:selected").text());
+
+                cell = $(row.insertCell(-1));
+                cell.html(Stationattendant.val()).hide();
+
+                cell = $(row.insertCell(-1));
+                cell.html($('#StationwarehouseId').find("option:selected").text());
+
+                cell = $(row.insertCell(-1));
+                cell.html(Stationwarehouse.val()).hide();
+
+                cell = $(row.insertCell(-1));
+                cell.html(Stationopeningmeter.val());
+
+                cell = $(row.insertCell(-1));
+                var btnRemove = $("<button class=\"btn btn-xs btn-danger\">Remove</button>");
+                btnRemove.attr("type", "button");
+                btnRemove.attr("onclick", "Remove(this);");
+                btnRemove.val("Remove");
+                cell.append(btnRemove);
+
+                //Clear the TextBoxes.
+                $("#StationattendantId").val("");
+                $("#StationwarehouseId").val("");
+            }
+        });
+        function Remove(button) {
+            var row = $(button).closest("TR");
+            if (confirm("Do you want to remove this")) {
+                var table = $("#Stationshiftdatatable")[0];
+                table.deleteRow(row[0].rowIndex);
+                //Clear the TextBoxes.
+                $("#StationattendantId").val("");
+                $("#StationwarehouseId").val("");
+            }
+        };
+    </script>
+}

@@ -1,0 +1,386 @@
+﻿@model Everestfcsweb.Models.Systemstationdetailmodel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var SystemTanks = ViewData["SystemTankslists"] as List<SelectListItem>;
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <h6 class="font-weight-bold text-sm card-title text-uppercase">@Model.Sname Station Tanks</h6>
+                    </div>
+                    <div class="col-sm-3">
+                        <a asp-action="AddSystemStationTank" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-StationId="@Model.StationId" asp-route-TankId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_STATION_TANK" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Tank</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-bordered table-striped compact table-sm table-responsive-sm" id="AllsystemDataTables">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Product</th>
+                            <th>Diameter</th>
+                            <th>Volume</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.StationTanks != null)
+                        {
+                            foreach (var item in Model.StationTanks)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Productvariationname</td>
+                                    <td>@item.Diameter</td>
+                                    <td>@item.Volume</td>
+                                    <td class="text-right">
+                                        <a asp-action="AddSystemStationTank" asp-controller="StationManagement" asp-route-StationId="@item.StationId" asp-route-TankId="@item.TankId" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_STATION_TANK" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <h6 class="font-weight-bold text-sm card-title text-uppercase">@Model.Sname Station Pumps</h6>
+                    </div>
+                    <div class="col-sm-3">
+                        <a asp-action="AddSystemStationPump" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-StationId="@Model.StationId" asp-route-PumpId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_STATION_PUMP" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Pump</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-bordered table-striped compact table-sm table-responsive-sm" id="AllsystemDataTables1">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Model</th>
+                            <th>DoubleSided</th>
+                            <th>Nozzles</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.StationPumps != null)
+                        {
+                            foreach (var item in Model.StationPumps)
+                            {
+                                <tr>
+                                    <td>@item.PumpName</td>
+                                    <td>@item.PumpModel</td>
+                                    <td>
+                                        @if (item.IsDoubleSided)
+                                        {
+                                            <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger badge-info-xs text-uppercase font-weight-bold">No</span>
+                                        }
+                                    </td>
+                                    <td>@item.Pumpnozzle</td>
+                                    <td class="text-right">
+                                        <a asp-action="AddSystemStationPump" asp-controller="StationManagement" asp-route-StationId="@item.StationId" asp-route-PumpId="@item.PumpId" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_STATION_PUMP" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        var tanks = @Html.Raw(Json.Serialize(SystemTanks));
+        function makenozzleifdoublesidedreadonly() {
+            var isChecked = $("#StationIsDoubleSidedId").prop("checked");
+            if (isChecked) {
+                // Call the function to generate rows
+                generatesystemstationpumpnozzles();
+            } else {
+                // If not checked, generate rows as usual
+                generatesystemstationpumpnozzles();
+            }
+        };
+        // Handle change event for StationnumberofnozzleId
+        function generatesystemstationpumpnozzles() {
+            var numberOfNozzles = $("#StationnumberofnozzleId").val();
+            var tableBody = $("#stationpumpnozzletable tbody");
+            var isDoubleSided = $("#StationIsDoubleSidedId").prop("checked");
+            var Stationtank = $("#SystemstationtankId");
+
+            // Clear existing rows only if table has data
+            if (tableBody.children().length > 0) {
+                tableBody.empty();
+            }
+
+            // Add rows based on the selected number of nozzles
+            for (var i = 1; i <= numberOfNozzles; i++) {
+                var row = $("<tr></tr>");
+
+                // Combined Nozzle Name cell for Side A
+                var combinedCell = $("<td class='font-weight-light text-sm'></td>");
+                combinedCell.text("FP" + i);
+                row.append(combinedCell);
+
+                // Nozzle Side A cell
+                var sideACell = $("<td class='font-weight-light'></td>");
+                sideACell.text("SideA");
+                row.append(sideACell);
+
+                // Tank dropdown cell for Side A
+                var stationtankCellA = $("<td class='font-weight-light'></td>");
+                stationtankCellA.html(Stationtank.val()).hide();
+                row.append(stationtankCellA);
+
+                // Add row for Side B if double-sided
+                if (isDoubleSided) {
+                    var sideBCell = $("<td class='font-weight-light'></td>");
+                    sideBCell.text("SideB");
+                    row.append(sideBCell);
+
+                    // Tank dropdown cell for Side B
+                    var stationtankCellB = $("<td class='font-weight-light'></td>");
+                    stationtankCellB.html(Stationtank.val()).hide();
+                    row.append(stationtankCellB);
+                }
+
+                tableBody.append(row); // Add the row to the table
+            }
+        };
+
+
+
+        $(".closing-read").change(function () {
+            var row = $(this).closest("tr");
+            var openingRead = parseInt(row.find(".opening-read").val());
+            var closingRead = parseInt(row.find(".closing-read").val());
+            var saleQuantity = closingRead - openingRead;
+            row.find(".sale-quantity").val(saleQuantity);
+        });
+        var inputs = document.querySelectorAll('input[type="number"]');
+        inputs.forEach(function (input) {
+            input.addEventListener('input', function () {
+                if (parseFloat(this.value) < 0) {
+                    this.value = 0;
+                }
+            });
+        });
+        $("body").on("click", "#AssignStationShiftAttendant", function () {
+            if ($('#StationattendantId').val() == 0) {
+                Swal.fire("Attendant Not Assigned", 'Attendant is Required', "warning");
+                return;
+            } else if ($('#StationwarehouseId').val() == 0) {
+                Swal.fire("Attendant Not Assigned", 'Warehouse is Required', "warning");
+                return;
+            } else if ($('#StationopeningmeterreaingId').val() == '') {
+                Swal.fire("Attendant Not Assigned", 'Meter Reading is Required', "warning");
+                return;
+            } else {
+                var Stationattendant = $("#StationattendantId");
+                var Stationwarehouse = $("#StationwarehouseId");
+                var Stationopeningmeter = $("#StationopeningmeterreaingId");
+
+
+                //Get the reference of the Table's TBODY element.
+                var tBody = $("#Stationshiftdatatable > TBODY")[0];
+
+                //Add Row.
+                var row = tBody.insertRow(-1);
+                //Add Name cell.
+                var cell = $(row.insertCell(-1));
+                cell.html($('#StationattendantId').find("option:selected").text());
+
+                cell = $(row.insertCell(-1));
+                cell.html(Stationattendant.val()).hide();
+
+                cell = $(row.insertCell(-1));
+                cell.html($('#StationwarehouseId').find("option:selected").text());
+
+                cell = $(row.insertCell(-1));
+                cell.html(Stationwarehouse.val()).hide();
+
+                cell = $(row.insertCell(-1));
+                cell.html(Stationopeningmeter.val());
+
+                cell = $(row.insertCell(-1));
+                var btnRemove = $("<button class=\"btn btn-xs btn-danger\">Remove</button>");
+                btnRemove.attr("type", "button");
+                btnRemove.attr("onclick", "Remove(this);");
+                btnRemove.val("Remove");
+                cell.append(btnRemove);
+
+                //Clear the TextBoxes.
+                $("#StationattendantId").val("");
+                $("#StationwarehouseId").val("");
+            }
+        });
+        function Remove(button) {
+            var row = $(button).closest("TR");
+            if (confirm("Do you want to remove this")) {
+                var table = $("#Stationshiftdatatable")[0];
+                table.deleteRow(row[0].rowIndex);
+                //Clear the TextBoxes.
+                $("#StationattendantId").val("");
+                $("#StationwarehouseId").val("");
+            }
+        };
+
+        $("body").on("click", "#addInvoicePurchaseItem", function () {
+            if ($("#SystemproductId").val() == "" || $("#SystemproductId").val() == 0) {
+                Swal.fire("Invoice Item Not Added", 'Product is Required', "warning");
+                return;
+            } else if ($("#SystemproductquantityId").val() == "" || $("#SystemproductquantityId").val() == 0) {
+                Swal.fire("Invoice Item Not Added", 'Product Quantity is Required', "warning");
+                return;
+            }
+            else if ($("#SystemproductpriceId").val() == "" || $("#SystemproductpriceId").val() == 0) {
+                Swal.fire("Invoice Item Not Added", 'Product Price is Required', "warning");
+                return;
+            }
+            // else if ($("#SystemproductdiscountId").val() == "") {
+            //     Swal.fire("Invoice Item Not Added", 'Product Discount is Required', "warning");
+            //     return;
+            // }
+            else {
+                var Systemproduct = $("#SystemproductId");
+                var Systemproductquantity = $("#SystemproductquantityId");
+                var Systemproductprice = $("#SystemproductpriceId");
+                var Systemproductdiscount = $("#SystemproductdiscountId");
+                var Systemproducttotal = $("#SystemproductTotalAmountId");
+
+                //Get the reference of the Table's TBODY element.
+                var tBody = $("#stationpurchasestable > TBODY")[0];
+
+                //Add Row.
+                var row = tBody.insertRow(-1);
+                //Add Product Id
+                cell = $(row.insertCell(-1));
+                cell.html(Systemproduct.val()).hide();
+                //Add Product Name.
+                var cell = $(row.insertCell(-1));
+                cell.html($('#SystemproductId').find("option:selected").text());
+
+                //Add Product Quantity.
+                cell = $(row.insertCell(-1));
+                cell.html(Systemproductquantity.val());
+
+                //Add Product Price.
+                cell = $(row.insertCell(-1));
+                cell.html(Systemproductprice.val());
+
+                //Add Total.
+                cell = $(row.insertCell(-1));
+                cell.html(Systemproducttotal.val());
+
+                cell = $(row.insertCell(-1));
+                var btnRemove = $("<button class=\"btn btn-xs btn-danger\">Remove</button>");
+                btnRemove.attr("type", "button");
+                btnRemove.attr("onclick", "RemoveInvoiceItem(this);");
+                btnRemove.val("Remove");
+                cell.append(btnRemove);
+
+                //Clear the TextBoxes.
+                $("#SystemproductId").val("");
+                $("#SystemproductquantityId").val("");
+                $("#SystemproductpriceId").val("");
+                $("#SystemproductTotalAmountId").val("");
+            }
+        });
+
+        function RemoveInvoiceItem(button) {
+            var row = $(button).closest("TR");
+            if (confirm("Do you want to remove this")) {
+                var table = $("#stationpurchasestable")[0];
+                table.deleteRow(row[0].rowIndex);
+            }
+        };
+
+        function Getsystemstationtankdetaildata(TankId) {
+            $('#progressIndicator').show();
+            if (TankId !== 0 || TankId !== "") {
+                $.get("/StationManagement/GetsystemstationtankdetailbyId?TankId=" + TankId, null, function (data) {
+                    $("#StationPreviousDipReadingId").val(data.CurrentDipReading);
+                    $("#StationPreviousMeterReadingId").val(data.CurrentMeterReading);
+                    $("#SyatemStationTankPreviousDetails").show();
+                    $('#progressIndicator').hide();
+                });
+            }
+            $("#SyatemStationTankPreviousDetails").hide();
+            $('#progressIndicator').hide();
+        }
+
+        function calculateTankReadings() {
+            var PreviousDipReading = parseFloat(document.getElementById("StationPreviousDipReadingId").value);
+            var CurrentDipReading = parseFloat(document.getElementById("StationCurrentDipReadingId").value);
+
+            if (!isNaN(PreviousDipReading) && !isNaN(CurrentDipReading)) {
+                var TankSale = CurrentDipReading - PreviousDipReading;
+                document.getElementById("StationTankVarianceId").value = TankSale.toFixed(2);
+                document.getElementById("StationPreviousMeterReadingId").value = PreviousDipReading;
+                document.getElementById("StationCurrentMeterReadingId").value = CurrentDipReading;
+                document.getElementById("StationMeterVarianceId").value = TankSale.toFixed(2);
+                document.getElementById("StationTankSaleId").value = TankSale.toFixed(2);
+                document.getElementById("StationMeterSaleId").value = TankSale.toFixed(2);
+            }
+        }
+
+
+        // Function to calculate total when quantity or price changes
+        function calculatePurchaseProductTotal() {
+            var quantity = parseFloat($('#SystemproductquantityId').val());
+            var price = parseFloat($('#SystemproductpriceId').val());
+
+            // Check if either quantity or price is null
+            if (isNaN(quantity) || isNaN(price)) {
+                $('#SystemproductTotalAmountId').val('0.00');
+            } else {
+                var total = quantity * price;
+                $('#SystemproductTotalAmountId').val(total.toFixed(2));
+            }
+        }
+
+        // Function to update quantity or price when total changes
+        function updatePurchaseProductQuantityOrPrice() {
+            var total = parseFloat($('#SystemproductTotalAmountId').val());
+            var quantity = parseFloat($('#SystemproductquantityId').val());
+            var price = parseFloat($('#SystemproductpriceId').val());
+
+            // If total has a value and both price and quantity are empty, set them to zero
+            if (!isNaN(total) && isNaN(quantity) && isNaN(price)) {
+                $('#SystemproductquantityId').val('0');
+                $('#SystemproductpriceId').val('0');
+            }
+            // If total has a value and price is empty, update price
+            else if (!isNaN(total) && isNaN(price) && !isNaN(quantity)) {
+                var newPrice = total / quantity;
+                $('#SystemproductpriceId').val(newPrice.toFixed(2));
+            }
+            // If total has a value and quantity is empty, update quantity
+            else if (!isNaN(total) && isNaN(quantity) && !isNaN(price)) {
+                var newQuantity = total / price;
+                $('#SystemproductquantityId').val(newQuantity.toFixed(2));
+            }
+        }
+
+
+    </script>
+}

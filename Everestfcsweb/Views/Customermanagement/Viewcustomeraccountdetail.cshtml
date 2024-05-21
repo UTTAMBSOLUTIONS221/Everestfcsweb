@@ -1,0 +1,24 @@
+﻿@model Everestfcsweb.Models.SystemAccountDetailData
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info  p-0">
+            <div class="card-header pt-0 pb-0">
+                <div class="row pt-1 pb-1">
+                    <div class="col-sm-10">
+                        <h6 class="font-weight text-sm card-title pt-1">@Model.Customername (<b>@Model.CardSNO</b>) Card Policy</h6>
+                    </div>
+                    <div class="col-sm-2 float-right pull-right">
+                        <a href="#" id="childModalButton" class="btn btn-xs btn-info float-right">Set Card Policy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input asp-for="@Model.AccountId" id="customeraccountId" class="form-control form-control-sm" hidden />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

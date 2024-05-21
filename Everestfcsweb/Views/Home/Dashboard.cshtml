@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="small-box bg-info p-1">
+            <div class="inner">
+                <p class="font-weight-bold" id="SystemstaffdataCount"></p>
+                <h6 class="font-weight-bold text-uppercase">Staffs <span class="fas fa-users text-white pl-5 float-right"></span></h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="small-box bg-success p-1">
+            <div class="inner">
+                <p class="font-weight-bold"><span id="PrepaidCustomerdataCount"></span> PREPAID <span id="PostpaidCustomerdataCount"></span> POSTPAID</p>
+                <h6 class="font-weight-bold text-uppercase">Customers   <span class="fas fa-users text-white pl-5 float-right"></span></h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="small-box bg-warning p-1">
+            <div class="inner">
+                <p class="font-weight-bold text-white"><span id="OnlineSalesTransactiondataCount"></span> ONLINE <span id="OnfflineSalesTransactiondataCount"></span> OFFLINE</p>
+                <h6 class="font-weight-bold text-white text-uppercase">Sales  TODAY<span class="fas fas fa-shopping-bag text-white pl-5 float-right"></span></h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="small-box bg-danger p-1">
+            <div class="inner">
+                <p class="font-weight-bold"><span id="AwardedPointTransactiondataCount"></span>  AWARDED <span id="RedeemedPointTransactiondataCount"></span>  REDEEMED</p>
+                <h6 class="font-weight-bold text-uppercase">Loyalty Points TODAY<span class="fas fas fa-gift text-white pl-3 float-right"></span></h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h6 class="text-sm text-uppercase text-center">Daily Sales</h6>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <canvas id="CanvasSalesByDay" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h6 class="text-sm text-uppercase text-center">Monthly Sale</h6>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <canvas id="CanvasSalesByMonth" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h6 class="text-sm text-uppercase text-center">Daily Point Summary</h6>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <canvas id="CanvasPointSummaryByDay" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h6 class="text-sm text-uppercase text-center">Monthly Point Summary</h6>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <canvas id="CanvasPointSummaryByMonth" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js" integrity="sha512-Lii3WMtgA0C0qmmkdCpsG0Gjr6M0ajRyQRQSbTF6BsrVh/nhZdHpVZ76iMIPvQwz1eoXC3DmAg9K51qT5/dEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/js/systemdashboard.js"></script>
+}

@@ -1,0 +1,49 @@
+﻿@model Everestfcsweb.Entities.AccountWeekDayspolicy
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">@Model.Masknumber   Account Weekdays  Policy</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.Masknumber" id="AccountmaskId" hidden />
+            <input asp-for="@Model.AccountWeekDaysId" id="AccountWeekDaysId" hidden />
+            <input asp-for="@Model.AccountId" id="PolicyAccountId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Week Day</label>
+                <select class="form-control form-control-sm font-weight-light select2" multiple asp-for="@Model.SelectWeekDays" id="AccountweekdayId">
+                    <option value="Sunday">Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Start Time</label>
+                <input class="form-control form-control-sm" id="AccountStartDateId" asp-for="@Model.StartTime" type="time" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">End Time</label>
+                <input class="form-control form-control-sm" id="AccountEndDateId" asp-for="@Model.EndTime" type="time" />
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savecustomeraccountweekdaypolicy();">Submit</button>
+</div>

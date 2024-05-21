@@ -1,0 +1,142 @@
+﻿@model Everestfcsweb.Entities.SystemLoyaltySetings
+@{
+    var Systemloyaltyawardtype = ViewData["Systemloyaltyawardtypelists"] as List<SelectListItem>;
+    var Systemtenantaccounts = ViewData["Systemtenantaccountslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Tenant Data</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row" hidden>
+        <div class="col-sm-12">
+            <input class="form-control form-control-sm font-weight-light" asp-for="LoyaltysettId" id="LoyaltysettId" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Tenant</label>
+                <select asp-for="TenantId" class="form-control form-control-sm font-weight-light" id="SystemTenantId" asp-items="@Systemtenantaccounts">
+                    <option value="0">--Select Tenant --</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label class="font-weight-light">Number Format</label>
+                <select asp-for="NumberFormat" class="form-control form-control-sm font-weight-light" id="NumberFormatId">
+                    <option value="0">--Select Number Format--</option>
+                    <option value="Decimal">Decimal</option>
+                    <option value="Whole">Whole</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label class="font-weight-light">Number of Decimals</label>
+                <input class="form-control form-control-sm font-weight-light" asp-for="RoundofDecimals" id="RoundofDecimalsId" />
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label class="font-weight-light">Ciel or Floor</label>
+                <select asp-for="CeilorFloor" class="form-control form-control-sm font-weight-light" id="CeilorFloorId">
+                    <option value="0">--Select Ciel or Floor--</option>
+                    <option value="Ceil">Ceil</option>
+                    <option value="Floor">Floor</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Collision Rule</label>
+                <select asp-for="CollisionRule" class="form-control form-control-sm font-weight-light" id="CollisionRuleId">
+                    <option value="0">--Select Collision Rule--</option>
+                    <option value="Sum">Sum</option>
+                    <option value="Average">Average</option>
+                    <option value="Minimun">Minimum</option>
+                    <option value="Maximum">Maximum</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Transactions Per Day</label>
+                <input class="form-control form-control-sm font-weight-light" asp-for="NoOfTransactionPerDay" id="NoOfTransactionPerDayId" />
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Amount per Day</label>
+                <input class="form-control form-control-sm font-weight-light" asp-for="AmountPerDay" id="AmountPerDayId" />
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Consecutive Minutes</label>
+                <input class="form-control form-control-sm font-weight-light" asp-for="ConsecutiveTransTimeMin" id="ConsecutiveTransTimeMinId" />
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Minumum Redeemable Points</label>
+                <input class="form-control form-control-sm font-weight-light" asp-for="MinRedeemPoints" id="MinRedeemPointsId" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label class="font-weight-light">Redeem From Reward</label>
+                <select asp-for="FromRewardId" class="form-control form-control-sm font-weight-light" id="FromRewardId" asp-items="@Systemloyaltyawardtype">
+                    <option value="0">--Select Redeem Type --</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label class="font-weight-light">Redeem To Reward</label>
+                <select asp-for="ToRewardId" class="form-control form-control-sm font-weight-light" id="ToRewardId" asp-items="@Systemloyaltyawardtype">
+                    <option value="0">--Select Redeem Type --</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label class="font-weight-light">Redeem Value</label>
+                <input class="form-control form-control-sm font-weight-light" asp-for="ConversionValue" id="ConversionValueId" />
+            </div>
+        </div>
+        <div class="col-sm-2 mt-4">
+            <div class="form-group">
+                <label class="font-weight-light"><input asp-for="AutoRedeem" id="AutoredeemId" type="checkbox" /> Auto Redeem</label>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <label class="font-weight-light">Redeem Period</label>
+            <select asp-for="RedeemPeriod" class="form-control form-control-sm font-weight-light" id="RedeemPeriodId">
+                <option value="0">--Select Redeem Period--</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label class="font-weight-light">Redeem Day</label>
+                <input class="form-control form-control-sm font-weight-light" asp-for="RedeemDay" id="RedeemDayId" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold float-right" type="button" id="saveUpdateLoyaltySettings" onclick="savesystemloyaltysettingdata();">
+        <span id="buttonText">SAVE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+    </button>
+</div>

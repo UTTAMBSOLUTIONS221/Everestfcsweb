@@ -1,0 +1,116 @@
+﻿@model Everestfcsweb.Entities.SystemSupplier
+@{
+    var Systemphonecode = ViewData["Systemphonecodelists"] as List<SelectListItem>;
+    var SystemProduct = ViewData["SystemProductList"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Suppliers Data</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row" hidden>
+        <div class="col-sm-12">
+            <input class="form-control form-control-sm font-weight-light" asp-for="@Model.SupplierId" id="SupplierId" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Supplier Name</label>
+                <input class="form-control form-control-sm font-weight-light" asp-for="@Model.SupplierName" id="SystemTenantSupplierNameid" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Phone Number</label>
+                <div class="input-group input-group-sm border">
+                    <div class="input-group-prepend">
+                        <select class="form-control form-control-sm font-weight-light input-group-text" asp-for="@Model.PhoneId" id="inputGroup-sizing-sm" asp-items="@Systemphonecode">
+                            <option value="0">Code</option>
+                        </select>
+                    </div>
+                    <input type="number" class="form-control form-control-sm" aria-label="Small" asp-for="@Model.PhoneNumber" id="PhonenumberId" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="font-weight-light">Supplier Email</label>
+                <input class="form-control form-control-sm font-weight-light" type="email" asp-for="@Model.SupplierEmail" id="SystemTenantSupplierEmailid" />
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="form-group">
+                <label class="font-weight-light">Product</label>
+                <select class="form-control form-control-sm font-weight-light" id="SystemSupplierProductId" asp-items="@SystemProduct">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="font-weight-light">Price</label>
+                <input class="form-control form-control-sm font-weight-light" type="number" id="SystemSupplierPriceId" />
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label class="font-weight-light">Vat</label>
+                <input class="form-control form-control-sm font-weight-light" type="number" id="SystemSuppliervatId" />
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label class="font-weight-light"></label>
+                <button class="btn btn-sm btn-info btn-block text-white font-weight-bold text-uppercase mt-2" onclick="addSupplierandProductPrice()">ADD</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 table-responsive">
+            <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light w-100" id="SuplierProductsTable">
+                <thead>
+                    <tr>
+                        <th hidden></th>                 
+                        <th hidden></th>                 
+                        <th hidden></th>                 
+                        <th>PRODUCT</th>
+                        <th class="text-right">PRICE</th>
+                        <th class="text-right">VAT</th>
+                        <th class="text-right">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.SystemSuplierPrice != null)
+                    {
+                        foreach (var data in Model.SystemSuplierPrice)
+                        {
+                            <tr>
+                                <td hidden>@data.SupplierPriceId</td>
+                                <td hidden>@data.SupplierId</td>
+                                <td hidden>@data.ProductVariationId</td>
+                                <td>@data.ProductVariationName</td>
+                                <td class="text-right">@data.ProductPrice.ToString("#,##0.00")</td>
+                                <td class="text-right">@data.ProductVat.ToString("#,##0.00")</td>
+                                <td class="text-right"><button class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1" onclick="editSupplierProduct(this.parentNode.parentNode)">Edit</button><button class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1" onclick="updateSupplierProduct(this.parentNode.parentNode)">Update</button></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold float-right" type="button" id="SaveSystemSupplierDetailBtn" onclick="Savesystemsupplierdetaildata();">
+        <span id="buttonText">SAVE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+    </button>
+</div>

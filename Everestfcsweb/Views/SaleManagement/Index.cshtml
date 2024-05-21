@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Everestfcsweb.Models.FinanceTransactions>
+@{
+    ViewData["Title"] = "Index";
+    var Systempaymentmodeslists = ViewData["Systempaymentmodeslists"] as List<Everestfcsweb.Models.ListModel>;
+    var SystemStationsList = ViewData["Systemstationslists"] as List<SelectListItem>;
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h6 class="font-weight-bold text-sm card-title">Sales</h6>
+                    </div>
+                    <div class="col-sm-2">
+                        <a asp-action="CustomerOfflineSale" asp-controller="SaleManagement" asp-route-code="@Guid.NewGuid()" asp-area="" id="CAN_POST_OFFLINESALE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right">Make Sale</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>ActualDate</th>
+                            <th>DateCreated</th>
+                            <th>Station</th>
+                            <th>Staff</th>
+                            <th>Card</th>
+                            <th>Equipment</th>
+                            <th>Product</th>
+                            <th>Units</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Amount</th>
+                            <th>P. Mode</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.TransactionCode</td>
+                                    <td>@item.ActualDate</td>
+                                    <td>@item.DateCreated</td>
+                                    <td>@item.Stationname</td>
+                                    <td>@item.Attendantname</td>
+                                    <td>@item.CardSNO</td>
+                                    <td>@item.EquipmentRegNo</td>
+                                    <td>@item.ProductVariationName</td>
+                                    <td>@item.Units.ToString("#,##0.00")</td>
+                                    <td>@item.Price.ToString("#,##0.00")</td>
+                                    <td>@item.Discount.ToString("#,##0.00")</td>
+                                    <td>@item.TotalUsed.ToString("#,##0.00")</td>
+                                    <td>@item.PaymentMode</td>
+                                    <td>
+                                        <a asp-action="GenerateSaleRecieptPdf" asp-controller="ReportManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@item.AccountId" asp-route-FinanceTransactionId="@item.FinanceTransactionId" asp-area="" id="CAN_VIEW_SALE_RECEIPT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Reciept</a>
+                                        @if (item.Isreversed)
+                                        {
+                                            <a href="#" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Reversed</a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="reversesalethis(event)" data-FinanceTransactionId="@item.FinanceTransactionId" id="CAN_REVERSE_SALE" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Reverse</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        function reversesalethis(event) {
+            Swal.fire({
+                title: "Are you sure you want to revese this?",
+                text: "Once reversed, One have to post another sale!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Reverse it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var removeBtn = event.target;
+                    var Entryid = removeBtn.getAttribute('data-FinanceTransactionId');
+                    var uil =
+                    {
+                        FinanceTransactionId: Entryid,
+                        StaffId: $('#systemLoggedinedUserid').val(),
+                        Datecreated: new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0].replace('T', ' ')
+                    };
+                    $.post("/SaleManagement/ReverseSale", uil, function (response) {
+                        if (response.RespStatus == 0) {
+                            Swal.fire('Item Reverse!', response.RespMessage, 'success')
+                            setTimeout(function () { location.reload(); }, 1000);
+                        }
+                        else if (response.RespStatus == 1) {
+                            Swal.fire("Oops!", response.RespMessage, "warning");
+                        }
+                        else {
+                            Swal.fire("Oops! Something Went Wrong", "Database Error has occured. Kindly Contact our support team.", "error");
+                        }
+
+                    });
+                } else {
+                    Swal.fire("Thank you!", "Reverse once you are sure", "info");
+                }
+            });
+        };
+    </script>
+}

@@ -1,0 +1,97 @@
+﻿@model Everestfcsweb.Entities.CompanyCustomer
+@{
+    ViewData["Title"] = "Add Customer";
+    var Systemstations = ViewData["Systemstationslists"] as List<SelectListItem>;
+    var Systemcountries = ViewData["SystemCountrylists"] as List<SelectListItem>;
+    var Systemphonecodes = ViewData["Systemphonecodelists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">CUSTOMERS DETAILS </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row" style="display:none">
+        <div class="col-sm-12">
+            <input id="customerId" asp-for="@Model.CustomerId"/>
+            <input id="customerDesgnationId" asp-for="@Model.Designation" />
+            <input id="customerDesgnationId" asp-for="@Model.CountryId" />
+            <input id="customergenderId" asp-for="@Model.Gender" />
+            <input id="customerreferencenumberId" asp-for="@Model.ReferenceNumber" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 Individual">
+            <div class="form-group">
+                <label class="font-weight-light">Firstname</label>
+                <input class="form-control form-control-sm" id="firstnameId" asp-for="@Model.Firstname" />
+            </div>
+        </div>
+        <div class="col-sm-4 Individual">
+            <div class="form-group">
+                <label class="font-weight-light">Lastname</label>
+                <input class="form-control form-control-sm" id="lastnameId" asp-for="@Model.Lastname" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Emailaddress</label>
+                <input type="email" class="form-control form-control-sm" id="emailaddressId" asp-for="@Model.Emailaddress" />
+            </div>
+        </div>
+    </div>
+    <div class="row Common"> 
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Phone Number</label>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <select class="form-control form-control-sm font-weight-light input-group-text" id="inputGroup-sizing-sm" asp-for="@Model.Phoneid" asp-items="@Systemphonecodes">
+                            <option value="0">Phonecode</option>
+                        </select>
+                    </div>
+                    <input type="number" class="form-control form-control-sm" aria-label="Small" id="PhonenumberId" asp-for="@Model.Phonenumber" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">ID Number</label>
+                <input class="form-control form-control-sm" id="customeridnumberId" asp-for="@Model.IDNumber" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Station</label>
+                <select class="form-control form-control-sm font-weight-light" id="CustomerstationId" asp-for="@Model.StationId" asp-items="@Systemstations">
+                    <option value="0">--Select Station ---</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row Common">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Transactions Per Day</label>
+                <input class="form-control form-control-sm" asp-for="@Model.NoOfTransactionPerDay" id="NoOfTransactionPerDayId" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Daily Amount </label>
+                <input class="form-control form-control-sm" asp-for="@Model.AmountPerDay" id="AmountPerDayId" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Transaction Per Minute</label>
+                <input class="form-control form-control-sm" asp-for="@Model.ConsecutiveTransTimeMin" id="ConsecutiveTransTimeMinId" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer Common">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savesystemcustomerdata();">Save</button>
+</div>

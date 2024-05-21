@@ -1,0 +1,91 @@
+﻿@model Everestfcsweb.Entities.SystemFormulaRuleData
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Formula Rule</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.FormulaRuleId" id="SystemFormulaRuleId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="font-weight-light text-sm">Award From Value</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.Range1" id="FormularulestartvalueId" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="font-weight-light text-sm">Award To Value</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.Range2" id="FormularuleendvalueId" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="font-weight-light text-sm nowrap text-nowrap">Is Award To Value LimitLess?</label>
+                        <input type="checkbox" asp-for="@Model.IsRangetoInfinity" class="form-control form-control-sm" id="FormularuleinfinityId" onclick="addrangetoinfinityvalueandmakeitreadonly()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="font-weight-light text-sm ml-3">Awarding Formula</label>
+                        <input class="form-control form-control-sm" asp-for="@Model.Formula" id="FormularuleformulaId" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="font-weight-light text-sm">For every Amount/liter Sold</label>
+                        <input class="form-control form-control-sm" id="rewardvaluetypevalueId" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="font-weight-light text-sm">Earn these Points</label>
+                        <input class="form-control form-control-sm" id="loyaltypointsvalueId" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a class="btn btn-sm btn-info btn-block" id="setformula" style="float:right;margin-top:32px;">Set Formula</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savesystemformularuleeditdetaildata();">Save</button>
+</div>

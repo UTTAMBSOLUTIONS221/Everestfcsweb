@@ -1,0 +1,126 @@
+﻿@{
+    var Systemcustomers = ViewData["Systemcustomerslists"] as List<SelectListItem>;
+    var Systemstations = ViewData["Systemstationslists"] as List<SelectListItem>;
+    var Systempaymentmodes = ViewData["Systempaymentmodeslists"] as List<SelectListItem>;
+    var SystemProducts = ViewData["SystemProductslists"] as List<SelectListItem>;
+}
+<form id="form_id">
+    <div class="modal-header">
+        <h5 class="text-sm modal-title" id="FuelcardsystemModalLabel">Customer Payment Report</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-sm-12" hidden>
+            <div class="form-group">
+                <label class="font-weight-light">Report Name</label>
+                <input class="form-control form-control-sm" name="ReportName" value="CustomerpaymentReport" />
+            </div>
+        </div>
+        <div class="col-sm-12" hidden>
+            <div class="form-group">
+                <label class="font-weight-light">Export To</label>
+                <input class="form-control form-control-sm" name="doctypename" id="exporttoid" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="font-weight-light">Start Date</label>
+                    <input class="form-control form-control-sm" type="datetime-local" required name="startdate" id="startdate" />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="font-weight-light">End Date</label>
+                    <input class="form-control form-control-sm" type="datetime-local" required name="enddate" id="enddate" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="font-weight-light">Customer</label>
+                    <select onchange="getCustomerAgreements(this.value)" class="form-control form-control-sm font-weight-light select2" asp-items="@Systemcustomers" name="customer">
+                        <option value="">--- Select Customer ---</option>
+                        <option value="0">--All---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="font-weight-light">Outlet</label>
+                    <select onchange="getStationStaffs(this.value)" class="form-control form-control-sm salcat select2" name="station" asp-items="@Systemstations">
+                        <option value="">--Select Outlet ---</option>
+                        <option value="0">--All---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6" id="CustomerAgreementrow" style="display:none;">
+                <div class="form-group">
+                    <label class="font-weight-light">Agreement</label>
+                    <select onchange="getAgreementAccounts(this.value)" class="form-control form-control-sm font-weight-light select2" name="agreement" id="CustomerAgreementid">
+                        <option value="">--- Select Agreement ---</option>
+                        <option value="0">--All---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6" id="AgreementAccontrow" style="display:none;">
+                <div class="form-group">
+                    <label class="font-weight-light">Account</label>
+                    <select class="form-control form-control-sm font-weight-light select2" name="account" id="AgreementAccountid">
+                        <option value="">--- Select Account ---</option>
+                        <option value="0">--All---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="font-weight-light">Payment Mode</label>
+                    <select class="form-control form-control-sm salcat select2" name="paymode" asp-items="@Systempaymentmodes">
+                        <option value="">--Select Payment Mode ---</option>
+                        <option value="0">--All---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="font-weight-light">Product</label>
+                    <select class="form-control form-control-sm salcat select2" name="product" asp-items="@SystemProducts">
+                        <option value="">--Select Product ---</option>
+                        <option value="0">--All---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-12" id="Stationstaffrow" style="display:none;">
+            <div class="form-group">
+                <label class="font-weight-light">Attendant</label>
+                <select class="form-control form-control-sm font-weight-light select2" name="attendant" id="StationUserid">
+                    <option value="0">--Select Staff ---</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+        <button class="btn btn-sm btn-info font-weight-bold" type="button" id="allReportGeneratingBtn" onclick="OnClick('CustomerpaymentReport');">
+            <span id="buttonText">GENERATE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+        </button>
+    </div>
+</form>
+

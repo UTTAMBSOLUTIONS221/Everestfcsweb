@@ -1,0 +1,81 @@
+﻿@model Everestfcsweb.Entities.CustomerPrepaidAgreement
+@{
+    var SystemLoyaltyGrouping = ViewData["SystemLoyaltyGroupinglists"] as List<SelectListItem>;
+    var SystemPricelist = ViewData["SystemPricelists"] as List<SelectListItem>;
+    var SystemDiscountlist = ViewData["SystemDiscountlists"] as List<SelectListItem>;
+}
+
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Prepaid Agreement Data</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.AgreementId" id="AgreementId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Loyalty Group</label>
+                <select class="form-control form-control-sm font-weight-light" id="LoyaltyGroupingId" asp-for="@Model.GroupingId" asp-items="@SystemLoyaltyGrouping">
+                    <option value="0">--Select Loyalty Group ---</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Price</label>
+                <select class="form-control form-control-sm font-weight-light" id="PricelistId" asp-for="@Model.PriceListId" asp-items="@SystemPricelist">
+                    <option value="0">--Select Price ---</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Dicount</label>
+                <select class="form-control form-control-sm font-weight-light" id="DiscountlistId" asp-for="@Model.DiscountListId" asp-items="@SystemDiscountlist">
+                    <option value="0">--Select Discount ---</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row" hidden>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="font-weight-light">Agreement file</label>
+                <input class="form-control form-control-sm" type="file" id="AgreementDocId" asp-for="@Model.AgreementDoc" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="font-weight-light">Memo</label>
+                <textarea class="form-control form-control-sm" id="AgreementnoteId" asp-for="@Model.Notes"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row" hidden>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light"><input id="toggle-trigger AllowOverdraftId" type="checkbox" data-toggle="toggle"> Allow Overdraft</label>
+            </div>
+        </div>
+        <div class="col-sm-6" style="display:none">
+            <div class="form-group">
+                <label class="font-weight-light">Overdraw Amount </label>
+                <input class="form-control form-control-sm" id="OverdraftAmountId" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savecustomerprepaidagreementdetails();">Update Prepaid Agreement</button>
+</div>

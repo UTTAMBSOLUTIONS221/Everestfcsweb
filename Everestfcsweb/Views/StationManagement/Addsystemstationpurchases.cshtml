@@ -1,0 +1,138 @@
+﻿@model Everestfcsweb.Entities.StationPurchase
+@{
+    var SystemProducts = ViewData["SystemProductslists"] as List<SelectListItem>;
+    var SystemSuppliers = ViewData["SystemSupplierslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Station Purchase</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.PurchaseId" id="PurchaseId" hidden />
+            <input asp-for="@Model.StationId" id="StationId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Invoice #</label>
+                <input class="form-control form-control-sm" asp-for="@Model.InvoiceNumber" id="SystemInvoiceNumberId" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Invoice Amount</label>
+                <input class="form-control form-control-sm" asp-for="@Model.InvoiceAmount" id="SystemInvoiceAmountId" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Supplier</label>
+                <select class="form-control form-control-sm font-weight-light select2" id="SystemsupplierId" asp-for="@Model.SupplierId" asp-items="@SystemSuppliers">
+                    <option value="">---Select---</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Invoice Date</label>
+                <input class="form-control form-control-sm" type="date" asp-for="@Model.InvoiceDate" id="SystemInvoiceDateId" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Truck Number</label>
+                <input class="form-control form-control-sm" asp-for="@Model.TruckNumber" id="SystemInvoiceTruckNumberId" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Driver Name</label>
+                <input class="form-control form-control-sm" asp-for="@Model.DriverName" id="SystemInvoiceDriverNameId" />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <label class="font-weight-light">Invoice Item(s) Entry <span class="required-sup">*</span></label>
+       <div class="row">
+           <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="font-weight-light">Product</label>
+                    <select class="form-control form-control-sm font-weight-light select2" id="SystemproductId" asp-items="@SystemProducts">
+                        <option value="">---Select---</option>
+                    </select>
+                </div>
+           </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="font-weight-light">Quantity</label>
+                    <input class="form-control form-control-sm" id="SystemproductquantityId" oninput="calculatePurchaseProductTotal()" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="font-weight-light">Price</label>
+                    <input class="form-control form-control-sm" id="SystemproductpriceId" oninput="calculatePurchaseProductTotal()" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="font-weight-light">Total</label>
+                    <input class="form-control form-control-sm" id="SystemproductTotalAmountId" oninput="updatePurchaseProductQuantityOrPrice()" />
+                </div>
+            </div>
+            <div class="col-sm-2" hidden>
+                <div class="form-group">
+                    <label class="font-weight-light">Discount</label>
+                    <input class="form-control form-control-sm" id="SystemproductdiscountId" />
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <div class="form-group">
+                    <label class="font-weight-light">Action</label>
+                    <button class="btn btn-sm btn-info" id="addInvoicePurchaseItem"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-sm-12 table-responsive" style="min-height:100px">
+                <table class="table table-sm nowrap text-nowrap" style="width:100%" id="stationpurchasestable">
+                    <thead><tr><th class="font-weight-light text-sm">Name</th><th class="font-weight-light">Quantity</th><th class="font-weight-light">Price</th><th class="font-weight-light">Total</th><th class="font-weight-light">Action</th></tr></thead>
+                    <tbody class="font-weight-light text-sm">
+                        @if (Model.StationPurchaseItem != null && Model.StationPurchaseItem.Any())
+                        {
+                            foreach (var Item in Model.StationPurchaseItem)
+                            {
+                                <tr>
+                                    <td hidden>@Item.ProductVariationId</td>
+                                    <td>
+                                        <select class='form-control form-control-sm font-weight-light' id='ProductVariationId' asp-for="@Item.ProductVariationId" asp-items="@SystemProducts" readonly>
+                                            <option value=''>-- Select--</option>
+                                        </select>
+                                    </td>
+                                    <td>@Item.PurchaseQuantity</td>
+                                    <td>@Item.PurchasePrice</td>
+                                    <td>@Item.PurchaseTotal</td>
+                                    <td><button class="btn btn-xs btn-danger" onclick="RemoveInvoiceItem(this)">Remove</button></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" id="savesystemstationpurchasesBtn" onclick="savesystemstationpurchasesdata();">
+        <span id="buttonText">SAVE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+    </button>
+</div>

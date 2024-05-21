@@ -1,0 +1,58 @@
+﻿@model Everestfcsweb.Entities.SystemStations
+@{
+    var Systemphonecodes = ViewData["Systemphonecodelists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Station Data</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.StationId" id="SystemstationId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Station Name</label>
+                <input class="form-control form-control-sm" id="SystemstationnameId" asp-for="@Model.Sname" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Station Email</label>
+                <input class="form-control form-control-sm" id="SystemstationemailId" asp-for="@Model.Semail" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Phone Number</label>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <select class="form-control form-control-sm font-weight-light input-group-text" id="inputGroup-sizing-sm" asp-for="@Model.Phoneid" asp-items="@Systemphonecodes">
+                            <option value="0">Zip</option>
+                        </select>
+                    </div>
+                    <input type="number" class="form-control form-control-sm" aria-label="Small" id="SystemstationphoneId" aria-describedby="inputGroup-sizing-sm" asp-for="@Model.Phone">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Station Address</label>
+                <input class="form-control form-control-sm" id="SystemstationaddressId" asp-for="@Model.Addresses" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" id="saveSystemStationBtn" onclick="savesystemstationdata();">
+        <span id="buttonText">SAVE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+    </button>
+</div>

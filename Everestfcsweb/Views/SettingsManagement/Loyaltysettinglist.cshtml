@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Everestfcsweb.Models.LoyaltySettingsModelData>
+@{
+    ViewData["Title"] = "Loyaltysettinglist";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header py-1">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h6 class="font-weight-bold text-sm card-title">Loyalty Settings</h6>
+                    </div>
+                    <div class="col-sm-4">
+                        <a asp-action="Addsystemloyaltysetting" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-LoyaltysettId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_LOTALTY_SETTINGS" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Loyalty Setting</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive table-responsive-sm">
+                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                    <thead>
+                        <tr>
+                            <th>Tenant Name</th>
+                            <th>Amount Perday</th>
+                            <th>Consecutive Minutes</th>
+                            <th>Transactions Per Day</th>
+                            <th>Number Format</th>
+                            <th>Decimals</th>
+                            <th>Ceil of Floor</th>
+                            <th>Coalision Rule</th>
+                            <th>Redeem From</th>
+                            <th>Redeem To</th>
+                            <th>Redeem Multiplier</th>
+                            <th>Minimum Points</th>
+                            <th>Autoredeem</th>
+                            <th>Redeem Period</th>
+                            <th>Redeem Day</th>
+                            <th>RegisteredOn</th>
+                            <th>RegisteredBy</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Tenantname</td>
+                                    <td>@item.AmountPerDay</td>
+                                    <td>@item.ConsecutiveTransTimeMin</td>
+                                    <td>@item.NoOfTransactionPerDay</td>
+                                    <td>@item.NumberFormat</td>
+                                    <td>@item.RoundofDecimals</td>
+                                    <td>@item.CeilorFloor</td>
+                                    <td>@item.CollisionRule</td>
+                                    <td>@item.Fromreward</td>
+                                    <td>@item.Toreward</td>
+                                    <td>@item.ConversionValue</td>
+                                    <td>@item.MinRedeemPoints</td>
+                                    <td>
+                                        @if (item.AutoRedeem)
+                                        {
+                                            <span class="badge badge-info badge-info-xs font-weight-bold text-uppercase">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger badge-info-xs font-weight-bold text-uppercase">No</span>
+                                        }
+                                    </td>
+                                   
+                                    <td>@item.RedeemPeriod</td>
+                                    <td>@item.RedeemDay</td>
+                                    <td>@item.DateCreated</td>
+                                    <td>@item.Createdby</td>
+                                    <td>
+                                        <a asp-action="Addsystemloyaltysetting" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-LoyaltysettId="@item.LoyaltysettId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_EDIT_LOTALTY_SETTINGS" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/customermanagement.js"></script>
+}

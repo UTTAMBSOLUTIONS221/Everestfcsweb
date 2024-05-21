@@ -1,26 +1,46 @@
+﻿
 using Everestfcsweb.Models;
+using Everestfcsweb.Models.Dashboards;
+using Everestfcsweb.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Everestfcsweb.Controllers
 {
-    public class HomeController : Controller
+    [Authorize]
+    [RequireHttps]
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly Dashboardservices bl;
+        public HomeController(IConfiguration config)
         {
-            _logger = logger;
+            bl = new Dashboardservices(config);
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Dashboard()
         {
             return View();
-        }
+        } 
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public async Task<JsonResult> Getsystemdashboarddata(string date)
+        {
+            SystemDashboardData Data = new SystemDashboardData();
+            if (SessionUserData.Usermodel.Stations.Count()>1)
+            {
+                Data = await bl.Getsystemdashboarddata(SessionUserData.Token, SessionUserData.Usermodel.Tenantid,0, date);
+            }
+            else
+            {
+                Data = await bl.Getsystemdashboarddata(SessionUserData.Token, SessionUserData.Usermodel.Tenantid,SessionUserData.Usermodel.Stations.FirstOrDefault().StationId, date);
+            }
+            return Json(Data);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

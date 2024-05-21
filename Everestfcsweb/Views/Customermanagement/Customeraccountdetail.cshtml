@@ -1,0 +1,473 @@
+﻿@model Everestfcsweb.Models.SystemAccountDetailData
+@{
+    ViewData["Title"] = "Customeraccountdetail";
+}
+<div class="row">
+    <div class="col-sm-3">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-sm"><b>Mask: </b> @Model.CardSNO</h4>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table>
+                                    <tbody>
+                                        <tr><td><b>Customer: </b> @Model.Customername</td></tr>
+                                        <tr><td><b>Email: </b> @Model.Emailaddress</td></tr>
+                                        <tr><td><b>Loyalty Group: </b> @Model.LoyaltyGroupingName</td></tr>
+                                        <tr><td><b>Credit Name: </b> @Model.Credittypename</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.Credittypename == "Prepaid")
+                        {
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <tbody>
+                                            <tr><td><b>Customer Balance: </b> @Model.Currency @Model.CustomerBalance.ToString("#,##0.00")</td></tr>
+                                            <tr><td><b>Agreement Balance: </b> @Model.Currency @Model.AgreementBalance.ToString("#,##0.00")</td></tr>
+                                            <tr><td><b>Account Balance: </b> @Model.Currency @Model.AccountBalance.ToString("#,##0.00")</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        @if (Model != null)
+        {
+            if (Model.Agreementtypename.Contains("Prepaid"))
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-outline card-info">
+                            <div class="card-header py-1">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <h4 class="text-sm">Customer Account Topups</h4>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <a asp-action="AddcustomeragreementAccountlevelTopup" asp-controller="CustomerManagement" asp-route-AccountId="@Model.AccountId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Topup</a>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a asp-action="AddcustomeragreementAccountTransfer" asp-controller="CustomerManagement" asp-route-AccountId="@Model.AccountId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Transfer to Card</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body px-0 py-2">
+                                <div class="col-sm-12 table-responsive table-responsive-sm">
+                                    <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                                        <thead>
+                                            <tr>
+                                                <th class="font-weight-light">Fullname</th>
+                                                <th class="font-weight-light">Station</th>
+                                                <th class="font-weight-light">Amount</th>
+                                                <th class="font-weight-light">Memo</th>
+                                                <th class="font-weight-light">Date Topuped</th>
+                                                <th class="font-weight-light">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.CustomerAccounttopups != null)
+                                            {
+                                                foreach (var item in Model.CustomerAccounttopups)
+                                                {
+                                                    <tr>
+                                                        <td class="font-weight-light">@item.Fullname</td>
+                                                        <td class="font-weight-light">@item.StationName</td>
+                                                        <td class="font-weight-light">@item.Amount.ToString("#,##0.00")</td>
+                                                        <td class="font-weight-light">@item.SaleRefence</td>
+                                                        <td class="font-weight-light">@item.DateCreated</td>
+                                                        <td class="font-weight-light">
+                                                            @if (item.Saledescription == "Topup" && !item.Isreversed)
+                                                            {
+                                                                <a onclick="reversetopupthis(event)" data-FinanceTransactionId="@item.FinanceTransactionId" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Reverse</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <btn class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">N/A</btn>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-outline card-info">
+                    <div class="card-header py-1">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <h4 class="text-sm">Customer Account Employee</h4>
+                            </div>
+                            <div class="col-sm-2">
+                                <a asp-action="AddCustomerAccountEmployee" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-EmployeeId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 py-2">
+                        <div class="col-sm-12 table-responsive table-responsive-sm">
+                            <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables1">
+                                <thead>
+                                    <tr>
+                                        <th class="font-weight-light">Name</th>
+                                        <th class="font-weight-light">Email</th>
+                                        <th class="font-weight-light">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.CustomerAccountemployees != null)
+                                    {
+                                        foreach (var item in Model.CustomerAccountemployees)
+                                        {
+                                            <tr>
+                                                <td class="font-weight-light">@(item.Firstname + " " + item.Lastname)</td>
+                                                <td class="font-weight-light">@item.Emailaddress</td>
+                                                <td class="font-weight-light justify-content-end">
+                                                    <a asp-action="AddCustomerAccountEmployee" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-EmployeeId="@item.EmployeeId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase mr-1" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    <a asp-action="CustomerAccountEmployeePolicies" asp-controller="CustomerManagement" asp-route-EmployeeId="@item.EmployeeId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-outline card-info">
+                    <div class="card-header py-1">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <h4 class="text-sm">Customer Account Equipments</h4>
+                            </div>
+                            <div class="col-sm-2">
+                                <a asp-action="AddCustomerAccountEquipment" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Equipment</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 py-2">
+                        <div class="col-sm-12 table-responsive table-responsive-sm">
+                            <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables2">
+                                <thead>
+                                    <tr>
+                                        <th class="font-weight-light">Reg No#</th>
+                                        <th class="font-weight-light">Product</th>
+                                        <th class="font-weight-light">Tank</th>
+                                        <th class="font-weight-light">Odometer</th>
+                                        <th class="font-weight-light">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.CustomerAccountequipments != null)
+                                    {
+                                        foreach (var item in Model.CustomerAccountequipments)
+                                        {
+                                            <tr>
+                                                <td class="font-weight-light">@item.EquipmentRegNo</td>
+                                                <td class="font-weight-light">@item.Productvariationname</td>
+                                                <td class="font-weight-light">@item.TankCapacity</td>
+                                                <td class="font-weight-light">@item.Odometer</td>
+                                                <td class="font-weight-light justify-content-end">
+                                                    <a asp-action="AddCustomerAccountEquipment" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-EquipmentId="@item.EquipmentId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase mr-1" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    <a asp-action="CustomerAccountEquipmentPolicies" asp-controller="CustomerManagement" asp-route-EquipmentId="@item.EquipmentId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        function showsystemprepaidagreementfields() {
+            $('#AgreementTypeId').val("prepaid");
+            $(".prepaidAgreementFields").show();
+            $(".postpaidAgreementFields").hide();
+            $(".postpaidcreditagreementfields").hide();
+            $(".postpaidrecurrentagreementfields").hide();
+            $(".postpaidoneoffagreementfields").hide();
+        }
+        function showsystempostpaidagreementfields() {
+            $(".postpaidAgreementFields").show();
+            $(".prepaidAgreementFields").hide();
+        }
+
+        function showsystempostpaidCreditagreementfields() {
+            $('#AgreementTypeId').val("credit");
+            $(".postpaidcreditagreementfields").show();
+            $(".prepaidAgreementFields").hide();
+            $(".postpaidrecurrentagreementfields").hide();
+            $(".postpaidoneoffagreementfields").hide();
+        }
+        function showsystempostpaidRecurrentagreementfields() {
+            $(".postpaidAgreementFields").show();
+            $(".postpaidrecurrentagreementfields").show();
+            $(".postpaidcreditagreementfields").hide();
+            $(".prepaidAgreementFields").hide();
+            $(".postpaidoneoffagreementfields").hide();
+        }
+        function showsystempostpaidOneoffagreementfields() {
+            $(".postpaidAgreementFields").show();
+            $(".postpaidoneoffagreementfields").show();
+            $(".prepaidAgreementFields").hide();
+            $(".postpaidcreditagreementfields").hide();
+            $(".postpaidrecurrentagreementfields").hide();
+        }
+
+        function Getsystemstationstaffbyid(stationid) {
+            var onj = "<option value=''>Select staff</option>";
+            if (stationid == "") { $('#SystemstationstaffId').html(onj); return; }
+            $.get("/CustomerManagement/GetSystemStationStaffDropDownDataById/" + stationid, null, function (data) {
+                $.each(data, function (a, x) { onj = onj + "<option value='" + x.Value + "'>" + x.Text + "</option>"; })
+                $('#SystemstationstaffId').html(onj);
+            });
+        }
+
+        function GetEquipmentModels(equippmentmakeid) {
+            var onj = "<option value=''>Select Model</option>";
+            if (equippmentmakeid == "") { $('#EquipmentModelId').html(onj); return; }
+            $.get("/CustomerManagement/GetSEquipmentModelDropDownDataById/" + equippmentmakeid, null, function (data) {
+                $.each(data, function (a, x) { onj = onj + "<option value='" + x.Value + "'>" + x.Text + "</option>"; })
+                $('#EquipmentModelId').html(onj);
+            });
+        }
+       
+        function savecustomeragreementaccount() {
+            var selectedStations = document.getElementById("CustomerAccountStationId")
+            var selectedStationsOptions = Array.from(selectedStations.selectedOptions).map(option => option.value);
+            var selectedWeekDays = document.getElementById("CustomerAccountWeekdaysId")
+            var selectedWeekDaysOptions = Array.from(selectedWeekDays.selectedOptions).map(option => option.value);
+            var uil = {
+                "CustomerAgreementId": $('#CustomerAgreementId').val(),
+                "LoyaltyGroupingId": $('#LoyaltyGroupingId').val(),
+                "CreditTypeId": $('#CreditTypeId').val(),
+                "EquipmentNumber": $('#EquipmentNumberId').val(),
+                "EquipmentMakeId": $('#EquipmentMakeId').val(),
+                "EquipmentModelId": $('#EquipmentModelId').val(),
+                "EquipmentTankCapacity": $('#EquipmentTankCapacityId').val(),
+                "Fullname": $('#fullnameId').val(),
+                "EmailAddress": $('#phonenumberId').val(),
+                "PhoneNumber": $('#emailaddressId').val(),
+                "ProductVariationId": $('#CustomerAccountProductId').val(),
+                "Productlimitvalue": $('#CustomerAccountProductLimitId').val(),
+                "ProductLimitTypeId": $('#ConsumptionLimitTypeId').val(),
+                "ProductlimitPeriod": $('#CustomerAccountProductLimitPeriodId').val(),
+                "AccountStationId": selectedStationsOptions,
+                "AccountWeekdays": selectedWeekDaysOptions,
+                "AccountWeekdaysStartTime": $('#CustomerAccountWeekdaysStartTimeId').val(),
+                "AccountWeekdaysEndTime": $('#CustomerAccountWeekdaysEndTimeId').val(),
+                "AccountFrequency": $('#CustomerAccountFrequencyId').val(),
+                "AccountFrequencyPeriod": $('#CustomerAccountFrequencyPeriodId').val()
+            };
+            $.post("/CustomerManagement/AddcustomeragreementAccountdata", uil, function (response) {
+                if (response.respStatus == 0) {
+                    Swal.fire('Saved!', 'Agreement Account details has been added.', 'success')
+                    $('#FuelcardsystemModalLarge').hide();
+                    setTimeout(function () { location.reload(); }, 1000);
+                } else {
+                    Swal("Agreement Account details has Not Created", response.respMessage, "error"); //$('.blockOverlay').hide();
+                }
+            });
+        }
+
+
+        function savecustomerpostpaidagreementdetails() {
+            var uil1 = {
+                AgreementType: $('#AgreementTypeId').val(),
+                CustomerId: $('#CustomerId').val(), LoyaltyGroupingId: $('#PostLoyaltyGroupingId').val(), PricelistId: $('#PostPricelistId').val(), DiscountlistId: $('#PostDiscountlistId').val(),
+                AgreementDoc: $('#PostAgreementDocId').val(), AgreementReference: $('#AgreementReferenceId').val(), LimitValue: $('#LimitValueId').val(), ConsumptionLimitType: $('#ConsumptionLimitTypeId').val(),
+                StartDate: $('#AgreementStartDateId').val(), PaymentTerms: $('#PaymentTermDaysId').val(), Agreementnote: $('#PostAgreementnoteId').val()
+            };
+            $.post("/CustomerManagement/Addcustomeragreementdetaildata", uil1, function (response) {
+                if (response.respStatus == 0) {
+                    Swal.fire('Saved!', 'Acccount topup details has been added.', 'success')
+                    $('#FuelcardsystemModalLarge').hide();
+                    setTimeout(function () { location.reload(); }, 1000);
+                } else {
+                    Swal("Acccount topup details Not saved", response.respMessage, "error"); //$('.blockOverlay').hide();
+                }
+            });
+        }
+
+        function LoadStationProductsandStaff() {
+            var e = document.getElementById("AgreementsaleStationId");
+            if (e.value == 0) {
+                $("#CustomerStationsCardWithNoProduct").show();
+                $("#CustomerStationsCardWithProduct").hide();
+            } else {
+                $("#CustomerStationsCardWithNoProduct").hide();
+                $("#CustomerStationsCardWithProduct").show();
+                //GetStaffAttached to a Station
+                $.getJSON("/CustomerManagement/GetSystemDropDownDataById/" + e.value, function (result) {
+                    var $dropdown = $("#StationUserid");
+                    $.each(result, function () {
+                        $dropdown.append($("<option/>").val(this.value).text(this.text));
+                    });
+                });
+                //Get Products Attached with Station With Prices
+                $.getJSON("/ProductManagement/GetSystemStationProductDataById/" + e.value, function (result) {
+                    let item = result;
+                    for (let i = 0; i < item.length; i++) {
+                        let product = '<div class="col-sm-2">';
+                        product += '<div id="' + item[i].productVariationId + '"class="card card' + i + '" >';
+                        product += '<img class="card-img-top product-img-class" alt="' + item[i].productvariationname + '" />';
+                        product += '<div class="card-body p-1">';
+                        product += '<p class="card-text text-center">' + item[i].productvariationname + "</p>";
+                        product += '<p class="card-text text-center">' + item[i].productPrice + "</p>";
+                        product += '<button  class="card-text btn btn-sm btn-block btn-info pt-0"  onclick="AddStationProducttoCart(' + item[i].productVariationId + ',\'' + item[i].productvariationname + '\',' + item[i].productPrice + ',' + 0 + ',' + 0 + ')">Add to Cart</button>';
+                        product += "</div>";
+                        product += "</div>";
+                        product += "</div>";
+                        $("#CustomerStationsCardWithProductDataId").append(product);
+                    }
+                });
+            }
+        }
+
+        function AddStationProducttoCart(productVariationId, productName, productPrice, productDiscount, productCode) {
+            var data = { "ProductVariationId": productVariationId, "ProductName": productName, "ProductPrice": productPrice, "ProductDiscount": productDiscount, "ProductCode": productCode };
+            $.ajax({
+                type: "POST",
+                url: "/CustomerManagement/AddProductdatatocart",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#CustomerStationsCardWithProductCartDataId').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function DeleteSaleItem(ProductVariationId) {
+            var data = { "ProductVariationId": ProductVariationId };
+            $.ajax({
+                type: "POST",
+                url: "/CustomerManagement/DeleteSaleItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function UpdateSaleItem(ProductVariationId, qty) {
+            var data = {
+                "ProductVariationId": ProductVariationId,
+                "Qty": qty
+            };
+            $.ajax({
+                type: "POST",
+                url: "/CustomerManagement/UpdateSaleItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+        function UpdatePriceItem(ProductVariationId, amount) {
+            var data = {
+                "ProductVariationId": ProductVariationId,
+                "Amt": amount
+            };
+            $.ajax({
+                type: "POST",
+                url: "/CustomerManagement/UpdatePriceItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+        function UpdateAmountItem(ProductVariationId, Amt) {
+            var data = {
+                "ProductVariationId": ProductVariationId,
+                "Amt": Amt
+            };
+            $.ajax({
+                type: "POST",
+                url: "/CustomerManagement/UpdateAmountItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+
+
+        function SaveCustomerAccountPolicies() {
+            var selectedStations = document.getElementById("CustomerAccountStationId")
+            var selectedStationsOptions = Array.from(selectedStations.selectedOptions).map(option => option.value);
+            var selectedWeekDays = document.getElementById("CustomerAccountWeekdaysId")
+            var selectedWeekDaysOptions = Array.from(selectedWeekDays.selectedOptions).map(option => option.value);
+            var uil = {
+                "AccountId": $('#CustomerAccountId').val(),
+                "ProductVariationId": $('#CustomerAccountProductId').val(),
+                "Productlimitvalue": $('#CustomerAccountProductLimitId').val(),
+                "ProductlimitPeriod": $('#CustomerAccountProductLimitPeriodId').val(),
+                "AccountStationId": selectedStationsOptions,
+                "AccountWeekdays": selectedWeekDaysOptions,
+                "AccountWeekdaysStartTime": $('#CustomerAccountWeekdaysStartTimeId').val(),
+                "AccountWeekdaysEndTime": $('#CustomerAccountWeekdaysEndTimeId').val(),
+                "AccountFrequency": $('#CustomerAccountFrequencyId').val(),
+                "AccountFrequencyPeriod": $('#CustomerAccountFrequencyPeriodId').val()
+            };
+            $.post("/CustomerManagement/RegisterCustomerAccountPolicies", uil, function (response) {
+                if (response.respStatus == 0) {
+                    Swal.fire('Saved!', 'Acccount Policy details has been added.', 'success')
+                    $('#FuelcardsystemModalLarge').hide();
+                    setTimeout(function () { location.reload(); }, 1000);
+                } else {
+                    Swal("Acccount Policy details Not saved", response.respMessage, "error"); //$('.blockOverlay').hide();
+                }
+            });
+        }
+    </script>
+}

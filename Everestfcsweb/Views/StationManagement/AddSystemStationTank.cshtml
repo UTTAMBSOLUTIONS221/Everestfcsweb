@@ -1,0 +1,51 @@
+﻿@model Everestfcsweb.Entities.StationTankModel
+@{
+    var SystemProducts = ViewData["SystemProductslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Station Tank </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.TankId" id="SystemstationtankId" hidden />
+            <input asp-for="@Model.StationId" id="SystemstationtankstationId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Tank Name</label>
+                <input class="form-control form-control-sm" asp-for="Name" id="SystemstationtanknameId" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Tank Product</label>
+                <select class="form-control form-control-sm font-weight-light select2" asp-for="@Model.ProductVariationId" id="SystemstationtankproductId" asp-items="@SystemProducts">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Tank Volume</label>
+                <input class="form-control form-control-sm" asp-for="Volume" id="SystemstationtankvolumeId" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Tank Diameter</label>
+                <input class="form-control form-control-sm" asp-for="Diameter" id="SystemstationtankdiamenterId" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savesystemstationtankdata();">Save</button>
+</div>

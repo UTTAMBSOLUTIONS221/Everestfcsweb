@@ -1,0 +1,197 @@
+﻿@model Everestfcsweb.Models.CustomerAccountEmployeePolicyDetails
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">@Model.EmployeeName Account Policies</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <h4 class="text-sm">@Model.EmployeeName what can he/she Consume?</h4>
+                                </div>
+                                <div class="col-sm-5">
+                                    <a asp-action="Addcustomeraccountemployeeproductpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeProductId="0" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee Product</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-0">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Product</th>
+                                            <th class="font-weight-light">Limit</th>
+                                            <th class="font-weight-light">Period</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                            <th class="font-weight-light">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.AccountEmployeeproductspolicy != null)
+                                        {
+                                            foreach (var item in Model.AccountEmployeeproductspolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light">@item.Productvariationname</td>
+                                                    <td class="font-weight-light">@item.LimitValue</td>
+                                                    <td class="font-weight-light">@item.LimitPeriod</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                    <td class="font-weight-light">
+                                                        <a asp-action="Addcustomeraccountemployeeproductpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeProductId="@item.EmployeeProductId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <h4 class="text-sm">@Model.EmployeeName where can he/she Consume?</h4>
+                                </div>
+                                <div class="col-sm-5">
+                                    <a asp-action="Addcustomeraccountemployeestationpolicy" asp-controller="CustomerManagement" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee Station</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-0">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables1">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Station</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                            <th class="font-weight-light">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.AccountEmployeestationspolicy != null)
+                                        {
+                                            foreach (var item in Model.AccountEmployeestationspolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light">@item.Stationname</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                    <td class="font-weight-light">
+                                                        <a onclick="permanentdeleteemployeethis(event)" data-Tablename="EmployeeStations" data-Columnidname="EmployeeStationId" data-Entryid="@item.EmployeeStationId" data-EmployeeId="@Model.EmployeeId" data-EmployeeName="@Model.EmployeeName" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase float-right">Remove</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <h4 class="text-sm">@Model.EmployeeName When can he/she Consume?</h4>
+                                </div>
+                                <div class="col-sm-5">
+                                    <a asp-action="Addcustomeraccountemployeeweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeWeekDaysId="0" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee Weekday(s)</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-0">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables2">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Days</th>
+                                            <th class="font-weight-light">Starttime</th>
+                                            <th class="font-weight-light">Endtime</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                            <th class="font-weight-light">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.AccountEmployeeweekdayspolicy != null)
+                                        {
+                                            foreach (var item in Model.AccountEmployeeweekdayspolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light text-wrap">@item.WeekDays</td>
+                                                    <td class="font-weight-light">@item.StartTime</td>
+                                                    <td class="font-weight-light">@item.EndTime</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                    <td class="font-weight-light">
+                                                        <a asp-action="Addcustomeraccountemployeeweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeWeekDaysId="@item.EmployeeWeekDaysId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <h4 class="text-sm">@Model.EmployeeName how can he/she Consume?</h4>
+                                </div>
+                                <div class="col-sm-5">
+                                    <a asp-action="Addcustomeraccountemployeefrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeFrequencyId="0" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee frequency</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-0">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables3">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Frequency</th>
+                                            <th class="font-weight-light">Period</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                            <th class="font-weight-light">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.AccountEmployeefrequencypolicy != null)
+                                        {
+                                            foreach (var item in Model.AccountEmployeefrequencypolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light">@item.Frequency</td>
+                                                    <td class="font-weight-light">@item.FrequencyPeriod</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                    <td class="font-weight-light">
+                                                        <a asp-action="Addcustomeraccountemployeefrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeFrequencyId="@item.EmployeeFrequencyId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

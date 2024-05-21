@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Everestfcsweb.Models.SystemTenantsCardData>
+@{
+    ViewData["Title"] = "Cardlists";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header py-1">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h6 class="font-weight-bold text-sm card-title">Cards</h6>
+                    </div>
+                    <div class="col-sm-4">
+                        <a asp-action="AddTenantCard" asp-controller="HardwareManagement" asp-route-code="@Guid.NewGuid()" asp-route-CardId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_CARD" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Card</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive table-responsive-sm">
+                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                    <thead>
+                        <tr>
+                            <th>SNO</th>
+                            <th>UID</th>
+                            <th>Code</th>
+                            <th>Type</th>
+                            <th>Customer</th>
+                            <th>Status</th>
+                            <th>RegisteredOn</th>
+                            <th>RegisteredBy</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.CardSNO</td>
+                                <td>@item.CardUID</td>
+                                <td>@item.CardCode</td>
+                                <td>@item.TagTypeName</td>
+                                <td>@item.CustomerName</td>
+                                <td>
+                                    @if (item.IsActive)
+                                    {
+                                        <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger badge-info-xs text-uppercase font-weight-bold">Inactive</span>
+                                    }
+                                    @if (item.IsDeleted)
+                                    {
+                                        <span class="badge badge-danger badge-info-xs text-uppercase font-weight-bold">Deleted</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Notdeleted</span>
+                                    }
+                                    @if (item.IsAssigned)
+                                    {
+                                        <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Assigned</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-success badge-success-xs text-uppercase font-weight-bold">Notassigned</span>
+                                    }
+                                    @if (item.IsReplaced)
+                                    {
+                                        <span class="badge badge-danger badge-danger-xs text-uppercase font-weight-bold">Replaced</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Notreplaced</span>
+                                    }
+                                </td>
+                                <td>@item.DateCreated</td>
+                                <td>@item.CreatedByFullName</td>
+                                <td>
+                                    @if (item.IsReplaced)
+                                    {
+                                        <a href="#" class="btn-secondary btn-xs btn-outline-secondary font-weight-bold text-white text-uppercase">No Action</a>
+                                    }
+                                    else if (item.IsAssigned)
+                                    {
+                                        <a asp-action="Resendcardpindata" asp-controller="HardwareManagement" asp-route-code="@Guid.NewGuid()" asp-route-Tenantcardid="@item.CardId" asp-area="" id="CAN_RESEND_CARD_PIN" class="btn-info btn-xs btn-outline-info font-weight-bold text-white text-uppercase">Resend PIN</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="AddTenantCard" asp-controller="HardwareManagement" asp-route-code="@Guid.NewGuid()" asp-route-CardId="@item.CardId" asp-area="" id="CAN_EDIT_CARD" class="btn-info btn-xs btn-outline-info text-white text-uppercase font-weight-bold" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                    }
+                                    @if (item.IsActive)
+                                    {
+                                        <a onclick="deactivatethis(event)" data-Tablename="Systemcard" data-Columname="IsActive" data-Status="0" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_DEACTIVATE_CARD" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="activatethis(event)" data-Tablename="Systemcard" data-Columname="IsActive" data-Status="1" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_ACTIVATE_CARD" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
+                                    }
+                                    @if (item.IsDeleted)
+                                    {
+                                        <a onclick="restorethis(event)" data-Tablename="Systemcard" data-Columname="IsDeleted" data-Status="0" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_RESTORE_CARD" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="deletethis(event)" data-Tablename="Systemcard" data-Columname="IsDeleted" data-Status="1" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_DELETE_CARD" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,148 @@
+﻿@model Everestfcsweb.Entities.CompanyCustomer
+@{
+    ViewData["Title"] = "Add Organization";
+    var Systemstations = ViewData["Systemstationslists"] as List<SelectListItem>;
+    var Systemcountries = ViewData["SystemCountrylists"] as List<SelectListItem>;
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h6 class="font-weight-bold text-sm card-title">Customer Details</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+               
+                <h5 class="text-sm card-title">Basic Data</h5><br />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input class="form-control form-control-sm" id="DesgnitationId" value="Corporate" hidden />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Company Name &nbsp; <span class="fa fa-asterisk fa-xs text-danger"></span></label>
+                            <input class="form-control form-control-sm" id="CompanyNameId" required />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Email Address &nbsp; <span class="fa fa-asterisk fa-xs text-danger"></span></label>
+                            <input class="form-control form-control-sm" id="CompanyEmailId" required />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Phone Number &nbsp; <span class="fa fa-asterisk fa-xs text-danger"></span></label>
+                            <input class="form-control form-control-sm" id="Phonenumber" required />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Station</label>
+                            <select class="form-control form-control-sm font-weight-light" id="CustomerstationId" asp-items="@Systemstations">
+                                <option value="0">--Select Station ---</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Company PIN</label>
+                            <input class="form-control form-control-sm" id="CompanypinId" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Registration No#</label>
+                            <input class="form-control form-control-sm" id="CompanyRegistrationNoId" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Tax No#</label>
+                            <input class="form-control form-control-sm" id="CompanyVATNoId" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mt-4">
+                        <div class="form-group">
+                            <label class="font-weight-light"><input type="checkbox" value="" id="IsPortalUserid"> Portal Acccess</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Country</label>
+                            <select class="form-control form-control-sm font-weight-light" id="CustomercountryId" asp-items="@Systemcountries">
+                                <option value="0">--Select Country ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Transactions Per Day</label>
+                            <input class="form-control form-control-sm" id="NoOfTransactionPerDayId" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Daily Amount </label>
+                            <input class="form-control form-control-sm" id="AmountPerDayId" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="font-weight-light">Transaction Per Minute</label>
+                            <input class="form-control form-control-sm" id="ConsecutiveTransTimeMinId" />
+                        </div>
+                    </div>
+
+                </div>
+              @*  <h5 class="text-sm card-title">Agreements:</h5><br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <h6 class="font-weight-bold text-sm card-title">Customer Agreements</h6>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a asp-action="Addcustomeragreement" asp-controller="CustomerManagement" asp-area="" class="btn btn-xs btn-info float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal">Prepaid Agreement</a>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a asp-action="Addcustomeragreement" asp-controller="CustomerManagement" asp-area="" class="btn btn-xs btn-info float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal">Postpaid Agreement</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+            <div class="card-footer bg-white">
+                <div class="row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a asp-controller="CustomerManagement" asp-action="Index" asp-area="" class="btn btn-sm btn-danger btn-block float-right font-weight-bold">Cancel</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-sm btn-info btn-block float-right font-weight-bold" type="button" onclick="savecustomerdetails();">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

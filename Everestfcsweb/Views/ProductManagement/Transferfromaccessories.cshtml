@@ -1,0 +1,27 @@
+﻿@model Everestfcsweb.Entities.DryStockMovement
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Main Store Movement</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <input class="form-control form-control-sm" asp-for="@Model.DryStockStoreId" id="DryStockStoreId" hidden />
+        <input class="form-control form-control-sm" asp-for="@Model.ProductVariationId" id="ProductvariationId" hidden />
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="font-weight-light">Product Quantity</label>
+                <input class="form-control form-control-sm" type="number" id="ProductquantitytotransferId" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" id="savetransferproductfromaccessorybtn" onclick="savetransferproductfromaccessory()">
+        <span id="buttonText">MAKE A TRANSFER</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+    </button>
+</div>

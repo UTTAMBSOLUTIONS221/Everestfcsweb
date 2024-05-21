@@ -1,0 +1,195 @@
+﻿@{
+    var SystemLoyaltyGrouping = ViewData["SystemLoyaltyGroupinglists"] as List<SelectListItem>;
+    var SystemProducts = ViewData["SystemProductslists"] as List<SelectListItem>;
+    var SystemStations = ViewData["Systemstationslists"] as List<SelectListItem>;
+    var SystemPaymentmodes = ViewData["SystemPaymentmodeslists"] as List<SelectListItem>;
+    var SystemFormulas = ViewData["SystemFormulaslists"] as List<SelectListItem>;
+    var SystemRewards = ViewData["SystemRewardslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title text-uppercase" id="SocialPesaModalLabel">System Scheme</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input class="form-control form-control-sm" id="SchemeId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light text-sm">Scheme Name</label>
+                <input class="form-control form-control-sm font-weight-light" id="SchemenameId" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light text-sm">Scheme Start Date</label>
+                <input class="form-control form-control-sm font-weight-light" type="date" id="SchemestartdateId" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light text-sm">Scheme Start Date</label>
+                <input class="form-control form-control-sm font-weight-light" type="date" id="SchemeenddateId" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="SystemSchemeRules">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h5 class="card-title text-sm font-weight-light text-uppercase">Scheme Rules:  <i class="fa fa-asterisk fa-xs text-danger"></i></h5>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Days Applicable</label>
+                                <select class="form-control form-control-sm font-weight-light select2" multiple="multiple" id="SchemeRuleDaysApplicableId">
+                                    <option value="Sunday">Sunday</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Start Date</label>
+                                <input class="form-control form-control-sm" type="time" id="SchemeRuleStartDateId" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">End Date</label>
+                                <input class="form-control form-control-sm" type="time" id="SchemeRuleEndDateId" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Stations</label>
+                                <select class="form-control form-control-sm font-weight-light select2" id="SchemeRuleStationsId" multiple="multiple" asp-items="@SystemStations">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Products</label>
+                                <select class="form-control form-control-sm font-weight-light select2" id="SchemeRuleProductsId" multiple="multiple" asp-items="@SystemProducts">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Loyalty Groups</label>
+                                <select class="form-control form-control-sm font-weight-light select2" id="SchemeRuleLoyaltyGroupsId" multiple="multiple" asp-items="@SystemLoyaltyGrouping">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Payment Modes</label>
+                                <select class="form-control form-control-sm font-weight-light select2" id="SchemeRulePaymentModesId" multiple="multiple" asp-items="@SystemPaymentmodes">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Formula</label>
+                                <select class="form-control form-control-sm font-weight-light" id="SchemeRuleFormulaId" asp-items="@SystemFormulas">
+                                    <option value="0">--Select Formula--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Rewards</label>
+                                <select class="form-control form-control-sm font-weight-light" id="SchemeRuleRewardId" asp-items="@SystemRewards">
+                                    <option value="0">--Select Reward--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="row">
+                <div class="col-sm-9">
+                </div>
+                <div class="col-sm-3">
+                    <div class="row">
+                        <a class="btn btn-sm btn-info btn-block waves-effect" id="addschemerules">Add Scheme Rules</a>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+
+        <div class="col-sm-12">
+            <label class="font-weight-light text-sm text-uppercase">Scheme Rule(s) Entry <span class="required-sup">*</span></label>
+            <div class="row">
+                <div class="col-sm-12 table-responsive" style="min-height:100px">
+                    <table class="table table-sm" style="width:100%" id="schemerulestable">
+                        <thead class="text-sm"><tr><th class="font-weight-light">Days</th><th class="font-weight-light">StartTime</th><th class="font-weight-light">EndTime</th><th class="font-weight-light">Stations</th><th class="font-weight-light">Products</th><th class="font-weight-light">LoyaltyGroups</th><th class="font-weight-light">Paymodes</th><th class="font-weight-light">Formula</th><th class="font-weight-light">RewardType</th><th></th></tr></thead>
+                        <tbody class="font-weight-light text-sm">
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savesystemawardingschemedata();">Add</button>
+</div>

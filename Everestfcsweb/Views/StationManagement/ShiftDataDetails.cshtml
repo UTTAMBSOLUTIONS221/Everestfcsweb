@@ -1,0 +1,755 @@
+﻿@model Everestfcsweb.Models.ShiftDetailDataModel
+@{
+    ViewData["Title"] = "ShiftDataDetails";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card" style="border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation" style="flex: 1;">
+                        <button class="nav-link active" id="tab1-tab" data-toggle="tab" data-target="#StationShiftLubes" type="button" role="tab" aria-controls="tab1" aria-selected="true" style="color: #495057; font-weight: 500; width: 100%;">Lubes Summary</button>
+                    </li>
+                    <li class="nav-item" role="presentation" style="flex: 1;">
+                        <button class="nav-link" id="tab2-tab" data-toggle="tab" data-target="#StationShiftLpgandAccessories" type="button" role="tab" aria-controls="tab2" aria-selected="false" style="color: #495057; font-weight: 500; width: 100%;">Lpg and Accessories</button>
+                    </li>
+                    <li class="nav-item" role="presentation" style="flex: 1;">
+                        <button class="nav-link" id="tab3-tab" data-toggle="tab" data-target="#StationCarwashServices" type="button" role="tab" aria-controls="tab3" aria-selected="false" style="color: #495057; font-weight: 500; width: 100%;">Car Wash</button>
+                    </li>
+                    <li class="nav-item" role="presentation" style="flex: 1;">
+                        <button class="nav-link" id="tab4-tab" data-toggle="tab" data-target="#StationTyreCenters" type="button" role="tab" aria-controls="tab4" aria-selected="false" style="color: #495057; font-weight: 500; width: 100%;">Tyre Center</button>
+                    </li>
+                    <li class="nav-item" role="presentation" style="flex: 1;">
+                        <button class="nav-link" id="tab4-tab" data-toggle="tab" data-target="#StationServiceBay" type="button" role="tab" aria-controls="tab5" aria-selected="false" style="color: #495057; font-weight: 500; width: 100%;">Service Bay</button>
+                    </li>
+                    <li class="nav-item" role="presentation" style="flex: 1;">
+                        <button class="nav-link" id="tab4-tab" data-toggle="tab" data-target="#StationCreditSales" type="button" role="tab" aria-controls="tab6" aria-selected="false" style="color: #495057; font-weight: 500; width: 100%;">Credit Sales</button>
+                    </li>
+                    <li class="nav-item" role="presentation" style="flex: 1;">
+                        <button class="nav-link" id="tab4-tab" data-toggle="tab" data-target="#StationCashCollections" type="button" role="tab" aria-controls="tab7" aria-selected="false" style="color: #495057; font-weight: 500; width: 100%;">Cash Collection</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content" style="padding: 20px;">
+                <div class="tab-pane fade show active" id="StationShiftLubes" role="tabpanel" aria-labelledby="tab1-tab">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <h6 class="font-weight-bold text-sm card-title text-uppercase">Lubricant Summary</h6>
+                                        </div>
+                                        <div class="col-sm-4 float-right pull-right">
+                                            <a asp-action="Addsystemstationlube" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ProductCategory="Lubricants" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Lube</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light" id="AllsystemDataTables">
+                                        <thead>
+                                            <tr>
+                                                <th class="font-weight-light">Date</th>
+                                                <th class="font-weight-light">Attendant</th>
+                                                <th class="font-weight-light">Item</th>
+                                                <th class="font-weight-light">Units</th>
+                                                <th class="font-weight-light">Price</th>
+                                                <th class="font-weight-light">Total</th>
+                                                <th class="font-weight-light text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model !=null && Model.ShiftLubeandLpg != null)
+                                            {
+                                                foreach (var data in Model.ShiftLubeandLpg.Where(x => x.CategoryName == "Lubricants"))
+                                                {
+                                                    <tr>
+                                                        <td>@data.Datecreated</td>
+                                                        <td>@data.AttendantName</td>
+                                                        <td>@data.ProductVariationName</td>
+                                                        <td>@data.ProductUnits</td>
+                                                        <td>@data.ProductPrice.ToString("#,##0.00")</td>
+                                                        <td>@data.ProductTotal.ToString("#,##0.00")</td>
+                                                        <td class="text-right">
+                                                            <a asp-action="Addsystemstationlube" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ShiftLubeLpgId="@data.ShiftLubeLpgId" asp-route-ProductCategory="Lubricants" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="StationShiftLpgandAccessories" role="tabpanel" aria-labelledby="tab2-tab">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <h6 class="font-weight-bold text-sm card-title text-uppercase">LPG and Accessories Summary</h6>
+                                        </div>
+                                        <div class="col-sm-4 float-right pull-right">
+                                            <a asp-action="Addsystemstationlube" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ProductCategory="LPG and Accessories" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Lpg and Accessory</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light" id="AllsystemDataTables1">
+                                        <thead>
+                                            <tr>
+                                                <th class="font-weight-light">Date</th>
+                                                <th class="font-weight-light">Attendant</th>
+                                                <th class="font-weight-light">Item</th>
+                                                <th class="font-weight-light">Units</th>
+                                                <th class="font-weight-light">Price</th>
+                                                <th class="font-weight-light">Total</th>
+                                                <th class="font-weight-light text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null && Model.ShiftLubeandLpg != null)
+                                            {
+                                                foreach (var data in Model.ShiftLubeandLpg.Where(x => x.CategoryName == "LPG and Accessories"))
+                                                {
+                                                    <tr>
+                                                        <td>@data.Datecreated</td>
+                                                        <td>@data.AttendantName</td>
+                                                        <td>@data.ProductVariationName</td>
+                                                        <td>@data.ProductUnits</td>
+                                                        <td>@data.ProductPrice.ToString("#,##0.00")</td>
+                                                        <td>@data.ProductTotal.ToString("#,##0.00")</td>
+                                                        <td class="text-right">
+                                                            <a asp-action="Addsystemstationlube" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ShiftLubeLpgId="@data.ShiftLubeLpgId" asp-route-ProductCategory="LPG and Accessories" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="StationCarwashServices" role="tabpanel" aria-labelledby="tab3-tab">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <h6 class="font-weight-bold text-sm card-title text-uppercase">CarWash Summary</h6>
+                                        </div>
+                                        <div class="col-sm-4 float-right pull-right">
+                                            <a asp-action="Addsystemstationlube" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ProductCategory="Carwash" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Car wash</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light" id="AllsystemDataTables2">
+                                        <thead>
+                                            <tr>
+                                                <th class="font-weight-light">Date</th>
+                                                <th class="font-weight-light">Attendant</th>
+                                                <th class="font-weight-light">Item</th>
+                                                <th class="font-weight-light">Units</th>
+                                                <th class="font-weight-light">Price</th>
+                                                <th class="font-weight-light">Total</th>
+                                                <th class="font-weight-light text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null && Model.ShiftLubeandLpg != null)
+                                            {
+                                                foreach (var data in Model.ShiftLubeandLpg.Where(x => x.CategoryName == "Carwash"))
+                                                {
+                                                    <tr>
+                                                        <td>@data.Datecreated</td>
+                                                        <td>@data.AttendantName</td>
+                                                        <td>@data.ProductVariationName</td>
+                                                        <td>@data.ProductUnits</td>
+                                                        <td>@data.ProductPrice.ToString("#,##0.00")</td>
+                                                        <td>@data.ProductTotal.ToString("#,##0.00")</td>
+                                                        <td class="text-right">
+                                                            <a asp-action="Addsystemstationlube" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ShiftLubeLpgId="@data.ShiftLubeLpgId" asp-route-ProductCategory="Carwash"  asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="StationTyreCenters" role="tabpanel" aria-labelledby="tab4-tab">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <h6 class="font-weight-bold text-sm card-title text-uppercase">Tyre Center Summary</h6>
+                                        </div>
+                                        <div class="col-sm-4 float-right pull-right">
+                                            <a asp-action="Addsystemstationlube" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ProductCategory="Spare Parts"  asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Spare Part</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light" id="AllsystemDataTables3">
+                                        <thead>
+                                            <tr>
+                                                <th class="font-weight-light">Date</th>
+                                                <th class="font-weight-light">Attendant</th>
+                                                <th class="font-weight-light">Item</th>
+                                                <th class="font-weight-light">Units</th>
+                                                <th class="font-weight-light">Price</th>
+                                                <th class="font-weight-light">Total</th>
+                                                <th class="font-weight-light text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null && Model.ShiftLubeandLpg != null)
+                                            {
+                                                foreach (var data in Model.ShiftLubeandLpg.Where(x => x.CategoryName == "Spare Parts"))
+                                                {
+                                                    <tr>
+                                                        <td>@data.Datecreated</td>
+                                                        <td>@data.AttendantName</td>
+                                                        <td>@data.ProductVariationName</td>
+                                                        <td>@data.ProductUnits</td>
+                                                        <td>@data.ProductPrice.ToString("#,##0.00")</td>
+                                                        <td>@data.ProductTotal.ToString("#,##0.00")</td>
+                                                        <td class="text-right">
+                                                            <a asp-action="Addsystemstationlube" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ShiftLubeLpgId="@data.ShiftLubeLpgId"  asp-route-ProductCategory="Spare Parts" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="StationServiceBay" role="tabpanel" aria-labelledby="tab5-tab">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <h6 class="font-weight-bold text-sm card-title text-uppercase">Service Bay Summary</h6>
+                                        </div>
+                                        <div class="col-sm-4 float-right pull-right">
+                                            <a asp-action="Addsystemstationlube" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftDataId="@Model.ShiftDataId" asp-route-AttendantId="@Model.AttendantId"  asp-route-ProductCategory="Services" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Service</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light" id="AllsystemDataTables4">
+                                        <thead>
+                                            <tr>
+                                                <th class="font-weight-light">Date</th>
+                                                <th class="font-weight-light">Attendant</th>
+                                                <th class="font-weight-light">Item</th>
+                                                <th class="font-weight-light">Units</th>
+                                                <th class="font-weight-light">Price</th>
+                                                <th class="font-weight-light">Total</th>
+                                                <th class="font-weight-light text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null && Model.ShiftLubeandLpg != null)
+                                            {
+                                                foreach (var data in Model.ShiftLubeandLpg.Where(x => x.CategoryName == "Services"))
+                                                {
+                                                    <tr>
+                                                        <td>@data.Datecreated</td>
+                                                        <td>@data.AttendantName</td>
+                                                        <td>@data.ProductVariationName</td>
+                                                        <td>@data.ProductUnits</td>
+                                                        <td>@data.ProductPrice.ToString("#,##0.00")</td>
+                                                        <td>@data.ProductTotal.ToString("#,##0.00")</td>
+                                                        <td class="text-right">
+                                                            <a asp-action="Addsystemstationlube" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftDataId="@Model.ShiftDataId" asp-route-AttendantId="@Model.AttendantId" asp-route-ShiftLubeLpgId="@data.ShiftLubeLpgId"  asp-route-ProductCategory="Services" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="StationCreditSales" role="tabpanel" aria-labelledby="tab6-tab">
+                     <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h6 class="font-weight-bold text-sm card-title text-uppercase">Credit Sale Summary Details</h6>
+                                </div>
+                                <div class="col-sm-4 float-right pull-right">
+                                            <a asp-action="Addsystemcreditinvoicesale" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Credit Invoice</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light" id="AllsystemDataTables6">
+                                <thead>
+                                    <tr>
+                                        <th class="font-weight-light">Date</th>
+                                        <th class="font-weight-light">Attendant</th>
+                                        <th class="font-weight-light">Customer</th>
+                                        <th class="font-weight-light">Equipment</th>
+                                        <th class="font-weight-light">Product</th>
+                                        <th class="font-weight-light">Units</th>
+                                        <th class="font-weight-light">Price</th>
+                                        <th class="font-weight-light">Discount</th>
+                                        <th class="font-weight-light">Total</th>
+                                        <th class="font-weight-light text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                            @if (Model != null && Model.ShiftCreditInvoices != null)
+                                    {
+                                        foreach (var data in Model.ShiftCreditInvoices)
+                                        {
+                                            <tr>
+                                                <td>@data.Datecreated</td>
+                                                <td>@data.AttendantName</td>
+                                                <td>@data.Customername</td>
+                                                <td>@data.EquipmentRegNo</td>
+                                                <td>@data.ProductVariationName</td>
+                                                <td>@data.ProductUnits.ToString("#,##0.00")</td>
+                                                <td>@data.ProductPrice.ToString("#,##0.00")</td>
+                                                <td>@data.ProductDiscount.ToString("#,##0.00")</td>
+                                                <td>@data.ProductTotal.ToString("#,##0.00")</td>
+                                                <td class="text-right">
+                                                    <a asp-action="Addsystemcreditinvoicesale" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ShiftCreditInvoiceId="@data.ShiftCreditInvoiceId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+
+
+                <div class="tab-pane fade" id="StationCashCollections" role="tabpanel" aria-labelledby="tab6-tab">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h6 class="font-weight-bold text-sm card-title text-uppercase">Cash Collection Summary</h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <ul class="nav nav-tabs card-header-tabs nav-fill" id="myTab" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active btn-block" id="tab1-tab" data-toggle="tab" data-target="#StationShiftMpesa" type="button" role="tab" aria-controls="StationShiftMpesa" aria-selected="true">Mpesa</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link btn-block" id="tab2-tab" data-toggle="tab" data-target="#StationShiftFuelCard" type="button" role="tab" aria-controls="StationShiftFuelCard" aria-selected="false">Fuel Card</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link btn-block" id="tab3-tab" data-toggle="tab" data-target="#StationShiftVisaMasterCard" type="button" role="tab" aria-controls="StationShiftVisaMasterCard" aria-selected="false">Visa/Master Card</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link btn-block" id="tab4-tab" data-toggle="tab" data-target="#StationShiftOthers" type="button" role="tab" aria-controls="StationShiftOthers" aria-selected="false">Others</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="StationShiftMpesa" role="tabpanel" aria-labelledby="tab1-tab">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <div class="row">
+                                                            <div class="col-sm-8">
+                                                                <h6 class="font-weight-bold text-sm card-title text-uppercase">Mpesa Cash Collection Summary</h6>
+                                                            </div>
+                                                            <div class="col-sm-4 float-right pull-right">
+                                                                <a asp-action="Addsystemstationvoucher" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-CashCollection="Mpesa" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Mpesa Collection</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body table-responsive">
+                                                        <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light" id="AllsystemDataTables8">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="font-weight-light">Date</th>
+                                                                    <th class="font-weight-light">Attendant</th>
+                                                                    <th class="font-weight-light">Item</th>
+                                                                    <th class="font-weight-light">Type</th>
+                                                                    <th class="font-weight-light">Mode</th>
+                                                                    <th class="font-weight-light">Action</th>
+                                                                    <th class="font-weight-light">Credit</th>
+                                                                    <th class="font-weight-light">Debit</th>
+                                                                    <th class="font-weight-light text-right">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @if (Model != null && Model.ShiftVouchers != null)
+                                                                {
+                                                                    foreach (var data in Model.ShiftVouchers.Where(x => x.PaymentMode == "MPesa"))
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@data.Datecreated</td>
+                                                                            <td>@data.AttendantName</td>
+                                                                            <td>@data.VoucherName</td>
+                                                                            <td>@data.VoucherType</td>
+                                                                            <td>@data.PaymentMode</td>
+                                                                            <td>@data.CreditDebit</td>
+                                                                            <td>@data.CreditAmount.ToString("#,##0.00")</td>
+                                                                            <td>@data.DebitAmount.ToString("#,##0.00")</td>
+                                                                            <td class="text-right">
+                                                                                <a asp-action="Addsystemstationvoucher" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ShiftVoucherId="@data.ShiftVoucherId" asp-route-CashCollection="Mpesa" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="StationShiftFuelCard" role="tabpanel" aria-labelledby="tab2-tab">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <div class="row">
+                                                            <div class="col-sm-8">
+                                                                <h6 class="font-weight-bold text-sm card-title text-uppercase">Fuel Card Cash Collection Summary</h6>
+                                                            </div>
+                                                            <div class="col-sm-4 float-right pull-right">
+                                                                <a asp-action="Addsystemstationvoucher" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-CashCollection="FuelCard" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Fuel Card Collection</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body table-responsive">
+                                                        <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light" id="AllsystemDataTables9">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="font-weight-light">Date</th>
+                                                                    <th class="font-weight-light">Attendant</th>
+                                                                    <th class="font-weight-light">Item</th>
+                                                                    <th class="font-weight-light">Type</th>
+                                                                    <th class="font-weight-light">Mode</th>
+                                                                    <th class="font-weight-light">Action</th>
+                                                                    <th class="font-weight-light">Credit</th>
+                                                                    <th class="font-weight-light">Debit</th>
+                                                                    <th class="font-weight-light text-right">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @if (Model != null && Model.ShiftVouchers != null)
+                                                                {
+                                                                    foreach (var data in Model.ShiftVouchers.Where(x => x.PaymentMode == "FuelCard"))
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@data.Datecreated</td>
+                                                                            <td>@data.AttendantName</td>
+                                                                            <td>@data.VoucherName</td>
+                                                                            <td>@data.VoucherType</td>
+                                                                            <td>@data.PaymentMode</td>
+                                                                            <td>@data.CreditDebit</td>
+                                                                            <td>@data.CreditAmount.ToString("#,##0.00")</td>
+                                                                            <td>@data.DebitAmount.ToString("#,##0.00")</td>
+                                                                            <td class="text-right">
+                                                                                <a asp-action="Addsystemstationvoucher" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ShiftVoucherId="@data.ShiftVoucherId" asp-route-CashCollection="FuelCard" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="StationShiftVisaMasterCard" role="tabpanel" aria-labelledby="tab3-tab">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <div class="row">
+                                                            <div class="col-sm-8">
+                                                                <h6 class="font-weight-bold text-sm card-title text-uppercase">Visa/Master Card Cash Collection Summary</h6>
+                                                            </div>
+                                                            <div class="col-sm-4 float-right pull-right">
+                                                                <a asp-action="Addsystemstationvoucher" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-CashCollection="Visa/Master" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Visa/Master Card Collection</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body table-responsive">
+                                                        <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light" id="AllsystemDataTables10">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="font-weight-light">Date</th>
+                                                                    <th class="font-weight-light">Attendant</th>
+                                                                    <th class="font-weight-light">Item</th>
+                                                                    <th class="font-weight-light">Type</th>
+                                                                    <th class="font-weight-light">Mode</th>
+                                                                    <th class="font-weight-light">Action</th>
+                                                                    <th class="font-weight-light">Credit</th>
+                                                                    <th class="font-weight-light">Debit</th>
+                                                                    <th class="font-weight-light text-right">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @if (Model != null && Model.ShiftVouchers != null)
+                                                                {
+                                                                    foreach (var data in Model.ShiftVouchers.Where(x => x.PaymentMode == "Visa/Master"))
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@data.Datecreated</td>
+                                                                            <td>@data.AttendantName</td>
+                                                                            <td>@data.VoucherName</td>
+                                                                            <td>@data.VoucherType</td>
+                                                                            <td>@data.PaymentMode</td>
+                                                                            <td>@data.CreditDebit</td>
+                                                                            <td>@data.CreditAmount.ToString("#,##0.00")</td>
+                                                                            <td>@data.DebitAmount.ToString("#,##0.00")</td>
+                                                                            <td class="text-right">
+                                                                                <a asp-action="Addsystemstationvoucher" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ShiftVoucherId="@data.ShiftVoucherId" asp-route-CashCollection="Visa/Master" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="StationShiftOthers" role="tabpanel" aria-labelledby="tab4-tab">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <div class="row">
+                                                            <div class="col-sm-8">
+                                                                <h6 class="font-weight-bold text-sm card-title text-uppercase">Other Cash Collection Summary</h6>
+                                                            </div>
+                                                            <div class="col-sm-4 float-right pull-right">
+                                                                <a asp-action="Addsystemstationvoucher" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-CashCollection="Others" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Other Cash Collection</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body table-responsive">
+                                                        <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap font-weight-light" id="AllsystemDataTables11">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="font-weight-light">Date</th>
+                                                                    <th class="font-weight-light">Attendant</th>
+                                                                    <th class="font-weight-light">Item</th>
+                                                                    <th class="font-weight-light">Type</th>
+                                                                    <th class="font-weight-light">Mode</th>
+                                                                    <th class="font-weight-light">Action</th>
+                                                                    <th class="font-weight-light">Credit</th>
+                                                                    <th class="font-weight-light">Debit</th>
+                                                                    <th class="font-weight-light text-right">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @if (Model != null && Model.ShiftVouchers != null)
+                                                                {
+                                                                    foreach (var data in Model.ShiftVouchers.Where(x => x.PaymentMode == "Others"))
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@data.Datecreated</td>
+                                                                            <td>@data.AttendantName</td>
+                                                                            <td>@data.VoucherName</td>
+                                                                            <td>@data.VoucherType</td>
+                                                                            <td>@data.PaymentMode</td>
+                                                                            <td>@data.CreditDebit</td>
+                                                                            <td>@data.CreditAmount.ToString("#,##0.00")</td>
+                                                                            <td>@data.DebitAmount.ToString("#,##0.00")</td>
+                                                                            <td class="text-right">
+                                                                                <a asp-action="Addsystemstationvoucher" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-ShiftId="@Model.ShiftId" asp-route-AttendantId="@Model.AttendantId" asp-route-ShiftVoucherId="@data.ShiftVoucherId" asp-route-CashCollection="Others" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div class="card-footer bg-white">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>LPG AND ACCESSORIES</th>
+                                                        <th>LUBRICANTS</th>
+                                                        <th>CARWASH</th>
+                                                        <th>TYRE CENTER</th>
+                                                        <th>SERVICE BAY</th>
+                                                        <th class="text-right">SUM OF AMOUNT</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model !=null && Model.ShiftLubeandLpg!=null)
+                                                    {
+                                                        <tr>
+                                                            <td>@(Model.ShiftLubeandLpg.Where(x => x.CategoryName == "Lubricants").Sum(x => x.ProductTotal).ToString("#,##0.00") ?? "0.00")</td>
+                                                            <td>@(Model.ShiftLubeandLpg.Where(x => x.CategoryName == "LPG and Accessories").Sum(x => x.ProductTotal).ToString("#,##0.00") ?? "0.00")</td>
+                                                            <td>@(Model.ShiftLubeandLpg.Where(x => x.CategoryName == "Carwash").Sum(x => x.ProductTotal).ToString("#,##0.00") ?? "0.00")</td>
+                                                            <td>@(Model.ShiftLubeandLpg.Where(x => x.CategoryName == "Spare Parts").Sum(x => x.ProductTotal).ToString("#,##0.00") ?? "0.00")</td>
+                                                            <td>@(Model.ShiftLubeandLpg.Where(x => x.CategoryName == "Services").Sum(x => x.ProductTotal).ToString("#,##0.00") ?? "0.00")</td>
+                                                            <td class="text-right">@((Model.ShiftLubeandLpg.Sum(x => x.ProductTotal)).ToString("#,##0.00"))</td>
+                                                        </tr>
+                                                        <tr rowspan="4">
+                                                            <td colspan="4"></td>
+                                                            <td class="font-weight-bold">MPESA</td>
+                                                            <td class="text-right">@Model.ShiftVouchers.Where(x => x.PaymentMode.ToLower() == "mpesa").Sum(x => x.CreditAmount).ToString("#,##0.00")</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4"></td>
+                                                            <td class="font-weight-bold">FUEL CARD</td>
+                                                            <td class="text-right">@Model.ShiftVouchers.Where(x => x.PaymentMode.ToLower() == "fuelcard").Sum(x => x.CreditAmount).ToString("#,##0.00")</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4"></td>
+                                                            <td class="font-weight-bold">VISA/MASTER CARD</td>
+                                                            <td class="text-right">@Model.ShiftVouchers.Where(x => x.PaymentMode.ToLower() == "visa/master").Sum(x => x.CreditAmount).ToString("#,##0.00")</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4"></td>
+                                                            <td class="font-weight-bold">OTHERS</td>
+                                                            <td class="text-right">@Model.ShiftVouchers.Where(x => x.PaymentMode.ToLower() == "others").Sum(x => x.CreditAmount).ToString("#,##0.00")</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4"></td>
+                                                            <td class="font-weight-bold">EXPECTED CASH</td>
+                                                            <td class="text-right">@Model.TotalAmount.ToString("#,##0.00")</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4"></td>
+                                                            <td class="font-weight-bold">BALANCE</td>
+                                                            <td class="text-right">@((Model.ShiftVouchers.Sum(x => x.CreditAmount) - Model.TotalAmount).ToString("#,##0.00"))</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4"></td>
+                                                            <td class="font-weight-bold">GAIN/LOSS</td>
+                                                            <td class="text-right">
+                                                                @{
+                                                                    if ((Model.ShiftVouchers.Sum(x => x.CreditAmount) - Model.TotalAmount) < 0)
+                                                                    {
+                                                                        <span class="badge badge-warning text-white">Loss</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span class="badge badge-success text-white">Gain</span>
+                                                                    }
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        function Getdryproductdetail(productVariationId) {
+            var customerId = $("#SearchCustomerId").val();
+            $('#progressIndicator').show();
+            if (productVariationId !== 0 || productVariationId !== "") {
+                $.get("/StationManagement/GetsystemdryproductpricebyId?ProductId=" + productVariationId + "&CustomerId=" + customerId, null, function (data) {
+                    $("#ItemPriceId").val(data.ProductPrice);
+                    $("#ItemDiscountId").val(data.DiscountValue);
+                    $("#DryProductPriceQuantity").show();
+                    $('#progressIndicator').hide();
+                });
+            }
+            $("#DryProductPriceQuantity").hide();
+            $('#progressIndicator').hide();
+        }
+
+        function calculateTotalAmount() {
+            var price = parseFloat(document.getElementById("ItemPriceId").value);
+            var quantity = parseFloat(document.getElementById("ItemQuantityId").value);
+
+            if (!isNaN(price) && !isNaN(quantity)) {
+                var totalAmount = price * quantity;
+                document.getElementById("ItemtotaAmountId").value = totalAmount.toFixed(2);
+            }
+        }
+        function hideordisplayvouchernameandchangecolumn() {
+            var selectedOption = $('#VoucherTypeId').val();
+            if (selectedOption === 'Contra') {
+                $('#voucherNameColumn').hide();
+                $('#voucherAmountColumn').removeClass('col-sm-6').addClass('col-sm-12');
+            } else {
+                $('#voucherNameColumn').show();
+                $('#voucherAmountColumn').removeClass('col-sm-12').addClass('col-sm-6');
+            }
+        };
+        function Getsystemcustomerdetaildata(customerId) {
+            var onj = "<option value=''>Select Equipment</option>";
+            if (customerId == "") { $('#CustomerEquipmentId').html(onj); return; }
+            $.get("/CustomerManagement/Getsystemcustomerequipmentdata/" + customerId, null, function (data) {
+                $.each(data, function (a, x) { onj = onj + "<option value='" + x.Value + "'>" + x.Text + "</option>"; })
+                $('#CustomerEquipmentId').html(onj);
+                $("#SearchCustomerId").val(customerId)
+                $("#CustomerEquipmentRowId").show();
+            });
+        }
+    </script>
+}
+

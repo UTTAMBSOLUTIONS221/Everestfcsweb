@@ -1,0 +1,75 @@
+﻿@model Everestfcsweb.Entities.PriceListPriceDataModel
+@{
+    var Systemstations = ViewData["Systemstationslists"] as List<SelectListItem>;
+   // var rolePermissions = Model.Permissions; 
+  // bool isChecked = false;
+    var Systemproducts = ViewData["SystemProductslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Price List Prices</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.PriceListId" id="SystemPriceListId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Product Name</label>
+                <select class="form-control form-control-sm font-weight-light" id="stationproductId" asp-for="@Model.ProductvariationId" asp-items="@Systemproducts">
+                    <option value="0">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Price</label>
+                <input class="form-control form-control-sm" asp-for="@Model.ProductPrice" type="number" required id="SystemPriceamountnameId" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="font-weight-light">Vat</label>
+                <input class="form-control form-control-sm" asp-for="@Model.ProductVat" type="number" required id="SystemVatvalueId" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="font-weight-light">Stations</label>
+                <select class="form-control form-control-sm font-weight-light select2" multiple="multiple" id="systemstationId" asp-for="@Model.StationId" asp-items="@Systemstations">
+                </select>
+            </div>
+        </div>
+    </div>
+
+    @* <div class="row">
+        @for (int i = 0; i < Systemstations.Count; i++)
+        {
+            if (rolePermissions != null)
+            {
+                isChecked = rolePermissions.Any(p => p.stat == long.Parse(Systemstations[i].Value));
+            }
+            if (i > 0 && i % 4 == 0)
+            {
+                @:</div><div class="row">
+            }
+            <div class="col-sm-3">
+                <label class="font-weight-normal">
+                    <input type="checkbox" class="permission-checkbox" id="systemstationId" value="@Systemstations[i].Value" @(isChecked ? "checked" : "") />
+                    <span class="font-weight-normal text-sm">@Systemstations[i].Text</span>
+                </label>
+            </div>
+        }
+    </div> *@
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savesystempricelistpricedetaildata();">Save</button>
+</div>

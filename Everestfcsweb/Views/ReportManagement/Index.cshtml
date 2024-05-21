@@ -1,0 +1,139 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-sm w-100">
+                    <thead>
+                        <tr>
+                            <th class="text-muted">GENERAL REPORTS</th>
+                            <th class="text-muted">POSTPAID REPORTS</th>
+                            <th class="text-muted">PREPAID REPORTS</th>
+                            <th class="text-muted">LOYALTY REPORTS</th>
+                            <th class="text-muted">SHIFT REPORTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a asp-action="SalesTransactions" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_SALESTRANSACTION" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Sales Transactions</a>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a asp-action="PostpaidStatement" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_POSTPAIDSTATEMENT" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Postpaid Statement</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="CustomerPayments" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_CUSTOMERPAYMENT" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Customer Payments</a>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a asp-action="PrepaidStatement" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_PREPAIDSTATEMENT" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Prepaid Statement</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="CustomerTopups" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_CUSTOMERTOPUPS" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Customer Topups</a>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a asp-action="AwardStatement" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_AWARDSTATEMENT" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Award Statement</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="CustomerAwards" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_CUSTOMERAWARDS" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Customer Awards</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="CustomerRedeems" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_CUSTOMERREDEEMS" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Customer Redeem</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="MonthlyCumulative" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_MONTHLYCUMULATIVE" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Monthly Cumulative</a>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a asp-action="ShiftPumpReading" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_SHIFTPUMPREADING" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pump Reading</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="ShiftTankReading" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_SHIFTTANKREADING" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Tank Reading</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="ShiftlubepgReading" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_SHIFTLUBEREADING" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Others Product</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="ShiftExpensesReading" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_SHIFTEXPENSE"  class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Shift Expenses</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="ShiftCreditSaleReading" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_SHIFTCREDITSALE" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Shift Credit Sales</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="ShiftCashDropReading" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_SHIFTCASHCOLLECTIONS" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Shift Cash Collections</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="ShiftPurchasesReading" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_SHIFTPURCHASES" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Shift Purchases</a>
+                                    </li>
+                                   @*  <li>
+                                        <a asp-action="StationShiftReading" asp-controller="ReportManagement" asp-area="" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Station Shifts</a>
+                                    </li> *@
+                                    <li>
+                                        <a asp-action="ShiftSummaryReading" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_SHIFTSUMMARY" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Shift Summary</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="ShiftCustomerStatementReading" asp-controller="ReportManagement" asp-area="" id="CAN_VIEW_SHIFTCUSTOMERSTATEMENT" class="text-muted text-uppercase text-normal text-sm" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Customer Statement</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        function getStationStaffs(stationid) {
+            $('#Stationstaffrow').show();
+            var onj = "<option value=''>Select Staff</option>";
+            if (stationid == "" || stationid == 0) { $('#StationUserid').html(onj); return; }
+            $.get("/ReportManagement/GetSystemDropDownDataById/" + stationid, null, function (data) {
+                $.each(data, function (a, x) { onj = onj + "<option value='" + x.Value + "'>" + x.Text + "</option>"; })
+                $('#StationUserid').html(onj);
+            });
+        }
+
+        function getCustomerAgreements(customerid) {
+            $('#CustomerAgreementrow').show();
+            var onj = "<option value=''>Select Agreement</option>";
+            if (customerid == "" || customerid == 0) { $('#CustomerAgreementid').html(onj); return; }
+            $.get("/ReportManagement/GetSystemDropDownAgreementDataById/" + customerid, null, function (data) {
+                $.each(data, function (a, x) { onj = onj + "<option value='" + x.Value + "'>" + x.Text + "</option>"; })
+                $('#CustomerAgreementid').html(onj);
+            });
+        }
+
+        function getAgreementAccounts(agreementid) {
+            $('#AgreementAccontrow').show();
+            var onj = "<option value=''>Select Account</option>";
+            if (agreementid == "" || agreementid == 0) { $('#AgreementAccountid').html(onj); return; }
+            $.get("/ReportManagement/GetSystemDropDownAgreementAccountDataById/" + agreementid, null, function (data) {
+                $.each(data, function (a, x) { onj = onj + "<option value='" + x.Value + "'>" + x.Text + "</option>"; })
+                $('#AgreementAccountid').html(onj);
+            });
+        }
+    </script>
+}

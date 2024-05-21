@@ -1,0 +1,73 @@
+﻿@model Everestfcsweb.Entities.AgreementAccountOfflineSale
+@{
+    var SystemStationsList = ViewData["Systemstationslists"] as List<SelectListItem>;
+}
+
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Offline Sale</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body pb-0">
+    <div class="row p-0" hidden>
+        <div class="col-sm-12">
+            <input asp-for="@Model.CustomerId" id="CustomerId" hidden />
+            <input asp-for="@Model.AccountId" id="AccountId" hidden />
+        </div>
+    </div>
+    <div class="card pt-0 pb-0">
+        <div class="row p-1">
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="form-group form-inline col-sm-12">
+                        <label class="font-weight-light col-sm-2">Outlet: </label>
+                        <select class="form-control form-control-sm font-weight-light col-sm-10" id="AgreementsaleStationId" asp-items="@SystemStationsList" onchange="LoadStationProductsandStaff()">
+                            <option value="0">--Select Outlet ---</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5" id="StationStaffRowId">
+                <div class="row">
+                    <div class="form-group form-inline col-sm-12">
+                        <label class="font-weight-light col-sm-2">Staff: </label>
+                        <select class="form-control form-control-sm font-weight-light col-sm-10" id="StationUserid">
+                            <option value="0">--Select Staff ---</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row pt-1" id="CustomerStationsCardWithNoProduct">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Select outlet to load Products</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-1" id="CustomerStationsCardWithProduct" style="display:none;">
+        <div class="col-sm-7">
+            <div class="card">
+                <div class="card-body p-1">
+                    <div class="row" id="CustomerStationsCardWithProductDataId" style="min-height:300px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card">
+                <div class="card-body p-1">
+                    <div class="row" id="CustomerStationsCardWithProductCartDataId" style="min-height:300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savecustomeragreementaccount();">Post Sale</button>
+</div>*@

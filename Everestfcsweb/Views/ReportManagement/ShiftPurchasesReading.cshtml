@@ -1,0 +1,66 @@
+﻿@{
+    var Systemstations = ViewData["Systemstationslists"] as List<SelectListItem>;
+    var Stationshifts = ViewData["Stationshiftlists"] as List<SelectListItem>;
+    var StationAttendants = ViewData["Stationattendantlists"] as List<SelectListItem>;
+}
+<form id="form_id">
+    <div class="modal-header">
+        <h5 class="text-sm modal-title" id="FuelcardsystemModalLabel">Shift Purchase Reading Report</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="font-weight-light">Start Date</label>
+                    <input class="form-control form-control-sm" type="date" required name="startdate" id="PurchasereadingstartdateId" />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="font-weight-light">End Date</label>
+                    <input class="form-control form-control-sm" type="date" required name="enddate" id="PurchasereadingenddateId" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="font-weight-light">Outlet</label>
+                    <select class="form-control form-control-sm select2" name="station" id="PurchasereadingStationId" asp-items="@Systemstations">
+                        <option value="">--Select Outlet ---</option>
+                        <option value="0">--All---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="font-weight-light">Attendant</label>
+                    <select class="form-control form-control-sm select2" name="attendant" id="PurchasereadingAttendantId" asp-items="@StationAttendants">
+                        <option value="">--Select--</option>
+                        <option value="0">--All---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="font-weight-light">Shift</label>
+                    <select class="form-control form-control-sm select2" name="shift" id="PurchasereadingStationShiftId" asp-items="@Stationshifts">
+                        <option value="">--Select Shift ---</option>
+                        <option value="0">--All---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+        <button class="btn btn-sm btn-info font-weight-bold" type="button" id="Purchasereadingreportbtn" onclick="Generatepurchasesreadingreport()">
+            <span id="buttonText">GENERATE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+        </button>
+    </div>
+</form>
+

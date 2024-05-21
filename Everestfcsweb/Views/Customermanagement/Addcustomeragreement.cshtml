@@ -1,0 +1,577 @@
+﻿@model Everestfcsweb.Entities.CustomerAgreementData
+@{
+    var SystemLoyaltyGrouping = ViewData["SystemLoyaltyGroupinglists"] as List<SelectListItem>;
+    var SystemPricelist = ViewData["SystemPricelists"] as List<SelectListItem>;
+    var SystemDiscountlist = ViewData["SystemDiscountlists"] as List<SelectListItem>;
+    var SystemConsumptionType = ViewData["SystemConsumptionTypelists"] as List<SelectListItem>;
+}
+
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">CUSTOMERS AGREEMENTS </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.CustomerId" id="CustomerId" hidden />
+            <input id="AgreementTypeId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-outline card-info mt-1 pb-0">
+                <div class="card-header p-1">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="font-weight-bold text-sm card-title p-1">Customer Credit Type</h6>
+                        </div>
+                        <div class="col-sm-9 text-sm-center">
+                            <label class="font-weight-light">
+                                Prepaid
+                                <input type="radio" name="CustomerAgreements" onclick="showsystemprepaidagreementfields()">
+                            </label> &nbsp;&nbsp;
+                            <label class="font-weight-light">
+                                Postpaid
+                                <input type="radio" name="CustomerAgreements" onclick="showsystempostpaidagreementfields()">
+                            </label>&nbsp;&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row prepaidAgreementFields" style="display:none">
+        <div class="col-sm-12">
+            <div class="card card-outline card-info mt-1 pb-0">
+                <div class="card-header p-1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h6 class="font-weight-bold text-sm card-text p-1">Prepaid Agreement</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input id="AgreementId" hidden />
+                        </div>
+                    </div>
+                    AgreementId
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Loyalty Group</label>
+                                <select class="form-control form-control-sm font-weight-light" id="LoyaltyGroupingId" asp-items="@SystemLoyaltyGrouping">
+                                    <option value="0">--Select Loyalty Group ---</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Price</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PricelistId" asp-items="@SystemPricelist">
+                                    <option value="0">--Select Price ---</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Dicount</label>
+                                <select class="form-control form-control-sm font-weight-light" id="DiscountlistId" asp-items="@SystemDiscountlist">
+                                    <option value="0">--Select Discount ---</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" hidden>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light">Agreement file</label>
+                                <input class="form-control form-control-sm" type="file" id="AgreementDocId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light">Memo</label>
+                                <textarea class="form-control form-control-sm" id="AgreementnoteId"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" hidden>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="font-weight-light"><input id="toggle-trigger AllowOverdraftId" type="checkbox" data-toggle="toggle"> Allow Overdraft</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" style="display:none">
+                            <div class="form-group">
+                                <label class="font-weight-light">Overdraw Amount </label>
+                                <input class="form-control form-control-sm" id="OverdraftAmountId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8"></div>
+                        <div class="col-sm-4 float-right">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-sm btn-danger btn-block" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="btn btn-sm btn-info font-weight-bold btn-block" type="button" onclick="savecustomerprepaidagreementdetails();">Add Prepaid Agreement</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row postpaidAgreementFields" style="display:none">
+        <div class="col-sm-12">
+            <div class="card card-outline card-danger mt-1 pb-0">
+                <div class="card-header p-1">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="font-weight-bold text-sm card-text p-1">Postpaid Agreement</h6>
+                        </div>
+                        <div class="col-sm-9 text-sm-center">
+                            <label class="font-weight-light">
+                                Credit
+                                <input type="radio" name="CustomerPostsPaidAgreements" onclick="showsystempostpaidCreditagreementfields()">
+                            </label> &nbsp;&nbsp;
+                            <label class="font-weight-light">
+                                Recurrent
+                                <input type="radio" name="CustomerPostsPaidAgreements" onclick="showsystempostpaidRecurrentagreementfields()">
+                            </label>&nbsp;&nbsp;
+                            <label class="font-weight-light">
+                                OneOff
+                                <input type="radio" name="CustomerPostsPaidAgreements" onclick="showsystempostpaidOneoffagreementfields()">
+                            </label>&nbsp;&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row postpaidcreditagreementfields" style="display:none">
+        <div class="col-sm-12">
+            <div class="card card-outline card-warning mt-1 pb-0">
+                <div class="card-header p-1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h6 class="font-weight-bold text-sm card-text p-1">Postpaid Credit Agreement</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Loyalty Group</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidcreditLoyaltyGroupingId" asp-items="@SystemLoyaltyGrouping">
+                                    <option value="0">--Select Loyalty Group ---</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Price</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidcreditPricelistId" asp-items="@SystemPricelist">
+                                    <option value="0">--Select Price ---</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Dicount</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidcreditDiscountlistId" asp-items="@SystemDiscountlist">
+                                    <option value="0">--Select Discount ---</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                       @*  <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Consumption Limit Type</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidcreditConsumptionLimitTypeId" asp-items="@SystemConsumptionType">
+                                    <option value="0">--Select Consumption Limit Type ---</option>
+                                </select>
+                            </div>
+                        </div> *@
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Consumption Limit Value</label>
+                                <input class="form-control form-control-sm" type="number" id="PostpaidcreditLimitValueId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="font-weight-light">Payment Terms</label>
+                            <div class="input-group input-group-sm">
+                                <input class="form-control" type="number" id="PostpaidcreditPaymentTermDaysId">
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-info btn-flat">Days</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Agreement Ref.</label>
+                                <input class="form-control form-control-sm" id="PostpaidcreditAgreementReferenceId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" hidden>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light">Agreement file</label>
+                                <input class="form-control form-control-sm" type="file" id="PostpaidcreditAgreementDocId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light">Memo</label>
+                                <textarea class="form-control form-control-sm" id="PostpaidcreditAgreementnoteId"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8"></div>
+                        <div class="col-sm-4 float-right">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-sm btn-danger btn-block" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="btn btn-sm btn-info font-weight-bold btn-block" type="button" onclick="savecustomerpostpaidcreditagreementdetails();">Add credit Agreement</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row postpaidrecurrentagreementfields" style="display:none">
+        <div class="col-sm-12">
+            <div class="card card-outline card-success mt-1 pb-0">
+                <div class="card-header p-1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h6 class="font-weight-bold text-sm card-text p-1">Postpaid Recurrent Agreement</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Loyalty Group</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidrecurrentLoyaltyGroupingId" asp-items="@SystemLoyaltyGrouping">
+                                    <option value="0">--Select Loyalty Group ---</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Price</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidrecurrentPricelistId" asp-items="@SystemPricelist">
+                                    <option value="0">--Select Price ---</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Dicount</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidrecurrentDiscountlistId" asp-items="@SystemDiscountlist">
+                                    <option value="0">--Select Discount ---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Billing Cycle Type </label>
+                                <select class="form-control form-control-sm font-weight-light" onchange="changethebillingcyclebasedontype(this.value)" id="PostpaidrecurrentbillincycleTypeId">
+                                    <option value="0">--Select Billing Cycle Type ---</option>
+                                    <option value="Weekly">Weekly</option>
+                                    <option value="Monthly">Monthly</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Consumption Limit Type</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidrecurrentConsumptionLimitTypeId" asp-items="@SystemConsumptionType">
+                                    <option value="0">--Select Consumption Limit Type ---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Consumption Limit Value</label>
+                                <input class="form-control form-control-sm" type="number" id="PostpaidrecurrentLimitValueId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Agreement Description.</label>
+                                <input class="form-control form-control-sm" id="PostpaidrecurrentAgreementdescriptionId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Agreement Ref.</label>
+                                <input class="form-control form-control-sm" id="PostpaidrecurrentAgreementReferenceId" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Billing Basis </label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidrecurrentbillingbasisId">
+                                    <option value="0">--Select Billing Basis ---</option>
+                                    <option value="Fixed">Fixed</option>
+                                    <option value="Consumed">Consumed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Start Date</label>
+                                <input class="form-control form-control-sm" type="datetime-local" id="PostpaidrecurrentstartdateId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Grace Period</label>
+                                <input class="form-control form-control-sm" type="number" id="PostpaidrecurrentgracePeriodId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3" id="monthlypostpaidrecurrentbillingdayId" style="display:none">
+                            <div class="form-group">
+                                <label class="font-weight-light">Billing Day</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidrecurrentbillingdayId">
+                                    <option value="0">--Select Billing Day ---</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" id="weeklypostpaidrecurrentbillingdayId" style="display:none">
+                            <div class="form-group">
+                                <label class="font-weight-light">Billing Cycle</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidrecurrentbillingcycleId">
+                                    <option value="0">--Select Billing Cycle ---</option>
+                                    <option value="1">7 Days</option>
+                                    <option value="2">14 Days</option>
+                                    <option value="3">21 Days</option>
+                                    <option value="4">28 Days</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row" hidden>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light">Agreement file</label>
+                                <input class="form-control form-control-sm" type="file" id="PostpaidrecurrentAgreementDocId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8"></div>
+                        <div class="col-sm-4 float-right">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-sm btn-danger btn-block" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-sm-8">
+                                    <button class="btn btn-sm btn-info font-weight-bold btn-block" type="button" onclick="savecustomerpostpaidrecurrentagreementdetails();">Add Recurrentagreement</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row postpaidoneoffagreementfields" style="display:none">
+        <div class="col-sm-12">
+            <div class="card card-outline card-secondary mt-1 pb-0">
+                <div class="card-header p-1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h6 class="font-weight-bold text-sm card-text p-1">Postpaid Oneoff Agreement</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Loyalty Group</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidoneoffLoyaltyGroupingId" asp-items="@SystemLoyaltyGrouping">
+                                    <option value="0">--Select Loyalty Group ---</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Price</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidoneoffPricelistId" asp-items="@SystemPricelist">
+                                    <option value="0">--Select Price ---</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Dicount</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidoneoffDiscountlistId" asp-items="@SystemDiscountlist">
+                                    <option value="0">--Select Discount ---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Billing Basis </label>
+                                <select class="form-control form-control-sm font-weight-light" onchange="changethebillingamountbasedonbillingbasis(this.value)" id="PostpaidoneoffbillingbasislistId">
+                                    <option value="0">--Select Billing Basis ---</option>
+                                    <option value="Fixed">Fixed</option>
+                                    <option value="Consumed">Consumed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Consumption Limit Type</label>
+                                <select class="form-control form-control-sm font-weight-light" id="PostpaidoneoffConsumptionLimitTypeId" asp-items="@SystemConsumptionType">
+                                    <option value="0">--Select Consumption Limit Type ---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Consumption Limit Value</label>
+                                <input class="form-control form-control-sm" type="number" id="PostpaidoneoffConsumptionLimitvalueId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Agreement Description.</label>
+                                <input class="form-control form-control-sm" id="PostpaidoneoffagreementdescriptionId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Agreement Ref.</label>
+                                <input class="form-control form-control-sm" id="PostpaidoneoffagreementreferenceId" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Start Date</label>
+                                <input class="form-control form-control-sm" type="datetime-local" id="PostpaidoneoffstartdateId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Due Date</label>
+                                <input class="form-control form-control-sm" type="datetime-local" id="PostpaidoneoffenddateId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Grace Period</label>
+                                <input class="form-control form-control-sm" type="number" id="PostpaidoneoffgraceperiodId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3" id="postpaidoneoffbillingamountallId" style="display:none">
+                            <div class="form-group">
+                                <label class="font-weight-light">Billing Amount</label>
+                                <input class="form-control form-control-sm" type="number" id="PostpaidoneoffbillingamountId" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" hidden>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light">Agreement file</label>
+                                <input class="form-control form-control-sm" type="file" id="PostpaidoneoffAgreementDocId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8"></div>
+                        <div class="col-sm-4 float-right">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-sm btn-danger btn-block" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="btn btn-sm btn-info font-weight-bold btn-block" type="button" onclick="savecustomerpostpaidoneoffagreementdetails();">Add Oneoffagreement</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,121 @@
+﻿@model Everestfcsweb.Entities.SystemStaffs
+@{
+    var Systemphonecodes = ViewData["Systemphonecodelists"] as List<SelectListItem>;
+    var SystemStaffRoles = ViewData["Systemstaffrolelists"] as List<SelectListItem>;
+    var systemConsumprionLimits = ViewData["SystemConsumptionlimitTypelists"] as List<SelectListItem>;
+    var Systemstation = ViewData["SystemStationlists"] as List<SelectListItem>;
+    var staffstations = Model.SystemStation; 
+    bool isChecked = false;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Staff Data</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row" hidden>
+         <input class="form-control form-control-sm" asp-for="@Model.Userid" id="UserId" />
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">First Name</label>
+                <input class="form-control form-control-sm" asp-for="@Model.Firstname" id="FirstnameId" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="font-weight-light">Last Name</label>
+                <input class="form-control form-control-sm" asp-for="@Model.Lastname" id="LastnameId" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+         <div class="col-sm-12">
+            <div class="form-group">
+                <label class="font-weight-light">Email</label>
+                <input class="form-control form-control-sm" type="email" asp-for="@Model.Emailaddress" id="EmailAddressId" />
+            </div>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-sm-12">
+             <div class="form-group">
+                <label class="font-weight-light">Username</label>
+                <div class="input-group  input-group-sm mb-3">
+              <input type="text" class="form-control form-control-sm" asp-for="@Model.Username" placeholder="Username" id="UsernameId"  aria-label="Username" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <input class="input-group-text" id="basic-addon2" readonly value="@("@"+""+Model.Tenantsubdomain)">
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="form-group">
+                <label class="font-weight-light">Phone Number</label>
+                <div class="input-group input-group-sm mb-3">
+                  <div class="input-group-prepend">
+                       <select class="form-control form-control-sm font-weight-light input-group-text select2" asp-for="@Model.Phoneid" id="inputGroup-sizing-sm" asp-items="@Systemphonecodes">
+                            <option value="0">Phonecode</option>
+                        </select>
+                  </div>
+                  <input type="number" class="form-control form-control-sm"  aria-label="Small" id="PhonenumberId" asp-for="@Model.Phonenumber" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="form-group">
+                <label class="font-weight-light">Role</label>
+                <select class="form-control form-control-sm font-weight-light select2" id="StaffRoleId" asp-for="@Model.Roleid" asp-items="@SystemStaffRoles">
+                    <option value="0">--Select Role ---</option>
+                </select>
+            </div>
+        </div>
+    </div>   
+   <div class="row">
+        <div class="col-sm-6" hidden>
+            <div class="form-group">
+                <label class="font-weight-light">Top up Limit Type</label>
+                <select class="form-control form-control-sm font-weight-light" id="LimittypeId" asp-for="@Model.LimitTypeId" asp-items="@systemConsumprionLimits">
+                    <option value="0">--Select Limit Type ---</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6" hidden>
+            <div class="form-group">
+                <label class="font-weight-light">Topup Value</label>
+                <input class="form-control form-control-sm" asp-for="@Model.LimitTypeValue" id="TopupLimitvalueId" />
+            </div>
+        </div>
+    </div>    
+    <h6 class="card-title">Outlets</h6>
+    <hr />
+    <br />
+    <div class="row">
+@for (int i = 0; i < Systemstation.Count; i++) 
+    {
+        if(staffstations != null)
+        {
+            isChecked = staffstations.Any(p => p.StationId == long.Parse(Systemstation[i].Value));
+        }
+        if (i > 0 && i % 4 == 0)
+        {
+            @:</div><div class="row">
+        }
+        <div class="col-sm-6">
+            <label class="font-weight-lighter">
+                <input type="checkbox" value="@Systemstation[i].Value" name="Systemstationsdata" @(isChecked ? "checked" : "") />
+                <span class="font-weight-normal ml-1">@Systemstation[i].Text</span>
+            </label>
+            </div>
+    }
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" id="saveSystemStaffBtn" onclick="savesystemstaffdetails();" ><span id="buttonText">SAVE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span></button>
+</div>

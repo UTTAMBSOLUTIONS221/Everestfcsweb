@@ -1,0 +1,156 @@
+﻿@model IEnumerable<Everestfcsweb.Models.SupplierDetailData>
+@{
+    ViewData["Title"] = "Systemsupplierslist";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-outline card-info">
+            <div class="card-header py-1">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h6 class="font-weight-bold text-sm card-title">Suppliers</h6>
+                    </div>
+                    <div class="col-sm-4">
+                        <a asp-action="Addsystemsuplier" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-SupplierId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_SUPPLIERS" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Supplier</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive table-responsive-sm">
+                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>RegisteredOn</th>
+                            <th>RegisteredBy</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.SupplierName</td>
+                                <td>@item.PhoneNumber</td>
+                                <td>@item.SupplierEmail</td>
+                                <td>@item.DateCreated</td>
+                                <td>@item.CreatedBy</td>
+                                <td class="text-right"><a asp-action="Addsystemsuplier" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-SupplierId="@item.SupplierId" asp-area="" class="btn-info btn-xs btn-outline-info text-white text-uppercase font-weight-bold" id="CAN_EDIT_SUPPLIERS" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var tableBody = $('#SuplierProductsTable tbody');
+        var noDataRows = tableBody.find('tr');
+        if (noDataRows.length === 1 && noDataRows.hasClass('odd')) {
+            // Remove the "No data available in table" row
+            tableBody.empty();
+        }
+        function addSupplierandProductPrice() {
+            if ($('#SystemTenantSupplierNameid').val() == "") {
+                Swal.fire("Product Not Created", 'Supplier name is Required', "warning");
+                return;
+            }
+            if ($('#inputGroup-sizing-sm').val() == 0 || $('#inputGroup-sizing-sm').val() == "") {
+                Swal.fire("Product Not Created", 'Phone Code name is Required', "warning");
+                return;
+            }
+            if ($('#PhonenumberId').val() == "") {
+                Swal.fire("Product Not Created", 'Phone number is Required', "warning");
+                return;
+            }
+            if ($('#SystemTenantSupplierEmailid').val() == "") {
+                Swal.fire("Product Not Created", 'Email address is Required', "warning");
+                return;
+            }
+            if ($('#SystemSupplierProductId').val() == 0 || $('#SystemSupplierProductId').val() == "") {
+                Swal.fire("Product Not Created", 'Product is Required', "warning");
+                return;
+            }
+            if ($('#SystemSupplierPriceId').val() == 0 || $('#SystemSupplierPriceId').val() == "") {
+                Swal.fire("Product Not Created", 'Product price is Required', "warning");
+                return;
+            }
+            if ($('#SystemSuppliervatId').val() == 0 || $('#SystemSuppliervatId').val() == "") {
+                Swal.fire("Product Not Created", 'Product vat is Required', "warning");
+                return;
+            }
+            var SupplierPriceId = 0;
+            var SupplierId = $('#SupplierId').val();
+            var ProductVariationId = $('#SystemSupplierProductId').val();
+            var ProductVariationName = $('#SystemSupplierProductId').find("option:selected").text();
+            var ProductPrice = $('#SystemSupplierPriceId').val();
+            var ProductVat = $('#SystemSuppliervatId').val();
+           
+            // Check if the table body contains any rows
+            var tableBody = $('#SuplierProductsTable tbody');
+            var noDataRows = tableBody.find('tr');
+            if (noDataRows.length === 1 && noDataRows.hasClass('odd')) {
+                // Remove the "No data available in table" row
+                tableBody.empty();
+            }
+            // Append row to table
+            var newRow = '<tr>' +
+                '<td hidden>' + SupplierPriceId + '</td>' +
+                '<td hidden>' + SupplierId + '</td>' +
+                '<td hidden>' + ProductVariationId + '</td>' +
+                '<td>' + ProductVariationName + '</td>' +
+                '<td class="text-right">' + ProductPrice + '</td>' +
+                '<td class="text-right">' + ProductVat + '</td>' +
+                '<td class="text-right">' +
+                '<button class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1" onclick="editSupplierProduct(this.parentNode.parentNode)">Edit</button>' +
+                '<button class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1" onclick="updateSupplierProduct(this.parentNode.parentNode)">Update</button>' +
+                '</td>' +
+                '</tr>';
+
+            $('#SuplierProductsTable tbody').append(newRow);
+            // Clear the form after adding a new row
+            clearSupplierProductForm();
+        }
+
+        // Function to populate input fields with values from the selected row for editing
+        function editSupplierProduct(row) {
+            var cells = $(row).children();
+            $('#SupplierPriceId').val($(cells[0]).text());
+            $('#SupplierId').val($(cells[1]).text());
+            $('#SystemSupplierProductId').val($(cells[2]).text());
+            $('#SystemSupplierPriceId').val($(cells[4]).text());
+            $('#SystemSuppliervatId').val($(cells[5]).text());
+        }
+        // Function to update the selected row with edited values
+        function updateSupplierProduct(row) {
+            if ($('#SystemSupplierProductId').val() == 0 || $('#SystemSupplierProductId').val() == "") {
+                Swal.fire("Product Not Created", 'Product is Required', "warning");
+                return;
+            }
+            if ($('#SystemSupplierPriceId').val() == 0 || $('#SystemSupplierPriceId').val() == "") {
+                Swal.fire("Product Not Created", 'Product price is Required', "warning");
+                return;
+            }
+            var cells = $(row).children(); // Get the cells of the selected row
+
+            // Update the cells with edited values from input fields
+            $(cells[0]).text($('#SupplierPriceId').val());
+            $(cells[1]).text($('#SupplierId').val());
+            $(cells[2]).text($('#SystemSupplierProductId').val());
+            $(cells[3]).text($('#SystemSupplierProductId').find("option:selected").text());
+            $(cells[4]).text($('#SystemSupplierPriceId').val());
+            $(cells[5]).text($('#SystemSuppliervatId').val());
+            clearSupplierProductForm();
+        }
+        // Function to clear the form after adding a new row or updating
+        function clearSupplierProductForm() {
+            $('#SystemSupplierProductId').val('');
+            $('#SystemSupplierPriceId').val('');
+            $('#SystemSuppliervatId').val('');
+        }
+    </script>
+}

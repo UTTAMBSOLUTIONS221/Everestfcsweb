@@ -1,0 +1,149 @@
+﻿@*@model Everestfcsweb.Entities.CustomerAccountPolicy
+@{
+    var Systemstations = ViewData["Systemstationslists"] as List<SelectListItem>;
+    var SystemproductVariations = ViewData["SystemProductslists"] as List<SelectListItem>;
+}
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Card Policy</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body pb-0">
+    <div class="row">
+        <div class="col-sm-12">
+            <input asp-for="@Model.AccountId" class="form-control form-control-sm" id="CustomerAccountId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="card card-outline card-success pt-0">
+                <div class="card-header pt-0 pb-0">
+                    <h6 class="card-title">What Can Card Consume?</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Product</label>
+                                <select class="form-control form-control-sm font-weight-light" id="CustomerAccountProductId" asp-items="@SystemproductVariations" required>
+                                    <option value="0">--Select Product---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Limit Value</label>
+                                <input class="form-control form-control-sm" type="number" id="CustomerAccountProductLimitId" required />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="font-weight-light">Limit Period</label>
+                                <select class="form-control form-control-sm font-weight-light" id="CustomerAccountProductLimitPeriodId" required>
+                                    <option value="0">--Select Period---</option>
+                                    <option value="Daily">Daily</option>
+                                    <option value="Weekly">Weekly</option>
+                                    <option value="Monthly">Monthly</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card card-outline card-secondary">
+                <div class="card-header pt-0 pb-0">
+                    <h6 class="card-title">Where Can Card Consume?</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light">Station</label>
+                                <select class="select2-multiple form-control form-control-sm font-weight-light" multiple="multiple" id="CustomerAccountStationId" name="stations[]" asp-items="@Systemstations">
+                                    <option value="0">--Select Station---</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="card card-outline card-maroon pt-0">
+                <div class="card-header pt-0 pb-0">
+                    <h6 class="card-title">When Can Card Consume?</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="font-weight-light">Days</label>
+                                <select class="select2-multiple form-control form-control-sm font-weight-light" multiple="multiple" name="weekdays[]" id="CustomerAccountWeekdaysId">
+                                    <option value="0">--Select Days---</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                    <option value="Sunday">Sunday</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">Start Time</label>
+                                <input class="form-control form-control-sm" type="time" id="CustomerAccountWeekdaysStartTimeId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="font-weight-light">End Time</label>
+                                <input class="form-control form-control-sm" type="time" id="CustomerAccountWeekdaysEndTimeId" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card card-outline card-cyan">
+                <div class="card-header pt-0 pb-0">
+                    <h6 class="card-title">How Can Card Consume?</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="font-weight-light">Frequency</label>
+                                <input class="form-control form-control-sm" type="number" id="CustomerAccountFrequencyId" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="font-weight-light">Frequency Period</label>
+                                <select class="form-control form-control-sm font-weight-light" id="CustomerAccountFrequencyPeriodId">
+                                    <option value="0">--Select Period---</option>
+                                    <option value="Daily">Daily</option>
+                                    <option value="Weekly">Weekly</option>
+                                    <option value="Monthly">Monthly</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="SaveCustomerAccountPolicies();">Add Policy</button>
+</div>*@

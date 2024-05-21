@@ -1,0 +1,147 @@
+﻿
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">System Formula</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <input class="form-control form-control-sm" id="FormulaId" hidden />
+            <input class="form-control form-control-sm" id="FormulaRuleId" hidden />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label class="text-sm font-weight-light">Formula Name</label>
+                <input class="form-control form-control-sm" required id="FormulanameId" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="text-sm font-weight-light">Formula Value Type</label>
+                <select class="form-control form-control-sm font-weight-light" required id="FormulaAwardTypeId">
+                    <option value="0">--Select Formula Value Type--</option>
+                    <option value="Amount">Amount</option>
+                    <option value="Quantity">Quantity</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="StationShift">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h5 class="card-title text-sm font-weight-light">Formula Rule:  <i class="fa fa-asterisk fa-xs text-danger"></i></h5>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Award From Value</label>
+                                <input class="form-control form-control-sm" required id="FormularulestartvalueId" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Award To Value</label>
+                                <input class="form-control form-control-sm" required id="FormularuleendvalueId" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm nowrap text-nowrap">Is Award To Value LimitLess?</label>
+                                <input type="checkbox" class="form-control form-control-sm" id="FormularuleinfinityId" onclick="addrangetoinfinityvalueandmakeitreadonly()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm ml-3">Awarding Formula</label>
+                                <input class="form-control form-control-sm" id="FormularuleformulaId" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">For every Amount/liter Sold</label>
+                                <input class="form-control form-control-sm" id="rewardvaluetypevalueId" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-light text-sm">Earn these Points</label>
+                                <input class="form-control form-control-sm" id="loyaltypointsvalueId" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <a class="btn btn-sm btn-info btn-block" id="setformula" style="float:right;margin-top:32px;">Set Formula</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-9">
+                </div>
+                <div class="col-sm-3">
+                    <div class="row">
+                        <a class="btn btn-sm btn-info btn-block waves-effect" id="addformularules">Add Formula Rule</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <label class="font-weight-light">Formula Rule(s) Entry <span class="required-sup">*</span></label>
+            <div class="row">
+                <div class="col-sm-12 table-responsive" style="min-height:100px">
+                    <table class="table table-sm nowrap text-nowrap" style="width:100%" id="formularulestable">
+                        <thead><tr><th class="font-weight-light text-sm">Start Value</th><th class="font-weight-light">End Value</th><th class="font-weight-light">Formula</th><th></th></tr></thead>
+                        <tbody class="font-weight-light text-sm">
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    <button class="btn btn-sm btn-info font-weight-bold" type="button" onclick="savesystemawardingformuladata();">Add</button>
+</div>

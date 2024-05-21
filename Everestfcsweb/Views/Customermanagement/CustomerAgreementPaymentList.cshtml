@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Everestfcsweb.Models.CustomerAgreementPayments>
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Account Agreeement Pauments</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12 table-responsive table-responsive-sm">
+            <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                <thead>
+                    <tr>
+                        <th class="font-weight-light">Fullname</th>
+                        <th class="font-weight-light">Amount</th>
+                        <th class="font-weight-light">Memo</th>
+                        <th class="font-weight-light">Payment Date</th>
+                        <th class="font-weight-light">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="font-weight-light">@item.PaidBy</td>
+                            <td class="font-weight-light">@item.Amount.ToString("#,##0.00")</td>
+                            <td class="font-weight-light">@item.TransactionReference</td>
+                            <td class="font-weight-light">@item.DateCreated</td>
+                            <td class="font-weight-light">
+                                @if (item.Saledescription == "Payment" && !item.Isreversed)
+                                {
+                                    <a onclick="reversepaymentthis(event)" data-FinanceTransactionId="@item.FinanceTransactionId" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Reverse</a>
+                                }
+                                else
+                                {
+                                    <btn class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">N/A</btn>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
