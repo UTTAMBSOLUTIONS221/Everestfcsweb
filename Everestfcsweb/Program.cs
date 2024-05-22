@@ -2,6 +2,7 @@ using DinkToPdf;
 using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -49,16 +50,6 @@ builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>()
 
 builder.Services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
 
-builder.Services.Configure<JsonOptions>(options =>
-{
-    options.JsonSerializerOptions.MaxDepth = 256;
-    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-    options.JsonSerializerOptions.AllowTrailingCommas = true;
-    options.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
-    options.JsonSerializerOptions.DictionaryKeyPolicy = null;
-});
-
 var app = builder.Build();
 
 // Middleware to enforce HTTPS and limit request body size
@@ -66,84 +57,30 @@ app.Use(async (context, next) =>
 {
     if (!context.Request.IsHttps)
     {
-        var withHttps = $"https://{context.Request.Host}{context.Request.Path}";
+        var withHttps = $"https://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
         context.Response.Redirect(withHttps);
         return;
     }
-
-    const int maxLength = 102400; // Max length in bytes
-    using var buffer = new MemoryStream();
-    var totalBytesRead = 0;
-    var readBuffer = new byte[4096]; // 4KB read buffer
-
-    while (totalBytesRead < maxLength && context.Request.Body.CanRead)
-    {
-        var bytesRead = await context.Request.Body.ReadAsync(readBuffer.AsMemory(0, Math.Min(4096, maxLength - totalBytesRead)));
-        if (bytesRead == 0) break;
-
-        await buffer.WriteAsync(readBuffer.AsMemory(0, bytesRead));
-        totalBytesRead += bytesRead;
-    }
-
-    buffer.Seek(0, SeekOrigin.Begin);
-    context.Request.Body = buffer;
     await next();
 });
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+
+app.UseExceptionHandler("/Home/Error");
+app.UseHsts();
 
 app.MapRazorPages();
 app.MapDefaultControllerRoute();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Signinuser}/{id?}");
-
-app.UseExceptionHandler("/Home/Error");
-app.UseHsts();
+    pattern: "{controller=Home}/{action=Dashboard}/{id?}");
 
 app.Run();
-
-public class LimitedStream : Stream
-{
-    private readonly Stream _innerStream;
-    private readonly long _maxLength;
-    private long _totalBytesRead;
-
-    public LimitedStream(Stream innerStream, long maxLength)
-    {
-        _innerStream = innerStream;
-        _maxLength = maxLength;
-    }
-
-    public override bool CanRead => _innerStream.CanRead;
-    public override bool CanSeek => _innerStream.CanSeek;
-    public override bool CanWrite => _innerStream.CanWrite;
-    public override long Length => _innerStream.Length;
-    public override long Position
-    {
-        get => _innerStream.Position;
-        set => _innerStream.Position = value;
-    }
-
-    public override void Flush() => _innerStream.Flush();
-    public override long Seek(long offset, SeekOrigin origin) => _innerStream.Seek(offset, origin);
-    public override void SetLength(long value) => _innerStream.SetLength(value);
-
-    public override int Read(byte[] buffer, int offset, int count)
-    {
-        if (_totalBytesRead >= _maxLength)
-            return 0;
-
-        int bytesRead = _innerStream.Read(buffer, offset, (int)Math.Min(count, _maxLength - _totalBytesRead));
-        _totalBytesRead += bytesRead;
-        return bytesRead;
-    }
-
-    public override void Write(byte[] buffer, int offset, int count) => _innerStream.Write(buffer, offset, count);
-}
