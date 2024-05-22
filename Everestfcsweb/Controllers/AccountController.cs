@@ -31,7 +31,7 @@ namespace Everestfcsweb.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Signinuser(Userloginmodel model, string returnUrl = null)
+        public async Task<IActionResult> Signinuser(Userloginmodel model, string returnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
             var resp = await bl.Validateuser(model);
@@ -157,7 +157,11 @@ namespace Everestfcsweb.Controllers
         }
         private IActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (string.IsNullOrEmpty(returnUrl) || returnUrl == "/")
+            {
+                return RedirectToAction(nameof(HomeController.Dashboard), "Home", new { area = "" });
+            }
+            else if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }

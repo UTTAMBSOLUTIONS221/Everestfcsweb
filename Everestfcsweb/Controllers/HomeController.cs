@@ -19,7 +19,7 @@ namespace Everestfcsweb.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Dashboard()
+        public IActionResult Dashboard()
         {
             return View();
         } 

@@ -44,16 +44,16 @@ builder.Services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools
 var app = builder.Build();
 
 // Middleware to enforce HTTPS and limit request body size
-app.Use(async (context, next) =>
-{
-    if (!context.Request.IsHttps)
-    {
-        var withHttps = $"https://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
-        context.Response.Redirect(withHttps);
-        return;
-    }
-    await next();
-});
+//app.Use(async (context, next) =>
+//{
+//    if (!context.Request.IsHttps)
+//    {
+//        var withHttps = $"https://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
+//        context.Response.Redirect(withHttps);
+//        return;
+//    }
+//    await next();
+//});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
