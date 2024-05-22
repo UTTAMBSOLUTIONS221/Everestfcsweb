@@ -9,7 +9,6 @@ using System.Diagnostics;
 namespace Everestfcsweb.Controllers
 {
     [Authorize]
-    [RequireHttps]
     public class HomeController : BaseController
     {
         private readonly Dashboardservices bl;
