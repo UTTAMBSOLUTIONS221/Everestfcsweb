@@ -1,8 +1,8 @@
 name: Build and deploy Everestfcs ASP.Net Core app to an Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: Everestfcsweb              # set this to the name of your Azure Web App
-  AZURE_WEBAPP_PACKAGE_PATH: 'Everestfcsweb'         # set this to the path where the app is published
+  AZURE_WEBAPP_NAME: Everestfcs              # set this to the name of your Azure Web App
+  AZURE_WEBAPP_PACKAGE_PATH: 'Everestfcs'         # set this to the path where the app is published
   DOTNET_VERSION: '8.0'                      # set this to the .NET Core version to use
 
 on:
@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: .net-app
-          path: ${{ github.workspace }}/Everestfcsweb
+          path: ${{ github.workspace }}/Everestfcs
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -72,4 +72,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ github.workspace }}/Everestfcsweb
+          package: ${{ github.workspace }}/Everestfcs
