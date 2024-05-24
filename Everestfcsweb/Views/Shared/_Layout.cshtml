@@ -3,25 +3,15 @@
 @using Microsoft.Extensions.Configuration
 @{
     bool authenticated = false;
-    string Userid = "";
     UsermodelResponce currentUserData = null;
-    List<SystemPermissions>? permissionData = null;
-    long userType = -1;
+   // List<SystemPermissions>? permissionData = null;
     if (User.Identities.Any(u => u.IsAuthenticated))
     {
         authenticated = true;
         currentUserData = Util.GetCurrentUserData(User.Identities);
-        IConfiguration config = (IConfiguration)Context.RequestServices.GetService(typeof(IConfiguration)); // Resolve IConfiguration from services
-        permissionData = await Util.GetCurrentUserPermissionsData(User.Identities, config);
-        if (currentUserData != null)
-        {
-            userType = currentUserData.Usermodel.Userid;
-
-        }
-        Userid = User.Identities.First(u => u.IsAuthenticated && u.HasClaim(c => c.Type == ClaimTypes.NameIdentifier))
-            .FindFirst(ClaimTypes.NameIdentifier).Value;
+        // IConfiguration config = (IConfiguration)Context.RequestServices.GetService(typeof(IConfiguration));
+        // permissionData = await Util.GetCurrentUserPermissionsData(User.Identities, config);
     }
-
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +74,7 @@
                                 <input id="systemLoggedinedTenantid" value="@currentUserData.Usermodel.Tenantid">
                                 <input id="systemLoggedinedUserid" value="@currentUserData.Usermodel.Userid">
                                 <input id="systemLoggedinedUserNameId" value="@currentUserData.Usermodel.Fullname">
-                                <select id="permissionList" asp-items="@permissionData.Select(x => new SelectListItem { Text = x.Permissionname }).ToList()"></select>
+                                <select id="permissionList" asp-items="@currentUserData.Usermodel.Permission.Select(x => new SelectListItem { Text = x.Permissionname }).ToList()"></select>
                             </div>
                         </div>
                        @*  <a asp-area="" asp-controller="Account" asp-action="Myprofile" class="dropdown-item text-dark text-sm font-weight-bold">My Profile</a> *@

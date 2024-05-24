@@ -67,12 +67,28 @@ namespace Everestfcsweb
 
         public static UsermodelResponce GetCurrentUserData(IEnumerable<ClaimsIdentity> claims)
         {
-            string userData = claims.First(u => u.IsAuthenticated && u.HasClaim(c => c.Type == "userData")).FindFirst("userData").Value;
-            if (string.IsNullOrEmpty(userData))
+            // Find the claim that contains the user data
+            var claim = claims.FirstOrDefault(u => u.IsAuthenticated && u.HasClaim(c => c.Type == "userData"))?.FindFirst("userData");
+
+            // If the claim is not found or the value is null/empty, return null
+            if (claim == null || string.IsNullOrEmpty(claim.Value))
                 return null;
 
-            return JsonConvert.DeserializeObject<UsermodelResponce>(userData);
+            // Deserialize the user data JSON to the UsermodelResponce object
+            var userData = JsonConvert.DeserializeObject<UsermodelResponce>(claim.Value);
+
+            // Perform any additional processing if needed
+            return userData;
         }
+
+        //public static UsermodelResponce GetCurrentUserData(IEnumerable<ClaimsIdentity> claims)
+        //{
+        //    string userData = claims.First(u => u.IsAuthenticated && u.HasClaim(c => c.Type == "userData")).FindFirst("userData").Value;
+        //    if (string.IsNullOrEmpty(userData))
+        //        return null;
+
+        //    return JsonConvert.DeserializeObject<UsermodelResponce>(userData);
+        //}
         public static async Task<List<SystemPermissions>> GetCurrentUserPermissionsData(IEnumerable<ClaimsIdentity> claims, IConfiguration config)
          {
             var Tokenbearer = claims.FirstOrDefault(u => u.IsAuthenticated && u.HasClaim(c => c.Type == "Token"))?.FindFirst("Token")?.Value;
