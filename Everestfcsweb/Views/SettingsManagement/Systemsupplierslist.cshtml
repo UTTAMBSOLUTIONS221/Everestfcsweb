@@ -28,16 +28,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @if (Model != null)
                         {
-                            <tr>
-                                <td>@item.SupplierName</td>
-                                <td>@item.PhoneNumber</td>
-                                <td>@item.SupplierEmail</td>
-                                <td>@item.DateCreated</td>
-                                <td>@item.CreatedBy</td>
-                                <td class="text-right"><a asp-action="Addsystemsuplier" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-SupplierId="@item.SupplierId" asp-area="" class="btn-info btn-xs btn-outline-info text-white text-uppercase font-weight-bold" id="CAN_EDIT_SUPPLIERS" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a></td>
-                            </tr>
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.SupplierName</td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td>@item.SupplierEmail</td>
+                                    <td>@item.DateCreated</td>
+                                    <td>@item.CreatedBy</td>
+                                    <td class="text-right"><a asp-action="Addsystemsuplier" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-SupplierId="@item.SupplierId" asp-area="" class="btn-info btn-xs btn-outline-info text-white text-uppercase font-weight-bold" id="CAN_EDIT_SUPPLIERS" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a></td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>
