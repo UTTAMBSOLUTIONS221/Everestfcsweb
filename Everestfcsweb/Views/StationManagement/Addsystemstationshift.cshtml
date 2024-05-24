@@ -12,7 +12,7 @@
     var SystemSuppliers = ViewData["SystemSupplierslists"] as List<SelectListItem>;
     var SystemTanks = ViewData["SystemTankslists"] as List<SelectListItem>;
 }
-@if (Model != null)
+@if (Model != null && Model.RespStatus==0)
 {
     <div class="row">
         <div class="col-sm-12">
