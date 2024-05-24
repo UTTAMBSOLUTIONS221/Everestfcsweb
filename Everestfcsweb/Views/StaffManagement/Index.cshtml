@@ -30,76 +30,79 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @if (Model!=null)
                         {
-                            <tr>
-                                <td>@(item.Firstname+" "+item.Lastname)</td>
-                                <td>@item.Email</td>
-                                <td>@item.Phone</td>
-                                <td>@item.Rolename</td>
-@*                                <td>@item.LimitTypename</td>
-                                <td>@item.TopupLimit</td>*@
-                                <td class="text-nowrap">
-                                    @if (item.IsActive)
-                                    {
-                                        <span class="badge badge-info badge-info-xs text-uppercase">Active</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-danger badge-info-xs  text-uppercase">Inactive</span>
-                                    }
-                                    @if (item.IsDeleted)
-                                    {
-                                        <span class="badge badge-danger badge-info-xs  text-uppercase">Deleted</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-info  text-uppercase   badge-info-xs">Notdeleted</span>
-                                    }
-                                    @if (item.LoginStatus==0)
-                                    {
-                                        <span class="badge badge-info badge-info-xs text-uppercase  text-white">Account okay</span>
-                                    }
-                                    else if (item.LoginStatus==1)
-                                    {
-                                        <span class="badge badge-warning warning-info-xs  text-uppercase  text-white">Verify account</span>
-                                    }
-                                    else if (item.LoginStatus==2)
-                                    {
-                                        <span class="badge badge-warning warning-info-xs  text-uppercase text-white">Change Password</span>
-                                    }
-                                    else if (item.LoginStatus==3)
-                                    {
-                                        <span class="badge badge-warning warning-info-xs text-white">Service Unavailable</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-danger danger-info-xs text-white  text-uppercase ">Account Blocked</span>
-                                    }
-                                </td>
-                                <td>
-                                    <a asp-action="Resendstaffpassword" asp-controller="StaffManagement" asp-route-code="@Guid.NewGuid()" asp-route-Tenantstaffid="@item.Userid" asp-area="" id="CAN_RESEND_STAFF_PASSWORD" class="btn-info btn-xs btn-outline-info font-weight-bold text-white text-uppercase">Resend Password</a>
-                                    <a asp-action="Addsystemstaff" asp-controller="StaffManagement" asp-route-code="@Guid.NewGuid()" asp-route-Userid="@item.Userid" asp-area="" id="CAN_EDIT_STAFF" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
-                                    @if (item.IsActive)
-                                    {
-                                        <a onclick="deactivatethis(event)" data-tablename="Systemstaffs" data-Columname="IsActive" data-Status="0" data-Columnidname="Userid" data-Entryid="@item.Userid" id="CAN_DEACTIVATE_STAFF" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
-                                    }
-                                    else
-                                    {
-                                        <a onclick="activatethis(event)" data-Tablename="Systemstaffs" data-Columname="IsActive" data-Status="1" data-Columnidname="Userid" data-Entryid="@item.Userid" id="CAN_ACTIVATE_STAFF" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
-                                    }
-                                    @if (item.IsDeleted)
-                                    {
-                                        <a onclick="restorethis(event)" data-Tablename="Systemstaffs" data-Columname="IsDeleted" data-Status="0" data-Columnidname="Userid" data-Entryid="@item.Userid" id="CAN_RESTORE_STAFF" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
-                                    }
-                                    else
-                                    {
-                                        <a onclick="deletethis(event)" data-Tablename="Systemstaffs" data-Columname="IsDeleted" data-Status="1" data-Columnidname="Userid" data-Entryid="@item.Userid" id="CAN_DELETE_STAFF" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
-                                    }
-                                </td>
-                            </tr>
-                        }
 
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@(item.Firstname + " " + item.Lastname)</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.Rolename</td>
+                                    @*                                <td>@item.LimitTypename</td>
+                            <td>@item.TopupLimit</td>*@
+                                    <td class="text-nowrap">
+                                        @if (item.IsActive)
+                                        {
+                                            <span class="badge badge-info badge-info-xs text-uppercase">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger badge-info-xs  text-uppercase">Inactive</span>
+                                        }
+                                        @if (item.IsDeleted)
+                                        {
+                                            <span class="badge badge-danger badge-info-xs  text-uppercase">Deleted</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-info  text-uppercase   badge-info-xs">Notdeleted</span>
+                                        }
+                                        @if (item.LoginStatus == 0)
+                                        {
+                                            <span class="badge badge-info badge-info-xs text-uppercase  text-white">Account okay</span>
+                                        }
+                                        else if (item.LoginStatus == 1)
+                                        {
+                                            <span class="badge badge-warning warning-info-xs  text-uppercase  text-white">Verify account</span>
+                                        }
+                                        else if (item.LoginStatus == 2)
+                                        {
+                                            <span class="badge badge-warning warning-info-xs  text-uppercase text-white">Change Password</span>
+                                        }
+                                        else if (item.LoginStatus == 3)
+                                        {
+                                            <span class="badge badge-warning warning-info-xs text-white">Service Unavailable</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger danger-info-xs text-white  text-uppercase ">Account Blocked</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="Resendstaffpassword" asp-controller="StaffManagement" asp-route-code="@Guid.NewGuid()" asp-route-Tenantstaffid="@item.Userid" asp-area="" id="CAN_RESEND_STAFF_PASSWORD" class="btn-info btn-xs btn-outline-info font-weight-bold text-white text-uppercase">Resend Password</a>
+                                        <a asp-action="Addsystemstaff" asp-controller="StaffManagement" asp-route-code="@Guid.NewGuid()" asp-route-Userid="@item.Userid" asp-area="" id="CAN_EDIT_STAFF" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        @if (item.IsActive)
+                                        {
+                                            <a onclick="deactivatethis(event)" data-tablename="Systemstaffs" data-Columname="IsActive" data-Status="0" data-Columnidname="Userid" data-Entryid="@item.Userid" id="CAN_DEACTIVATE_STAFF" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="activatethis(event)" data-Tablename="Systemstaffs" data-Columname="IsActive" data-Status="1" data-Columnidname="Userid" data-Entryid="@item.Userid" id="CAN_ACTIVATE_STAFF" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
+                                        }
+                                        @if (item.IsDeleted)
+                                        {
+                                            <a onclick="restorethis(event)" data-Tablename="Systemstaffs" data-Columname="IsDeleted" data-Status="0" data-Columnidname="Userid" data-Entryid="@item.Userid" id="CAN_RESTORE_STAFF" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="deletethis(event)" data-Tablename="Systemstaffs" data-Columname="IsDeleted" data-Status="1" data-Columnidname="Userid" data-Entryid="@item.Userid" id="CAN_DELETE_STAFF" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
                     </tbody>
                 </table>
             </div>
