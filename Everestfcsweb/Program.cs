@@ -2,24 +2,29 @@ using DinkToPdf;
 using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.IO;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
+
 builder.Services.AddDataProtection();
+builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
 builder.Services.AddDistributedMemoryCache();
 
-// Session configuration
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -28,62 +33,50 @@ builder.Services.AddSession(options =>
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
-// Authentication configuration
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.AccessDeniedPath = "/Account/AccessDenied/";
-        options.LoginPath = "/Account/Signinuser/";
-        options.Cookie.HttpOnly = true;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-    });
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, x =>
+{
+    x.AccessDeniedPath = "/Account/AccessDenied/";
+    x.LoginPath = "/Account/Signinuser/";
+    x.Cookie.HttpOnly = true;
+    x.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+});
 
-// Singleton for URL generation
-builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-builder.Services.AddScoped<IUrlHelper>(x => x.GetRequiredService<IUrlHelperFactory>().GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
+builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>()
+    .AddScoped(x => x.GetRequiredService<IUrlHelperFactory>().GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
 
-// DinkToPdf setup
 builder.Services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
+
 
 var app = builder.Build();
 
-// Middleware to enforce HTTPS
+// Middleware to enforce HTTPS and limit request body size
 app.Use(async (context, next) =>
 {
     if (!context.Request.IsHttps)
     {
-        var withHttps = $"https://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
+        var withHttps = $"https://{context.Request.Host}{context.Request.Path}";
         context.Response.Redirect(withHttps);
         return;
     }
     await next();
 });
 
-// Error handling
-app.UseExceptionHandler("/Home/Error");
-
-// HTTPS redirection
 app.UseHttpsRedirection();
-
-// Static files
 app.UseStaticFiles();
-
-// Routing
 app.UseRouting();
-
-// Authentication and authorization
 app.UseAuthentication();
 app.UseAuthorization();
-
-// Session
 app.UseSession();
 
-// Razor Pages
 app.MapRazorPages();
-
-// Default Controller route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Signinuser}/{id?}");
+
+app.UseExceptionHandler("/Home/Error");
+app.UseHsts();
 
 app.Run();
