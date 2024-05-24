@@ -11,16 +11,13 @@
                         <h6 class="font-weight-bold text-sm card-title">Schemes</h6>
                     </div>
                     <div class="col-sm-4">
-                        @if (Model.LoyaltyScheme == null || !Model.LoyaltyScheme.Any())
-                        {
-                            <a asp-action="Addsystemscheme" asp-controller="LoyaltyManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_LOYALTY_SCHEME" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Scheme</a>
-                        }
+                        <a asp-action="Addsystemscheme" asp-controller="LoyaltyManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_LOYALTY_SCHEME" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Scheme</a>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
-                    @if (Model.LoyaltyScheme != null)
+                    @if (Model.LoyaltyScheme.Count()>0)
                     {
                         @foreach (var data in Model.LoyaltyScheme)
                         {

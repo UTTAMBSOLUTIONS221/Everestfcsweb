@@ -11,16 +11,13 @@
                         <h6 class="font-weight-bold text-sm card-title">Formulas</h6>
                     </div>
                     <div class="col-sm-4">
-                        @if (Model.Formula == null || !Model.Formula.Any())
-                        {
-                            <a asp-action="Addsystemformula" asp-controller="LoyaltyManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_FORMULA" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Formula</a>
-                        }
+                        <a asp-action="Addsystemformula" asp-controller="LoyaltyManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_FORMULA" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Formula</a>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
-                    @if (Model.Formula != null)
+                    @if (Model.Formula.Count()>0)
                     {
                         @foreach (var data in Model.Formula)
                         {
