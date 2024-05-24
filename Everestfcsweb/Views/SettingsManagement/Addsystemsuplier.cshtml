@@ -88,19 +88,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.SystemSuplierPrice != null)
+                    @if (Model!=null)
                     {
-                        foreach (var data in Model.SystemSuplierPrice)
+                        if (Model.SystemSuplierPrice.Count()>0)
                         {
-                            <tr>
-                                <td hidden>@data.SupplierPriceId</td>
-                                <td hidden>@data.SupplierId</td>
-                                <td hidden>@data.ProductVariationId</td>
-                                <td>@data.ProductVariationName</td>
-                                <td class="text-right">@data.ProductPrice.ToString("#,##0.00")</td>
-                                <td class="text-right">@data.ProductVat.ToString("#,##0.00")</td>
-                                <td class="text-right"><button class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1" onclick="editSupplierProduct(this.parentNode.parentNode)">Edit</button><button class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1" onclick="updateSupplierProduct(this.parentNode.parentNode)">Update</button></td>
-                            </tr>
+                            foreach (var data in Model.SystemSuplierPrice)
+                            {
+                                <tr>
+                                    <td hidden>@data.SupplierPriceId</td>
+                                    <td hidden>@data.SupplierId</td>
+                                    <td hidden>@data.ProductVariationId</td>
+                                    <td>@data.ProductVariationName</td>
+                                    <td class="text-right">@data.ProductPrice.ToString("#,##0.00")</td>
+                                    <td class="text-right">@data.ProductVat.ToString("#,##0.00")</td>
+                                    <td class="text-right"><button class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1" onclick="editSupplierProduct(this.parentNode.parentNode)">Edit</button><button class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1" onclick="updateSupplierProduct(this.parentNode.parentNode)">Update</button></td>
+                                </tr>
+                            }
                         }
                     }
                 </tbody>
