@@ -1,14 +1,16 @@
 ﻿
-using Everestfcsweb.Enum;
 using Everestfcsweb.Entities;
+using Everestfcsweb.Enum;
+using Everestfcsweb.Helpers;
 using Everestfcsweb.Models;
 using Everestfcsweb.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis;
-using Everestfcsweb.Helpers;
-using System.Reflection;
+using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Everestfcsweb.Controllers
 {
@@ -21,6 +23,51 @@ namespace Everestfcsweb.Controllers
         {
             bl = new Fuelprodataservices(config);
         }
+
+        #region User Signin
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Signincustomer(string returnUrl = null)
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Signincustomer(Userloginmodel model, string returnUrl)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            var resp = await bl.Validateuser(model);
+            if (resp.RespStatus == 200)
+            {
+                if (resp.Usermodel.Loginstatus == (int)UserLoginStatus.ChangePassword)
+                {
+                    return RedirectToAction("Resetuserpassword", new Staffresetpassword() { Code = Guid.NewGuid(), Userid = resp.Usermodel.Userid });
+                }
+                else
+                {
+                    SetUserLoggedIn(resp, false);
+                }
+
+                //if (resp.LoginStatus == (int)UserLoginStatus.VerifyAccount)
+                //{
+                //    return RedirectToAction("VerifyAccount", "Account", new { Usercode = resp.Userid, Phonenumber = resp.Phone });
+                //}
+                return RedirectToLocal(returnUrl);
+            }
+            else if (resp.RespStatus == 401)
+            {
+                Warning(resp.RespMessage, true);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, resp.RespMessage);
+            }
+            return View();
+
+        }
+        #endregion
         public async Task<IActionResult> Index(int Offset = 0, int Count = 10)
         {
             var data = await bl.Getsystemtenantcustomers(SessionUserData.Token, SessionUserData.Usermodel.Tenantid, Offset, Count);
@@ -43,7 +90,7 @@ namespace Everestfcsweb.Controllers
         [HttpGet]
         public async Task<IActionResult> Addsystemcustomer(long? CustomerId)
         {
-            ViewData["Systemstationslists"] = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.Stations,SessionUserData.Usermodel.Tenantid).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
+            ViewData["Systemstationslists"] = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.Stations, SessionUserData.Usermodel.Tenantid).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
             ViewData["Systemphonecodelists"] = bl.GetSystemDropDownData(SessionUserData.Token, ListModelType.SystemPhoneCodes).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
             if (CustomerId > 0)
             {
@@ -150,7 +197,7 @@ namespace Everestfcsweb.Controllers
             var resp = await bl.Addsystemcustomerpostpaidcreditagreementdata(SessionUserData.Token, model);
             return Json(resp);
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Editpostpaidcreditagreement(long CustomerAgreementId)
         {
@@ -197,7 +244,7 @@ namespace Everestfcsweb.Controllers
 
         #region Replace Customer Account Card
         [HttpGet]
-        public async Task<IActionResult> Replacecustomeraccountcard(long AccountId,long CardId, string Masknumber)
+        public async Task<IActionResult> Replacecustomeraccountcard(long AccountId, long CardId, string Masknumber)
         {
             AccountCardReplaceDetails model = new AccountCardReplaceDetails();
             model.AccountId = AccountId;
@@ -228,13 +275,13 @@ namespace Everestfcsweb.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Addcustomeraccountproductpolicy(long AccountId,long? AccountProductId, string Masknumber)
+        public async Task<IActionResult> Addcustomeraccountproductpolicy(long AccountId, long? AccountProductId, string Masknumber)
         {
             AccountProductpolicy model = new AccountProductpolicy();
             ViewData["SystemProductslists"] = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.SystemProduct, SessionUserData.Usermodel.Tenantid).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
-            if (AccountProductId>0)
+            if (AccountProductId > 0)
             {
-                model= await bl.GetcustomeraccountproductpolicyData(SessionUserData.Token, AccountProductId);
+                model = await bl.GetcustomeraccountproductpolicyData(SessionUserData.Token, AccountProductId);
             }
             model.AccountId = AccountId;
             model.Masknumber = Masknumber;
@@ -250,9 +297,9 @@ namespace Everestfcsweb.Controllers
         {
             AccountStationspolicy model = new AccountStationspolicy();
             ViewData["Systemstationslists"] = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.Stations, SessionUserData.Usermodel.Tenantid).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
-            if (AccountStationId>0)
+            if (AccountStationId > 0)
             {
-                model=await bl.Getcustomeraccountstationpolicydata(SessionUserData.Token, AccountStationId);
+                model = await bl.Getcustomeraccountstationpolicydata(SessionUserData.Token, AccountStationId);
             }
             model.AccountId = AccountId;
             model.Masknumber = Masknumber;
@@ -264,12 +311,12 @@ namespace Everestfcsweb.Controllers
             return Json(resp);
         }
         [HttpGet]
-        public async Task<IActionResult> Addcustomeraccountweekdaypolicy(long AccountId,long? AccountWeekDaysId, string Masknumber)
+        public async Task<IActionResult> Addcustomeraccountweekdaypolicy(long AccountId, long? AccountWeekDaysId, string Masknumber)
         {
             AccountWeekDayspolicy model = new AccountWeekDayspolicy();
-            if (AccountWeekDaysId>0)
+            if (AccountWeekDaysId > 0)
             {
-                model=await bl.Getcustomeraccountweekdaypolicydata(SessionUserData.Token, AccountWeekDaysId);
+                model = await bl.Getcustomeraccountweekdaypolicydata(SessionUserData.Token, AccountWeekDaysId);
                 model.SelectWeekDays = model.WeekDays.Split(',').ToList();
             }
             model.AccountId = AccountId;
@@ -282,12 +329,12 @@ namespace Everestfcsweb.Controllers
             return Json(resp);
         }
         [HttpGet]
-        public async Task<IActionResult> Addcustomeraccountfrequencypolicy(long AccountId,long? AccountFrequencyId, string Masknumber)
+        public async Task<IActionResult> Addcustomeraccountfrequencypolicy(long AccountId, long? AccountFrequencyId, string Masknumber)
         {
             AccountTransactionFrequencypolicy model = new AccountTransactionFrequencypolicy();
-            if (AccountFrequencyId>0)
+            if (AccountFrequencyId > 0)
             {
-                model= await bl.Getcustomeraccountfrequencypolicydata(SessionUserData.Token, AccountFrequencyId);
+                model = await bl.Getcustomeraccountfrequencypolicydata(SessionUserData.Token, AccountFrequencyId);
             }
             model.AccountId = AccountId;
             model.Masknumber = Masknumber;
@@ -327,7 +374,7 @@ namespace Everestfcsweb.Controllers
         {
             CustomerAccountTransfer model = new CustomerAccountTransfer();
             model.FromAccountId = AccountId;
-            ViewData["Systemagreementaccountlists"] = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.SystemAccountNumbers,AccountId).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
+            ViewData["Systemagreementaccountlists"] = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.SystemAccountNumbers, AccountId).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
             return PartialView(model);
         }
         [HttpGet]
@@ -378,12 +425,12 @@ namespace Everestfcsweb.Controllers
 
         #region Customer Account Employees
         [HttpGet]
-        public async Task<IActionResult> AddCustomerAccountEmployee(long AccountId,long? EmployeeId)
+        public async Task<IActionResult> AddCustomerAccountEmployee(long AccountId, long? EmployeeId)
         {
             CustomerAccountEmployees model = new CustomerAccountEmployees();
-            if (EmployeeId>0)
+            if (EmployeeId > 0)
             {
-                model=await bl.GetCustomerAccountEmployeeById(SessionUserData.Token, EmployeeId);
+                model = await bl.GetCustomerAccountEmployeeById(SessionUserData.Token, EmployeeId);
             }
             model.AccountId = AccountId;
             return PartialView(model);
@@ -401,13 +448,13 @@ namespace Everestfcsweb.Controllers
             return PartialView(data);
         }
         [HttpGet]
-        public async Task<IActionResult> Addcustomeraccountemployeeproductpolicy(long EmployeeId,long? EmployeeProductId, string EmployeeName)
+        public async Task<IActionResult> Addcustomeraccountemployeeproductpolicy(long EmployeeId, long? EmployeeProductId, string EmployeeName)
         {
             AccountEmployeeProductpolicy model = new AccountEmployeeProductpolicy();
             ViewData["SystemProductslists"] = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.SystemProduct, SessionUserData.Usermodel.Tenantid).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
-            if (EmployeeProductId>0)
+            if (EmployeeProductId > 0)
             {
-                model=await bl.Getcustomeraccountemployeeproductpolicydata(SessionUserData.Token, EmployeeProductId);
+                model = await bl.Getcustomeraccountemployeeproductpolicydata(SessionUserData.Token, EmployeeProductId);
             }
             model.EmployeeId = EmployeeId;
             model.EmployeeName = EmployeeName;
@@ -434,12 +481,12 @@ namespace Everestfcsweb.Controllers
             return Json(resp);
         }
         [HttpGet]
-        public async Task<IActionResult> Addcustomeraccountemployeeweekdaypolicy(long EmployeeId,long? EmployeeWeekDaysId, string EmployeeName)
+        public async Task<IActionResult> Addcustomeraccountemployeeweekdaypolicy(long EmployeeId, long? EmployeeWeekDaysId, string EmployeeName)
         {
             AccountEmployeeWeekDayspolicy model = new AccountEmployeeWeekDayspolicy();
-            if (EmployeeWeekDaysId>0)
+            if (EmployeeWeekDaysId > 0)
             {
-                model= await bl.Getcustomeraccountemployeeweekdaypolicydata(SessionUserData.Token, EmployeeWeekDaysId);
+                model = await bl.Getcustomeraccountemployeeweekdaypolicydata(SessionUserData.Token, EmployeeWeekDaysId);
                 model.SelectWeekDays = model.WeekDays.Split(',').ToList();
             }
             model.EmployeeId = EmployeeId;
@@ -452,12 +499,12 @@ namespace Everestfcsweb.Controllers
             return Json(resp);
         }
         [HttpGet]
-        public async Task<IActionResult> Addcustomeraccountemployeefrequencypolicy(long EmployeeId,long? EmployeeFrequencyId, string EmployeeName)
+        public async Task<IActionResult> Addcustomeraccountemployeefrequencypolicy(long EmployeeId, long? EmployeeFrequencyId, string EmployeeName)
         {
             AccountEmployeeTransactionFrequencypolicy model = new AccountEmployeeTransactionFrequencypolicy();
-            if (EmployeeFrequencyId>0)
+            if (EmployeeFrequencyId > 0)
             {
-               model=await bl.Getcustomeraccountemployeefrequencypolicydata(SessionUserData.Token, EmployeeFrequencyId);
+                model = await bl.Getcustomeraccountemployeefrequencypolicydata(SessionUserData.Token, EmployeeFrequencyId);
             }
             model.EmployeeId = EmployeeId;
             model.EmployeeName = EmployeeName;
@@ -480,9 +527,9 @@ namespace Everestfcsweb.Controllers
             ViewData["SystemEquimentMakeslists"] = bl.GetSystemDropDownData(SessionUserData.Token, ListModelType.SystemEquipmentMakes).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
             ViewData["SystemConsumptionTypelists"] = bl.GetSystemDropDownData(SessionUserData.Token, ListModelType.ConsumptionType).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
             ViewData["SystemProductslists"] = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.SystemProduct, SessionUserData.Usermodel.Tenantid).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
-            if (EquipmentId>0)
+            if (EquipmentId > 0)
             {
-                model= await bl.GetCustomerAccountEquipmentdata(SessionUserData.Token, EquipmentId);
+                model = await bl.GetCustomerAccountEquipmentdata(SessionUserData.Token, EquipmentId);
             }
             return PartialView(model);
         }
@@ -498,12 +545,12 @@ namespace Everestfcsweb.Controllers
             return PartialView(data);
         }
         [HttpGet]
-        public async Task<IActionResult> Addcustomeraccountequipmentproductpolicy(long EquipmentId,long? EquipmentProductId, string EquipmentNumber)
+        public async Task<IActionResult> Addcustomeraccountequipmentproductpolicy(long EquipmentId, long? EquipmentProductId, string EquipmentNumber)
         {
             AccountEquipmentProductpolicy model = new AccountEquipmentProductpolicy();
-            if (EquipmentProductId>0)
+            if (EquipmentProductId > 0)
             {
-                model= await bl.Getcustomeraccountequipmentproductpolicydata(SessionUserData.Token, EquipmentProductId);
+                model = await bl.Getcustomeraccountequipmentproductpolicydata(SessionUserData.Token, EquipmentProductId);
             }
             model.EquipmentId = EquipmentId;
             model.EquipmentNumber = EquipmentNumber;
@@ -531,12 +578,12 @@ namespace Everestfcsweb.Controllers
             return Json(resp);
         }
         [HttpGet]
-        public async Task<IActionResult> Addcustomeraccountequipmentweekdaypolicy(long EquipmentId,long? EquipmentWeekDaysId, string EquipmentNumber)
+        public async Task<IActionResult> Addcustomeraccountequipmentweekdaypolicy(long EquipmentId, long? EquipmentWeekDaysId, string EquipmentNumber)
         {
             AccountEquipmentWeekDayspolicy model = new AccountEquipmentWeekDayspolicy();
-            if (EquipmentWeekDaysId>0)
+            if (EquipmentWeekDaysId > 0)
             {
-                model= await bl.Getcustomeraccountequipmentweekdaypolicydata(SessionUserData.Token, EquipmentWeekDaysId);
+                model = await bl.Getcustomeraccountequipmentweekdaypolicydata(SessionUserData.Token, EquipmentWeekDaysId);
                 model.SelectWeekDays = model.WeekDays.Split(',').ToList();
             }
             model.EquipmentId = EquipmentId;
@@ -549,12 +596,12 @@ namespace Everestfcsweb.Controllers
             return Json(resp);
         }
         [HttpGet]
-        public async Task<IActionResult> Addcustomeraccountequipmentfrequencypolicy(long EquipmentId,long? EquipmentFrequencyId, string EquipmentNumber)
+        public async Task<IActionResult> Addcustomeraccountequipmentfrequencypolicy(long EquipmentId, long? EquipmentFrequencyId, string EquipmentNumber)
         {
             AccountEquipmentTransactionFrequencypolicy model = new AccountEquipmentTransactionFrequencypolicy();
-            if (EquipmentFrequencyId>0)
+            if (EquipmentFrequencyId > 0)
             {
-                model= await bl.Getcustomeraccountequipmentfrequencypolicydata(SessionUserData.Token, EquipmentFrequencyId);
+                model = await bl.Getcustomeraccountequipmentfrequencypolicydata(SessionUserData.Token, EquipmentFrequencyId);
             }
             model.EquipmentId = EquipmentId;
             model.EquipmentNumber = EquipmentNumber;
@@ -723,6 +770,49 @@ namespace Everestfcsweb.Controllers
         {
             var Resp = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.SystemCustomerEquipments, Id).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
             return Json(Resp);
+        }
+        #endregion
+
+        #region Other Methods
+
+        private async void SetUserLoggedIn(UsermodelResponce user, bool rememberMe)
+        {
+            string userData = JsonConvert.SerializeObject(user);
+
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Usermodel.Userid.ToString()),
+                new Claim(ClaimTypes.Name, user.Usermodel.Fullname),
+                new Claim("FullNames", user.Usermodel.Fullname),
+                new Claim("Userid", user.Usermodel.Userid.ToString()),
+                new Claim("Token", user.Token),
+                new Claim("userData", userData),
+            };
+
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "ApplicationCookie");
+
+            ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity[] { claimsIdentity });
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,
+            new AuthenticationProperties
+            {
+                IsPersistent = rememberMe,
+                ExpiresUtc = new DateTimeOffset?(DateTime.Now.AddMinutes(30))
+            });
+        }
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (string.IsNullOrEmpty(returnUrl) || returnUrl == "/")
+            {
+                return RedirectToAction(nameof(HomeController.Dashboard), "Home", new { area = "" });
+            }
+            else if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Dashboard), "Home", new { area = "" });
+            }
         }
         #endregion
     }
