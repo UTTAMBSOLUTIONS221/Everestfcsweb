@@ -26,27 +26,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @if (Model != null)
                         {
-                            <tr>
-                                <td>@item.Permissionname</td>
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Permissionname</td>
 
-                                <td>
-                                    @if (@item.Isadmin)
-                                    {
-                                        <span class="badge badge-success text-white">Yes</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-secondary text-white">No</span>
-                                    }
-                                </td>
-                                <td class="text-right">
-                                    <a asp-action="Addsystempermissions" asp-controller="SettingsManagement" asp-route-Permissionid="@item.PermissionId" asp-area="" id="CAN_EDIT_PERMISSION" class="btn-info btn-xs btn-outline-info text-white float-right font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
-                                </td>
-                            </tr>
+                                    <td>
+                                        @if (@item.Isadmin)
+                                        {
+                                            <span class="badge badge-success text-white">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-secondary text-white">No</span>
+                                        }
+                                    </td>
+                                    <td class="text-right">
+                                        <a asp-action="Addsystempermissions" asp-controller="SettingsManagement" asp-route-Permissionid="@item.PermissionId" asp-area="" id="CAN_EDIT_PERMISSION" class="btn-info btn-xs btn-outline-info text-white float-right font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                    </td>
+                                </tr>
+                            }
                         }
-
                     </tbody>
                 </table>
             </div>

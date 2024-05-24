@@ -12,7 +12,6 @@ using System.Security.Claims;
 namespace Everestfcsweb.Controllers
 {
     [Authorize]
-    [RequireHttps]
     public class AccountController : BaseController
     {
         private readonly Fuelprodataservices bl;
@@ -152,7 +151,7 @@ namespace Everestfcsweb.Controllers
             new AuthenticationProperties
             {
                 IsPersistent = rememberMe,
-                ExpiresUtc = new DateTimeOffset?(DateTime.UtcNow.AddMinutes(30))
+                ExpiresUtc = new DateTimeOffset?(DateTime.Now.AddMinutes(30))
             });
         }
         private IActionResult RedirectToLocal(string returnUrl)
