@@ -39,6 +39,31 @@ namespace Everestfcsweb.Services
         }
         #endregion
 
+        #region Login Customer User
+        public async Task<CustomermodelResponce> Validatecustomeruser(Userloginmodel obj)
+        {
+            CustomermodelResponce customerModel = new CustomermodelResponce { };
+            var resp = await POSTTOAPILOGINCUSTOMER("/api/CustomerManagement/AuthenticateCustomer", obj);
+            if (resp.RespStatus == 200)
+            {
+                customerModel = new CustomermodelResponce
+                {
+                    Token = resp.Token,
+                    CustomerModel = resp.CustomerModel,
+                    RespStatus = resp.RespStatus,
+                    RespMessage = resp.RespMessage,
+                };
+            }
+            else
+            {
+                customerModel.RespStatus = 401;
+                customerModel.RespMessage = "Incorrect Password!";
+            }
+
+            return customerModel;
+        }
+        #endregion
+
         #region  Reset Password Data
         public async Task<Genericmodel> Resetuserpasswordpost(Staffresetpassword obj)
         {
@@ -2167,6 +2192,20 @@ namespace Everestfcsweb.Services
                 {
                     string outPut = response.Content.ReadAsStringAsync().Result;
                     resp = JsonConvert.DeserializeObject<UsermodelResponce>(outPut);
+                }
+            }
+            return resp;
+        }
+        public async Task<CustomermodelResponce> POSTTOAPILOGINCUSTOMER(string endpoint, dynamic obj)
+        {
+            CustomermodelResponce resp = new CustomermodelResponce();
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
+                using (var response = await httpClient.PostAsync(BaseUrl + endpoint, content))
+                {
+                    string outPut = response.Content.ReadAsStringAsync().Result;
+                    resp = JsonConvert.DeserializeObject<CustomermodelResponce>(outPut);
                 }
             }
             return resp;

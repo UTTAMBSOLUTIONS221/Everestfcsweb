@@ -38,22 +38,10 @@ namespace Everestfcsweb.Controllers
         public async Task<IActionResult> Signincustomer(Userloginmodel model, string returnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            var resp = await bl.Validateuser(model);
+            var resp = await bl.Validatecustomeruser(model);
             if (resp.RespStatus == 200)
             {
-                if (resp.Usermodel.Loginstatus == (int)UserLoginStatus.ChangePassword)
-                {
-                    return RedirectToAction("Resetuserpassword", new Staffresetpassword() { Code = Guid.NewGuid(), Userid = resp.Usermodel.Userid });
-                }
-                else
-                {
-                    SetUserLoggedIn(resp, false);
-                }
-
-                //if (resp.LoginStatus == (int)UserLoginStatus.VerifyAccount)
-                //{
-                //    return RedirectToAction("VerifyAccount", "Account", new { Usercode = resp.Userid, Phonenumber = resp.Phone });
-                //}
+                SetUserLoggedIn(resp, false);
                 return RedirectToLocal(returnUrl);
             }
             else if (resp.RespStatus == 401)
