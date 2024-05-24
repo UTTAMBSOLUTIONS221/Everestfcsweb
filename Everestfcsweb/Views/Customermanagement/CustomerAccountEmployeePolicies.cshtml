@@ -17,7 +17,7 @@
                                     <h4 class="text-sm">@Model.EmployeeName what can he/she Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountemployeeproductpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeProductId="0" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee Product</a>
+                                    <a asp-action="Addcustomeraccountemployeeproductpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeProductId="0" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee Product</a>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                                     <td class="font-weight-light">@item.LimitPeriod</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a asp-action="Addcustomeraccountemployeeproductpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeProductId="@item.EmployeeProductId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        <a asp-action="Addcustomeraccountemployeeproductpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeProductId="@item.EmployeeProductId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     </td>
                                                 </tr>
                                             }
@@ -63,7 +63,7 @@
                                     <h4 class="text-sm">@Model.EmployeeName where can he/she Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountemployeestationpolicy" asp-controller="CustomerManagement" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee Station</a>
+                                    <a asp-action="Addcustomeraccountemployeestationpolicy" asp-controller="CustomerManagement" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee Station</a>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                                     <td class="font-weight-light">@item.Stationname</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a onclick="permanentdeleteemployeethis(event)" data-Tablename="EmployeeStations" data-Columnidname="EmployeeStationId" data-Entryid="@item.EmployeeStationId" data-EmployeeId="@Model.EmployeeId" data-EmployeeName="@Model.EmployeeName" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase float-right">Remove</a>
+                                                        <a onclick="permanentdeleteemployeethis(event)" data-Tablename="EmployeeStations" data-Columnidname="EmployeeStationId" data-Entryid="@item.EmployeeStationId" data-EmployeeId="@Model.EmployeeId" data-EmployeeName="@Model.EmployeeName" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right">Remove</a>
                                                     </td>
                                                 </tr>
                                             }
@@ -109,7 +109,7 @@
                                     <h4 class="text-sm">@Model.EmployeeName When can he/she Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountemployeeweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeWeekDaysId="0" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee Weekday(s)</a>
+                                    <a asp-action="Addcustomeraccountemployeeweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeWeekDaysId="0" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee Weekday(s)</a>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                                                     <td class="font-weight-light">@item.EndTime</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a asp-action="Addcustomeraccountemployeeweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeWeekDaysId="@item.EmployeeWeekDaysId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        <a asp-action="Addcustomeraccountemployeeweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeWeekDaysId="@item.EmployeeWeekDaysId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     </td>
                                                 </tr>
                                             }
@@ -155,7 +155,7 @@
                                     <h4 class="text-sm">@Model.EmployeeName how can he/she Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountemployeefrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeFrequencyId="0" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee frequency</a>
+                                    <a asp-action="Addcustomeraccountemployeefrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeFrequencyId="0" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Employee frequency</a>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +180,7 @@
                                                     <td class="font-weight-light">@item.FrequencyPeriod</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a asp-action="Addcustomeraccountemployeefrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeFrequencyId="@item.EmployeeFrequencyId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        <a asp-action="Addcustomeraccountemployeefrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EmployeeId="@Model.EmployeeId" asp-route-EmployeeFrequencyId="@item.EmployeeFrequencyId" asp-route-EmployeeName="@Model.EmployeeName" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     </td>
                                                 </tr>
                                             }

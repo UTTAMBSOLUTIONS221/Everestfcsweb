@@ -14,7 +14,7 @@
                         <h6 class="font-weight-bold text-sm card-title text-uppercase">@Model.Sname Station Tanks</h6>
                     </div>
                     <div class="col-sm-3">
-                        <a asp-action="AddSystemStationTank" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-StationId="@Model.StationId" asp-route-TankId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_STATION_TANK" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Tank</a>
+                        <a asp-action="AddSystemStationTank" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-StationId="@Model.StationId" asp-route-TankId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_ADD_STATION_TANK" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Tank</a>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                                     <td>@item.Diameter</td>
                                     <td>@item.Volume</td>
                                     <td class="text-right">
-                                        <a asp-action="AddSystemStationTank" asp-controller="StationManagement" asp-route-StationId="@item.StationId" asp-route-TankId="@item.TankId" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_STATION_TANK" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        <a asp-action="AddSystemStationTank" asp-controller="StationManagement" asp-route-StationId="@item.StationId" asp-route-TankId="@item.TankId" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_EDIT_STATION_TANK" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                     </td>
                                 </tr>
                             }
@@ -59,7 +59,7 @@
                         <h6 class="font-weight-bold text-sm card-title text-uppercase">@Model.Sname Station Pumps</h6>
                     </div>
                     <div class="col-sm-3">
-                        <a asp-action="AddSystemStationPump" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-StationId="@Model.StationId" asp-route-PumpId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_STATION_PUMP" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Pump</a>
+                        <a asp-action="AddSystemStationPump" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-StationId="@Model.StationId" asp-route-PumpId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_ADD_STATION_PUMP" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Pump</a>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                                     </td>
                                     <td>@item.Pumpnozzle</td>
                                     <td class="text-right">
-                                        <a asp-action="AddSystemStationPump" asp-controller="StationManagement" asp-route-StationId="@item.StationId" asp-route-PumpId="@item.PumpId" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_STATION_PUMP" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        <a asp-action="AddSystemStationPump" asp-controller="StationManagement" asp-route-StationId="@item.StationId" asp-route-PumpId="@item.PumpId" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_EDIT_STATION_PUMP" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                     </td>
                                 </tr>
                             }

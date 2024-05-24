@@ -13,7 +13,7 @@
                         <h6 class="font-weight-bold text-sm card-title">Sales</h6>
                     </div>
                     <div class="col-sm-2">
-                        <a asp-action="CustomerOfflineSale" asp-controller="SaleManagement" asp-route-code="@Guid.NewGuid()" asp-area="" id="CAN_POST_OFFLINESALE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right">Make Sale</a>
+                        <a asp-action="CustomerOfflineSale" asp-controller="SaleManagement" asp-route-code="@Guid.NewGuid()" asp-area="" id="CAN_POST_OFFLINESALE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right">Make Sale</a>
                     </div>
                 </div>
             </div>
@@ -57,14 +57,14 @@
                                     <td>@item.TotalUsed.ToString("#,##0.00")</td>
                                     <td>@item.PaymentMode</td>
                                     <td>
-                                        <a asp-action="GenerateSaleRecieptPdf" asp-controller="ReportManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@item.AccountId" asp-route-FinanceTransactionId="@item.FinanceTransactionId" asp-area="" id="CAN_VIEW_SALE_RECEIPT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Reciept</a>
+                                        <a asp-action="GenerateSaleRecieptPdf" asp-controller="ReportManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@item.AccountId" asp-route-FinanceTransactionId="@item.FinanceTransactionId" asp-area="" id="CAN_VIEW_SALE_RECEIPT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Reciept</a>
                                         @if (item.Isreversed)
                                         {
-                                            <a href="#" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Reversed</a>
+                                            <a href="#" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Reversed</a>
                                         }
                                         else
                                         {
-                                            <a onclick="reversesalethis(event)" data-FinanceTransactionId="@item.FinanceTransactionId" id="CAN_REVERSE_SALE" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Reverse</a>
+                                            <a onclick="reversesalethis(event)" data-FinanceTransactionId="@item.FinanceTransactionId" id="CAN_REVERSE_SALE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Reverse</a>
                                         }
                                     </td>
                                 </tr>

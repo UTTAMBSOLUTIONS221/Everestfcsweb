@@ -17,7 +17,7 @@
                                     <h4 class="text-sm">@Model.MaskNumber what can it Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountproductpolicy" asp-controller="CustomerManagement" asp-route-AccountId="@Model.AccountId" asp-route-MaskNumber="@Model.MaskNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account Product Policy</a>
+                                    <a asp-action="Addcustomeraccountproductpolicy" asp-controller="CustomerManagement" asp-route-AccountId="@Model.AccountId" asp-route-MaskNumber="@Model.MaskNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account Product Policy</a>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                                     <td class="font-weight-light">@item.LimitPeriod</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a asp-action="Addcustomeraccountproductpolicy" asp-controller="CustomerManagement" asp-route-AccountId="@Model.AccountId" asp-route-AccountProductId="@item.AccountProductId" asp-route-MaskNumber="@Model.MaskNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        <a asp-action="Addcustomeraccountproductpolicy" asp-controller="CustomerManagement" asp-route-AccountId="@Model.AccountId" asp-route-AccountProductId="@item.AccountProductId" asp-route-MaskNumber="@Model.MaskNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     </td>
                                                 </tr>
                                             }
@@ -63,7 +63,7 @@
                                     <h4 class="text-sm">@Model.MaskNumber where can it Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountstationpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountStationId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account Station Policy</a>
+                                    <a asp-action="Addcustomeraccountstationpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountStationId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account Station Policy</a>
                                 </div>
                             </div>
                         </div>
@@ -86,9 +86,9 @@
                                                     <td class="font-weight-light">@item.Stationname</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a onclick="permanentdeletestationthis(event)" data-Tablename="AccountStations" data-Columnidname="AccountStationId" data-Entryid="@item.AccountStationId" data-AccountId="@Model.AccountId" data-MaskNumber="@Model.MaskNumber" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase float-right">Remove</a>
+                                                        <a onclick="permanentdeletestationthis(event)" data-Tablename="AccountStations" data-Columnidname="AccountStationId" data-Entryid="@item.AccountStationId" data-AccountId="@Model.AccountId" data-MaskNumber="@Model.MaskNumber" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right">Remove</a>
 @* 
-                                                        <a asp-action="Addcustomeraccountstationpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountStationId="@item.AccountStationId" asp-route-MaskNumber="@Model.MaskNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        <a asp-action="Addcustomeraccountstationpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountStationId="@item.AccountStationId" asp-route-MaskNumber="@Model.MaskNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     *@ 
                                                 </td>
                                                 </tr>
@@ -112,7 +112,7 @@
                                     <h4 class="text-sm">@Model.MaskNumber When can it Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountWeekDaysId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account Weekday(s) Policy</a>
+                                    <a asp-action="Addcustomeraccountweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountWeekDaysId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account Weekday(s) Policy</a>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +139,7 @@
                                                     <td class="font-weight-light">@item.EndTime</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a asp-action="Addcustomeraccountweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountWeekDaysId="@item.AccountWeekDaysId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        <a asp-action="Addcustomeraccountweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountWeekDaysId="@item.AccountWeekDaysId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     </td>
                                                 </tr>
                                             }
@@ -158,7 +158,7 @@
                                     <h4 class="text-sm">@Model.MaskNumber how can it Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountfrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountFrequencyId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account frequency Policy</a>
+                                    <a asp-action="Addcustomeraccountfrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountFrequencyId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account frequency Policy</a>
                                 </div>
                             </div>
                         </div>
@@ -183,7 +183,7 @@
                                                     <td class="font-weight-light">@item.FrequencyPeriod</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a asp-action="Addcustomeraccountfrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountFrequencyId="@item.AccountFrequencyId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        <a asp-action="Addcustomeraccountfrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@Model.AccountId" asp-route-AccountFrequencyId="@item.AccountFrequencyId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     </td>
                                                 </tr>
                                             }

@@ -11,7 +11,7 @@
                         <h6 class="font-weight-bold text-sm card-title">Formulas</h6>
                     </div>
                     <div class="col-sm-4">
-                        <a asp-action="Addsystemformula" asp-controller="LoyaltyManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_FORMULA" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Formula</a>
+                        <a asp-action="Addsystemformula" asp-controller="LoyaltyManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_ADD_FORMULA" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Formula</a>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                                                             <h6 class="card-title text-sm">Award Type: @data.ValueType </h6>
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <a asp-action="Editsystemformula" asp-controller="LoyaltyManagement" asp-route-code="@Guid.NewGuid()" asp-route-FormulaId="@data.FormulaId" id="CAN_EDIT_FORMULA" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                            <a asp-action="Editsystemformula" asp-controller="LoyaltyManagement" asp-route-code="@Guid.NewGuid()" asp-route-FormulaId="@data.FormulaId" id="CAN_EDIT_FORMULA" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -80,7 +80,7 @@
                                                                                     }
                                                                                 </td>
                                                                                 <td>
-                                                                                    <a asp-action="Editsystemformularule" asp-controller="LoyaltyManagement" asp-route-code="@Guid.NewGuid()" asp-route-FormulaRuleId="@item.FormulaRuleId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_FORMULA_RULES" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                                                    <a asp-action="Editsystemformularule" asp-controller="LoyaltyManagement" asp-route-code="@Guid.NewGuid()" asp-route-FormulaRuleId="@item.FormulaRuleId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_EDIT_FORMULA_RULES" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                                                     @if (item.IsApproved)
                                                                                     {
                                                                                         <a onclick="rejectthis(event)" data-Tablename="LFormulaRules" data-Columname="IsApproved" data-Status="0" data-Columnidname="FormulaRuleId" data-Entryid="@item.FormulaRuleId" id="CAN_REJECT_FORMULA_RULES" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold font-weight-bold text-uppercase">Reject</a>

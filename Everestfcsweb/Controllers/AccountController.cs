@@ -140,6 +140,7 @@ namespace Everestfcsweb.Controllers
                 new Claim(ClaimTypes.NameIdentifier, user.Usermodel.Userid.ToString()),
                 new Claim(ClaimTypes.Name, user.Usermodel.Fullname),
                 new Claim("FullNames", user.Usermodel.Fullname),
+                new Claim("Userid", user.Usermodel.Userid.ToString()),
                 new Claim("Token", user.Token),
                 new Claim("userData", userData),
             };

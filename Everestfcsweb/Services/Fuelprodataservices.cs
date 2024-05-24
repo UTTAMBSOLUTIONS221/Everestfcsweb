@@ -1,12 +1,9 @@
-﻿using Everestfcsweb.Enum;
-using Everestfcsweb.Entities;
+﻿using Everestfcsweb.Entities;
+using Everestfcsweb.Enum;
 using Everestfcsweb.Models;
 using Everestfcsweb.Models.Getendpoitmodels;
 using Newtonsoft.Json;
 using System.Text;
-using System.Net.Http.Headers;
-using System.Net.Mail;
-using System.Collections.Generic;
 
 namespace Everestfcsweb.Services
 {
@@ -322,12 +319,13 @@ namespace Everestfcsweb.Services
         #endregion
 
         #region StaffUserPermissions
-        public static async Task<List<SystemPermissions>> GetTenantStaffPermissions(string Tokenbearer, long Userid)
+        public async Task<IEnumerable<SystemPermissions>> GetTenantStaffPermissions(string Tokenbearer, long Userid)
         {
-            List<SystemPermissions> Permissions = new List<SystemPermissions>();
+            IEnumerable<SystemPermissions> Permissions = new List<SystemPermissions>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(Tokenbearer + "/api/StaffManagemet/GetSystemUserPermissions/" + Userid + "/" + true))
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/StaffManagemet/GetSystemUserPermissions/" + Userid + "/" + true))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Permissions = JsonConvert.DeserializeObject<List<SystemPermissions>>(apiResponse);
@@ -832,14 +830,14 @@ namespace Everestfcsweb.Services
             var resp = await POSTTOAPI(Tokenbearer, "/api/StationManagement/Supervisorclosesystemstationshiftdata", obj);
             return resp;
         }
-        
-        public async Task<decimal> Getsystemstationtankshiftpurchasedata(string Tokenbearer, long ShiftId,long TankId)
+
+        public async Task<decimal> Getsystemstationtankshiftpurchasedata(string Tokenbearer, long ShiftId, long TankId)
         {
-            decimal data=0;
+            decimal data = 0;
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/StationManagement/Getsystemstationtankshiftpurchasedata/" + ShiftId+"/"+TankId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/StationManagement/Getsystemstationtankshiftpurchasedata/" + ShiftId + "/" + TankId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     data = JsonConvert.DeserializeObject<decimal>(apiResponse);
@@ -894,13 +892,13 @@ namespace Everestfcsweb.Services
             }
             return data;
         }
-        public async Task<ProductPriceData> GetsystemdryproductpricebyId(string Tokenbearer, long ProductVariationId, long StationId,long CustomerId)
+        public async Task<ProductPriceData> GetsystemdryproductpricebyId(string Tokenbearer, long ProductVariationId, long StationId, long CustomerId)
         {
             ProductPriceData data = new ProductPriceData();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/StationManagement/GetsystemdryproductpricebyId/" + ProductVariationId+"/"+StationId + "/" + CustomerId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/StationManagement/GetsystemdryproductpricebyId/" + ProductVariationId + "/" + StationId + "/" + CustomerId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     data = JsonConvert.DeserializeObject<ProductPriceData>(apiResponse);
@@ -963,7 +961,7 @@ namespace Everestfcsweb.Services
         #endregion
 
         #region Station Summary Data
-        public async Task<ShiftSummaryDetailData> Getsystemstationsalesummary(string Tokenbearer,DateTime StartDate,DateTime EndDate,long StationId,long ShiftId)
+        public async Task<ShiftSummaryDetailData> Getsystemstationsalesummary(string Tokenbearer, DateTime StartDate, DateTime EndDate, long StationId, long ShiftId)
         {
             ShiftSummaryDetailData data = new ShiftSummaryDetailData();
             using (var httpClient = new HttpClient())
@@ -991,7 +989,7 @@ namespace Everestfcsweb.Services
             }
             return data;
         }
-        public async Task<StationStatementData> Getsystemshiftstatementsummary(string Tokenbearer, DateTime StartDate, DateTime EndDate, long StationId,long ShiftId)
+        public async Task<StationStatementData> Getsystemshiftstatementsummary(string Tokenbearer, DateTime StartDate, DateTime EndDate, long StationId, long ShiftId)
         {
             StationStatementData data = new StationStatementData();
             using (var httpClient = new HttpClient())
@@ -1024,13 +1022,13 @@ namespace Everestfcsweb.Services
         #endregion
 
         #region System Customer Data
-        public async Task<IEnumerable<SystemCustomerModel>> Getsystemtenantcustomers(string Tokenbearer,long TenantId, int Offset,int Count)
+        public async Task<IEnumerable<SystemCustomerModel>> Getsystemtenantcustomers(string Tokenbearer, long TenantId, int Offset, int Count)
         {
             IEnumerable<SystemCustomerModel> Customers = new List<SystemCustomerModel>();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/CustomerManagement/GetSystemCustomerData/" + TenantId +"/" + Offset +"/" + Count))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/CustomerManagement/GetSystemCustomerData/" + TenantId + "/" + Offset + "/" + Count))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Customers = JsonConvert.DeserializeObject<IEnumerable<SystemCustomerModel>>(apiResponse);
@@ -1189,7 +1187,7 @@ namespace Everestfcsweb.Services
         #region Customer Agreement Account Data
         public async Task<Genericmodel> AddcustomeragreementAccount(string Tokenbearer, CustomerAgreementAccountData obj)
         {
-            var dara =JsonConvert.SerializeObject(obj);
+            var dara = JsonConvert.SerializeObject(obj);
             var resp = await POSTTOAPI(Tokenbearer, "/api/CustomerManagement/RegisterCustomerAgreementAccountData", obj);
             return resp;
         }
@@ -1549,13 +1547,13 @@ namespace Everestfcsweb.Services
         #endregion
 
         #region Customer Loyalty Data
-        public async Task<LoyaltyFormulaandFormulaRules> GetSystemLoyaltyFormulaandFormulaRulesData(string Tokenbearer,long TenantId)
+        public async Task<LoyaltyFormulaandFormulaRules> GetSystemLoyaltyFormulaandFormulaRulesData(string Tokenbearer, long TenantId)
         {
             LoyaltyFormulaandFormulaRules Data = new LoyaltyFormulaandFormulaRules();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltyFormulaandFormulaRulesData/"+TenantId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltyFormulaandFormulaRulesData/" + TenantId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<LoyaltyFormulaandFormulaRules>(apiResponse);
@@ -1568,13 +1566,13 @@ namespace Everestfcsweb.Services
             var resp = await POSTTOAPI(Tokenbearer, "/api/LoyaltyManagement/Registerformulaandrules", obj);
             return resp;
         }
-        public async Task<SystemFormulaData> Getsystemformulabyid(string Tokenbearer,long FormulaId)
+        public async Task<SystemFormulaData> Getsystemformulabyid(string Tokenbearer, long FormulaId)
         {
             SystemFormulaData Data = new SystemFormulaData();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltyFormulaDataById/"+FormulaId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltyFormulaDataById/" + FormulaId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<SystemFormulaData>(apiResponse);
@@ -1593,7 +1591,7 @@ namespace Everestfcsweb.Services
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltyFormularuleDataById/"+FormulaRuleId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltyFormularuleDataById/" + FormulaRuleId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<SystemFormulaRuleData>(apiResponse);
@@ -1606,13 +1604,13 @@ namespace Everestfcsweb.Services
             var resp = await POSTTOAPI(Tokenbearer, "/api/LoyaltyManagement/RegisterformulaRuleeditdata", obj);
             return resp;
         }
-        public async Task<LoyaltySchemeandSchemeRules> GetSystemLoyaltySchemeandSchemeRulesData(string Tokenbearer,long TenantId)
+        public async Task<LoyaltySchemeandSchemeRules> GetSystemLoyaltySchemeandSchemeRulesData(string Tokenbearer, long TenantId)
         {
             LoyaltySchemeandSchemeRules Data = new LoyaltySchemeandSchemeRules();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltySchemeandSchemeRulesData/"+ TenantId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltySchemeandSchemeRulesData/" + TenantId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<LoyaltySchemeandSchemeRules>(apiResponse);
@@ -1632,7 +1630,7 @@ namespace Everestfcsweb.Services
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltyschemeDataById/"+LSchemeId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltyschemeDataById/" + LSchemeId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<SystemLoyaltyScheme>(apiResponse);
@@ -1651,7 +1649,7 @@ namespace Everestfcsweb.Services
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltyschemeRuleDataById/"+LSchemeRuleId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/LoyaltyManagement/GetSystemLoyaltyschemeRuleDataById/" + LSchemeRuleId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<SystemSchemeRuleResultData>(apiResponse);
@@ -1667,13 +1665,13 @@ namespace Everestfcsweb.Services
         #endregion
 
         #region System Products Data
-        public async Task<IEnumerable<SystemProductModelData>> Getsystemproductvariationdata(string Tokenbearer,long TenantId)
+        public async Task<IEnumerable<SystemProductModelData>> Getsystemproductvariationdata(string Tokenbearer, long TenantId)
         {
             IEnumerable<SystemProductModelData> Data = new List<SystemProductModelData>();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/ProductManagement/GetSystemProductvariationData/"+ TenantId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/ProductManagement/GetSystemProductvariationData/" + TenantId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<IEnumerable<SystemProductModelData>>(apiResponse);
@@ -1681,13 +1679,13 @@ namespace Everestfcsweb.Services
             }
             return Data;
         }
-        public async Task<IEnumerable<SystemProductModelData>> GetSystemStationProductDataById(string Tokenbearer,long TenantId, long Id)
+        public async Task<IEnumerable<SystemProductModelData>> GetSystemStationProductDataById(string Tokenbearer, long TenantId, long Id)
         {
             IEnumerable<SystemProductModelData> Data = new List<SystemProductModelData>();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/ProductManagement/GetSystemStationProductData?TenantId="+ TenantId + "&StationId="+ Id))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/ProductManagement/GetSystemStationProductData?TenantId=" + TenantId + "&StationId=" + Id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<IEnumerable<SystemProductModelData>>(apiResponse);
@@ -1771,7 +1769,7 @@ namespace Everestfcsweb.Services
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/HardwareManagement/GetSystemGadgetsDataById/"+GadgetId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/HardwareManagement/GetSystemGadgetsDataById/" + GadgetId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<Systemgadgets>(apiResponse);
@@ -1783,14 +1781,14 @@ namespace Everestfcsweb.Services
         #endregion
 
         #region System Cards List Data
-        public async Task<IEnumerable<SystemTenantsCardData>> GetSystemCardsData(string Tokenbearer,long TenantId, int Offset, int Count)
+        public async Task<IEnumerable<SystemTenantsCardData>> GetSystemCardsData(string Tokenbearer, long TenantId, int Offset, int Count)
         {
             IEnumerable<SystemTenantsCardData> Data = new List<SystemTenantsCardData>();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Clear();
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/SetupManagement/GetSystemTenantCardData/" + TenantId + "/" + Offset+"/"+ Count))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/SetupManagement/GetSystemTenantCardData/" + TenantId + "/" + Offset + "/" + Count))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<IEnumerable<SystemTenantsCardData>>(apiResponse);
@@ -1804,13 +1802,13 @@ namespace Everestfcsweb.Services
             return resp;
         }
 
-        public async Task<SystemTenantCard> GetSystemTenantCardDataById(string Tokenbearer,long? CardId)
+        public async Task<SystemTenantCard> GetSystemTenantCardDataById(string Tokenbearer, long? CardId)
         {
             SystemTenantCard Data = new SystemTenantCard();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/SetupManagement/GetSystemTenantCardDataById/"+CardId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/SetupManagement/GetSystemTenantCardDataById/" + CardId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<SystemTenantCard>(apiResponse);
@@ -1835,13 +1833,13 @@ namespace Everestfcsweb.Services
         #endregion
 
         #region System Price List Data
-        public async Task<SystemPriceListData> GetSystemPriceListData(string Tokenbearer,long TenantId)
+        public async Task<SystemPriceListData> GetSystemPriceListData(string Tokenbearer, long TenantId)
         {
             SystemPriceListData Data = new SystemPriceListData();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/PriceManagement/GetSystemPriceListData/"+TenantId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/PriceManagement/GetSystemPriceListData/" + TenantId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<SystemPriceListData>(apiResponse);
@@ -1882,13 +1880,13 @@ namespace Everestfcsweb.Services
         #endregion
 
         #region System Discount List Data
-        public async Task<SystemDiscountListData> GetSystemDiscountListData(string Tokenbearer,long TenantId)
+        public async Task<SystemDiscountListData> GetSystemDiscountListData(string Tokenbearer, long TenantId)
         {
             SystemDiscountListData Data = new SystemDiscountListData();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/PriceManagement/GetSystemDiscountListData/"+ TenantId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/PriceManagement/GetSystemDiscountListData/" + TenantId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<SystemDiscountListData>(apiResponse);
@@ -1959,13 +1957,13 @@ namespace Everestfcsweb.Services
             var resp = await POSTTOAPI(Tokenbearer, "/api/SaleTransaction/PostReverseSaleTransactionData", obj);
             return resp;
         }
-        public async Task<IEnumerable<FinanceTransactions>> Getallofflinesalesdata(string Tokenbearer,long TenantId)
+        public async Task<IEnumerable<FinanceTransactions>> Getallofflinesalesdata(string Tokenbearer, long TenantId)
         {
             IEnumerable<FinanceTransactions> Data = new List<FinanceTransactions>();
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
-                using (var response = await httpClient.GetAsync(BaseUrl + "/api/SaleTransaction/Getallofflinesalesdata/"+ TenantId))
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/SaleTransaction/Getallofflinesalesdata/" + TenantId))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     Data = JsonConvert.DeserializeObject<IEnumerable<FinanceTransactions>>(apiResponse);
@@ -1985,7 +1983,7 @@ namespace Everestfcsweb.Services
         {
             var resp = await POSTTOAPI(Tokenbearer, "/api/CustomerManagement/RemoveTableColumnData", model);
             return resp;
-        } 
+        }
         public async Task<Genericmodel> DefaultThisTableColumnData(string Tokenbearer, ActivateDeactivateActions model)
         {
             var resp = await POSTTOAPI(Tokenbearer, "/api/CustomerManagement/DefaultThisTableColumnData", model);
@@ -2036,7 +2034,7 @@ namespace Everestfcsweb.Services
             }
             return list;
         }
-        public async Task<List<ListModel>> GetSystemDropDownDataByIdAndSearch(string Tokenbearer, ListModelType listType, long Id,string SearchParam)
+        public async Task<List<ListModel>> GetSystemDropDownDataByIdAndSearch(string Tokenbearer, ListModelType listType, long Id, string SearchParam)
         {
             List<ListModel> list = new List<ListModel>();
             using (var httpClient = new HttpClient())
@@ -2050,7 +2048,7 @@ namespace Everestfcsweb.Services
             }
             return list;
         }
-        public async Task<List<ListModel>> GetSystemDropDownDataById(string Tokenbearer,long TenantId, ListModelType listType, long Id)
+        public async Task<List<ListModel>> GetSystemDropDownDataById(string Tokenbearer, long TenantId, ListModelType listType, long Id)
         {
             List<ListModel> list = new List<ListModel>();
             using (var httpClient = new HttpClient())

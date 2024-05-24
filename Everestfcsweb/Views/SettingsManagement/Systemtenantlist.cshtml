@@ -12,7 +12,7 @@
                         <h6 class="font-weight-bold text-sm card-title">Tenants</h6>
                     </div>
                     <div class="col-sm-4">
-                        <a asp-action="Addsystemtenant" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-TenantId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_TENANTS" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Tenant</a>
+                        <a asp-action="Addsystemtenant" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-TenantId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_ADD_TENANTS" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Tenant</a>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                                     <td>@item.DateCreated</td>
                                     <td>@item.Createdby</td>
                                     <td>
-                                        <a asp-action="Addsystemtenant" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-TenantId="@item.Tenantid" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_EDIT_TENANTS" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        <a asp-action="Addsystemtenant" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-TenantId="@item.Tenantid" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_EDIT_TENANTS" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                     </td>
                                 </tr>
                             }

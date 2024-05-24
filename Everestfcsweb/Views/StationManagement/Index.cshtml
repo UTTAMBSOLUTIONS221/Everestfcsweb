@@ -11,7 +11,7 @@
                         <h6 class="font-weight-bold text-sm card-title">Stations</h6>
                     </div>
                     <div class="col-sm-4 float-right pull-right">
-                        <a asp-action="AddSystemStation" asp-controller="StationManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_STATION" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Station</a>
+                        <a asp-action="AddSystemStation" asp-controller="StationManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_ADD_STATION" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Station</a>
                     </div>
                 </div>
             </div>
@@ -67,32 +67,32 @@
                                     </td>
                                     <td>@item.Stationcode</td>
                                     <td class="text-right">
-                                        <a asp-action="Details" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-stationcode="@Guid.NewGuid()" asp-route-StationId="@item.StationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_VIEW_STATION_DETAILS">Tanks and Pumps</a>
-                                        <a asp-action="Shiftlistings" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-stationcode="@Guid.NewGuid()" asp-route-StationId="@item.StationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_VIEW_STATION_SHIFTS">Manage Shifts</a>
+                                        <a asp-action="Details" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-stationcode="@Guid.NewGuid()" asp-route-StationId="@item.StationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_VIEW_STATION_DETAILS">Tanks and Pumps</a>
+                                        <a asp-action="Shiftlistings" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-stationcode="@Guid.NewGuid()" asp-route-StationId="@item.StationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_VIEW_STATION_SHIFTS">Manage Shifts</a>
                                         @if (item.Extra)
                                         {
-                                            <a onclick="switchtomanualsystemstationdata(event)" data-Entryid="@item.StationId" data-Status="false" class="switchtomanualbtn btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_SWITCH_TO_MANUAL"><span id="buttonText">SWITCH TO MANUAL</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span></a>
+                                            <a onclick="switchtomanualsystemstationdata(event)" data-Entryid="@item.StationId" data-Status="false" class="switchtomanualbtn btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_SWITCH_TO_MANUAL"><span id="buttonText">SWITCH TO MANUAL</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span></a>
                                         }
                                         else
                                         {
-                                            <a onclick="automatesystemstationdata(event)" data-Entryid="@item.StationId" data-Status="true" class="switchtoautobtn btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_AUTOMATE_STATION"><span id="buttonText">AUTOMATE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span></a>
+                                            <a onclick="automatesystemstationdata(event)" data-Entryid="@item.StationId" data-Status="true" class="switchtoautobtn btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_AUTOMATE_STATION"><span id="buttonText">AUTOMATE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span></a>
                                         }
-                                        <a asp-action="AddSystemStation" asp-controller="StationManagement" asp-route-StationId="@item.StationId" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_STATION" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        <a asp-action="AddSystemStation" asp-controller="StationManagement" asp-route-StationId="@item.StationId" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_EDIT_STATION" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                         @if (item.IsActive)
                                         {
-                                            <a onclick="tenantdeactivatethis(event)" data-Tablename="SystemStations" data-Columname="IsActive" data-Status="0" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase" id="CAN_DEACTIVATE_STATION">Deactivate</a>
+                                            <a onclick="tenantdeactivatethis(event)" data-Tablename="SystemStations" data-Columname="IsActive" data-Status="0" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_DEACTIVATE_STATION">Deactivate</a>
                                         }
                                         else
                                         {
-                                            <a onclick="tenantactivatethis(event)" data-Tablename="SystemStations" data-Columname="IsActive" data-Status="1" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_ACTIVATE_STATION">Activate</a>
+                                            <a onclick="tenantactivatethis(event)" data-Tablename="SystemStations" data-Columname="IsActive" data-Status="1" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_ACTIVATE_STATION">Activate</a>
                                         }
                                         @if (item.IsDeleted)
                                         {
-                                            <a onclick="tenantrestorethis(event)" data-Tablename="SystemStations" data-Columname="IsDeleted" data-Status="0" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_RESTORE_STATION">Restore</a>
+                                            <a onclick="tenantrestorethis(event)" data-Tablename="SystemStations" data-Columname="IsDeleted" data-Status="0" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_RESTORE_STATION">Restore</a>
                                         }
                                         else
                                         {
-                                            <a onclick="tenantdeletethis(event)" data-Tablename="SystemStations" data-Columname="IsDeleted" data-Status="1" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase" id="CAN_DELETE_STATION">Delete</a>
+                                            <a onclick="tenantdeletethis(event)" data-Tablename="SystemStations" data-Columname="IsDeleted" data-Status="1" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_DELETE_STATION">Delete</a>
                                         }
                                     </td>
                                 </tr>

@@ -28,7 +28,7 @@
         public DateTime Lastlogin { get; set; }
         public DateTime Datemodified { get; set; }
         public DateTime Datecreated { get; set; }
-        public List<SystemPermissions>? Permission { get; set; }
+        //public List<SystemPermissions>? Permission { get; set; }
         public List<UserStations>? Stations { get; set; }
     }
 }

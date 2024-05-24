@@ -11,7 +11,7 @@
                         <h6 class="font-weight-bold text-sm card-title">Price List</h6>
                     </div>
                     <div class="col-sm-4">
-                        <a asp-action="Addpricelist" asp-controller="PriceManagement" asp-route-code="@Guid.NewGuid()" asp-route-PricelistId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_PRICELIST" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Pricelist</a>
+                        <a asp-action="Addpricelist" asp-controller="PriceManagement" asp-route-code="@Guid.NewGuid()" asp-route-PricelistId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_ADD_PRICELIST" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Pricelist</a>
                     </div>
                 </div>
             </div>
@@ -73,26 +73,26 @@
                                                                 <td>@data.Datecreated</td>
                                                                 <td>@data.Createdby</td>
                                                                 <td class="text-right">
-                                                                    <a asp-action="Editpricelist" asp-controller="PriceManagement" asp-route-code="@Guid.NewGuid()" asp-route-PricelistId="@data.PriceListId" asp-area="" id="CAN_EDIT_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                                    <a asp-action="Editpricelist" asp-controller="PriceManagement" asp-route-code="@Guid.NewGuid()" asp-route-PricelistId="@data.PriceListId" asp-area="" id="CAN_EDIT_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                                     @if (!data.IsDefault)
                                                                     {
-                                                                        <a onclick="singledefaultthis(event)" data-Tablename="PriceList" data-Columname="IsActive" data-Status="1" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_DEFAULT_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Default</a>
+                                                                        <a onclick="singledefaultthis(event)" data-Tablename="PriceList" data-Columname="IsActive" data-Status="1" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_DEFAULT_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Default</a>
                                                                     }
                                                                     @if (data.IsActive)
                                                                     {
-                                                                        <a onclick="deactivatethis(event)" data-Tablename="PriceList" data-Columname="IsActive" data-Status="0" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_DEACTIVATE_PRICELIST" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
+                                                                        <a onclick="deactivatethis(event)" data-Tablename="PriceList" data-Columname="IsActive" data-Status="0" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_DEACTIVATE_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Deactivate</a>
                                                                     }
                                                                     else
                                                                     {
-                                                                        <a onclick="activatethis(event)" data-Tablename="PriceList" data-Columname="IsActive" data-Status="1" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_ACTIVATE_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
+                                                                        <a onclick="activatethis(event)" data-Tablename="PriceList" data-Columname="IsActive" data-Status="1" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_ACTIVATE_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Activate</a>
                                                                     }
                                                                     @if (data.IsDeleted)
                                                                     {
-                                                                        <a onclick="restorethis(event)" data-Tablename="PriceList" data-Columname="IsDeleted" data-Status="0" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_RESTORE_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
+                                                                        <a onclick="restorethis(event)" data-Tablename="PriceList" data-Columname="IsDeleted" data-Status="0" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_RESTORE_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Restore</a>
                                                                     }
                                                                     else
                                                                     {
-                                                                        <a onclick="deletethis(event)" data-Tablename="PriceList" data-Columname="IsDeleted" data-Status="1" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_DELETE_PRICELIST" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
+                                                                        <a onclick="deletethis(event)" data-Tablename="PriceList" data-Columname="IsDeleted" data-Status="1" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_DELETE_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Delete</a>
                                                                     }
                                                                 </td>
                                                             </tr>
@@ -105,7 +105,7 @@
                                                             <h6 class="font-weight-bold text-sm card-title">Price List Prices</h6>
                                                         </div>
                                                         <div class="col-sm-3">
-                                                            <a asp-action="Addpricelistprice" asp-controller="PriceManagement" asp-route-code="@Guid.NewGuid()" asp-route-PricelistId="@data.PriceListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_PRICELIST_PRICE" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Pricelist Price</a>
+                                                            <a asp-action="Addpricelistprice" asp-controller="PriceManagement" asp-route-code="@Guid.NewGuid()" asp-route-PricelistId="@data.PriceListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_ADD_PRICELIST_PRICE" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Pricelist Price</a>
                                                         </div>
                                                     </div>
                                                     <div class="row mt-1">
@@ -127,7 +127,7 @@
                                                                             <td class="font-weight-light">@item.Station</td>
                                                                             <td class="font-weight-light">@item.ProductPrice</td>
                                                                             <td class="font-weight-light">
-                                                                                <a onclick="permanentdeletethis(event)" data-Tablename="PriceListprices" data-Columnidname="PriceListPricesId" data-Entryid="@item.PriceListPricesId" id="CAN_REMOVE_PRICELIST_PRICE" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase float-right">Remove</a>
+                                                                                <a onclick="permanentdeletethis(event)" data-Tablename="PriceListprices" data-Columnidname="PriceListPricesId" data-Entryid="@item.PriceListPricesId" id="CAN_REMOVE_PRICELIST_PRICE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right">Remove</a>
                                                                             </td>
                                                                         </tr>
                                                                     }

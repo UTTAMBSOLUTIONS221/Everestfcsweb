@@ -11,7 +11,7 @@
                         <h6 class="font-weight-bold text-sm card-title">Schemes</h6>
                     </div>
                     <div class="col-sm-4">
-                        <a asp-action="Addsystemscheme" asp-controller="LoyaltyManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_LOYALTY_SCHEME" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Scheme</a>
+                        <a asp-action="Addsystemscheme" asp-controller="LoyaltyManagement" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right main" id="CAN_ADD_LOYALTY_SCHEME" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Scheme</a>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                                                             <h6 class="card-title text-sm">Scheme End Date: @data.EndDate.ToString("yyyy-MM-dd")</h6>
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <a asp-action="Editsystemscheme" asp-controller="LoyaltyManagement" asp-route-code="@Guid.NewGuid()" asp-route-LSchemeId="@data.LSchemeId" id="CAN_EDIT_LOYALTY_SCHEME" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                            <a asp-action="Editsystemscheme" asp-controller="LoyaltyManagement" asp-route-code="@Guid.NewGuid()" asp-route-LSchemeId="@data.LSchemeId" id="CAN_EDIT_LOYALTY_SCHEME" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -86,14 +86,14 @@
                                                                                     }
                                                                                 </td>
                                                                                 <td>
-                                                                                    <a asp-action="Editsystemschemerule" asp-controller="LoyaltyManagement" asp-area="" asp-route-code="@Guid.NewGuid()" asp-route-LSchemeRuleId="@item.LSchemeRuleId" id="CAN_EDIT_SCHEME_RULE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                                                    <a asp-action="Editsystemschemerule" asp-controller="LoyaltyManagement" asp-area="" asp-route-code="@Guid.NewGuid()" asp-route-LSchemeRuleId="@item.LSchemeRuleId" id="CAN_EDIT_SCHEME_RULE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                                                     @if (item.IsApproved)
                                                                                     {
-                                                                                        <a onclick="rejectthis(event)" data-Tablename="LSchemeRules" data-Columname="IsApproved" data-Status="0" data-Columnidname="LSchemeRuleId" data-Entryid="@item.LSchemeRuleId" id="CAN_REJECT_SCHEME_RULE" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Reject</a>
+                                                                                        <a onclick="rejectthis(event)" data-Tablename="LSchemeRules" data-Columname="IsApproved" data-Status="0" data-Columnidname="LSchemeRuleId" data-Entryid="@item.LSchemeRuleId" id="CAN_REJECT_SCHEME_RULE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Reject</a>
                                                                                     }
                                                                                     else
                                                                                     {
-                                                                                        <a onclick="approvethis(event)" data-Tablename="LSchemeRules" data-Columname="IsApproved" data-Status="1" data-Columnidname="LSchemeRuleId" data-Entryid="@item.LSchemeRuleId" id="CAN_APPROVE_SCHEME_RULE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Approve</a>
+                                                                                        <a onclick="approvethis(event)" data-Tablename="LSchemeRules" data-Columname="IsApproved" data-Status="1" data-Columnidname="LSchemeRuleId" data-Entryid="@item.LSchemeRuleId" id="CAN_APPROVE_SCHEME_RULE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Approve</a>
                                                                                     }
                                                                                 </td>
                                                                             </tr>

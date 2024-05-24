@@ -31,11 +31,11 @@
                             <td class="font-weight-light">
                                 @if (item.Saledescription == "Topup" && !item.Isreversed)
                                 {
-                                    <a onclick="reversetopupthis(event)" data-FinanceTransactionId="@item.FinanceTransactionId" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Reverse</a>
+                                    <a onclick="reversetopupthis(event)" data-FinanceTransactionId="@item.FinanceTransactionId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Reverse</a>
                                 }
                                 else
                                 {
-                                    <btn class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">N/A</btn>
+                                    <btn class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">N/A</btn>
                                 }
                             </td>
                         </tr>

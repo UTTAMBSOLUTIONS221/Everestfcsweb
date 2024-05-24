@@ -60,22 +60,22 @@
                                 <td>@item.DateCreated</td>
                                 <td>@item.Createdby</td>
                                 <td>
-                                    <a asp-action="AddTenantGadget" asp-controller="HardwareManagement" asp-route-code="@Guid.NewGuid()" asp-route-GadgetId="@item.GadgetId" asp-area="" id="CAN_EDIT_GADGET" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                    <a asp-action="AddTenantGadget" asp-controller="HardwareManagement" asp-route-code="@Guid.NewGuid()" asp-route-GadgetId="@item.GadgetId" asp-area="" id="CAN_EDIT_GADGET" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                     @if (item.IsActive)
                                     {
-                                        <a onclick="tenantdeactivatethis(event)" data-tablename="SystemGadgets" data-Columname="IsActive" data-Status="0" data-Columnidname="GadgetId" data-Entryid="@item.GadgetId" id="CAN_DEACTIVATE_GADGET" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
+                                        <a onclick="tenantdeactivatethis(event)" data-tablename="SystemGadgets" data-Columname="IsActive" data-Status="0" data-Columnidname="GadgetId" data-Entryid="@item.GadgetId" id="CAN_DEACTIVATE_GADGET" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Deactivate</a>
                                     }
                                     else
                                     {
-                                        <a onclick="tenantactivatethis(event)" data-Tablename="SystemGadgets" data-Columname="IsActive" data-Status="1" data-Columnidname="GadgetId" data-Entryid="@item.GadgetId" id="CAN_ACTIVATE_GADGET"  class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
+                                        <a onclick="tenantactivatethis(event)" data-Tablename="SystemGadgets" data-Columname="IsActive" data-Status="1" data-Columnidname="GadgetId" data-Entryid="@item.GadgetId" id="CAN_ACTIVATE_GADGET"  class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Activate</a>
                                     }
                                     @if (item.IsDeleted)
                                     {
-                                        <a onclick="tenantrestorethis(event)" data-Tablename="SystemGadgets" data-Columname="IsDeleted" data-Status="0" data-Columnidname="GadgetId" data-Entryid="@item.GadgetId" id="CAN_RESTORE_GADGET" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
+                                        <a onclick="tenantrestorethis(event)" data-Tablename="SystemGadgets" data-Columname="IsDeleted" data-Status="0" data-Columnidname="GadgetId" data-Entryid="@item.GadgetId" id="CAN_RESTORE_GADGET" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Restore</a>
                                     }
                                     else
                                     {
-                                        <a onclick="tenantdeletethis(event)" data-Tablename="SystemGadgets" data-Columname="IsDeleted" data-Status="1" data-Columnidname="GadgetId" data-Entryid="@item.GadgetId" id="CAN_DELETE_GADGET" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
+                                        <a onclick="tenantdeletethis(event)" data-Tablename="SystemGadgets" data-Columname="IsDeleted" data-Status="1" data-Columnidname="GadgetId" data-Entryid="@item.GadgetId" id="CAN_DELETE_GADGET" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Delete</a>
                                     }
                                 </td>
                             </tr>

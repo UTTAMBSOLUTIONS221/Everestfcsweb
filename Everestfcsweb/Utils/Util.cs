@@ -1,4 +1,5 @@
 ﻿using Everestfcsweb.Models;
+using Everestfcsweb.Services;
 using Newtonsoft.Json;
 using System.Security.Claims;
 
@@ -72,15 +73,33 @@ namespace Everestfcsweb
 
             return JsonConvert.DeserializeObject<UsermodelResponce>(userData);
         }
+        public static async Task<List<SystemPermissions>> GetCurrentUserPermissionsData(IEnumerable<ClaimsIdentity> claims, IConfiguration config)
+         {
+            var Tokenbearer = claims.FirstOrDefault(u => u.IsAuthenticated && u.HasClaim(c => c.Type == "Token"))?.FindFirst("Token")?.Value;
+            var Userid = claims.FirstOrDefault(u => u.IsAuthenticated && u.HasClaim(c => c.Type == "Userid"))?.FindFirst("Userid")?.Value;
+            List<SystemPermissions> Permissions = new List<SystemPermissions>();
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
+                using (var response = await httpClient.GetAsync(Currenttenantbaseurlstring(config) + "/api/StaffManagemet/GetSystemUserPermissions/" + Userid + "/" + true))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    Permissions = JsonConvert.DeserializeObject<List<SystemPermissions>>(apiResponse);
+                }
+            }
+            return Permissions;
+        }
+
+
     }
 
     public class Alert
     {
         public const string TempDataKey = "TempDataAlerts";
-        public string AlertStyle { get; set; }
-        public string Message { get; set; }
+        public string? AlertStyle { get; set; }
+        public string? Message { get; set; }
         public bool Dismissable { get; set; }
-        public string IconClass { get; set; }
+        public string? IconClass { get; set; }
     }
 
     public static class AlertStyles

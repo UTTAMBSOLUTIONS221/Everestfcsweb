@@ -11,7 +11,7 @@
                         <h6 class="font-weight-bold text-sm card-title">Cards</h6>
                     </div>
                     <div class="col-sm-4">
-                        <a asp-action="AddTenantCard" asp-controller="HardwareManagement" asp-route-code="@Guid.NewGuid()" asp-route-CardId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_CARD" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Card</a>
+                        <a asp-action="AddTenantCard" asp-controller="HardwareManagement" asp-route-code="@Guid.NewGuid()" asp-route-CardId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_ADD_CARD" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Card</a>
                     </div>
                 </div>
             </div>
@@ -90,19 +90,19 @@
                                     }
                                     @if (item.IsActive)
                                     {
-                                        <a onclick="deactivatethis(event)" data-Tablename="Systemcard" data-Columname="IsActive" data-Status="0" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_DEACTIVATE_CARD" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
+                                        <a onclick="deactivatethis(event)" data-Tablename="Systemcard" data-Columname="IsActive" data-Status="0" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_DEACTIVATE_CARD" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Deactivate</a>
                                     }
                                     else
                                     {
-                                        <a onclick="activatethis(event)" data-Tablename="Systemcard" data-Columname="IsActive" data-Status="1" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_ACTIVATE_CARD" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
+                                        <a onclick="activatethis(event)" data-Tablename="Systemcard" data-Columname="IsActive" data-Status="1" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_ACTIVATE_CARD" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Activate</a>
                                     }
                                     @if (item.IsDeleted)
                                     {
-                                        <a onclick="restorethis(event)" data-Tablename="Systemcard" data-Columname="IsDeleted" data-Status="0" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_RESTORE_CARD" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
+                                        <a onclick="restorethis(event)" data-Tablename="Systemcard" data-Columname="IsDeleted" data-Status="0" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_RESTORE_CARD" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Restore</a>
                                     }
                                     else
                                     {
-                                        <a onclick="deletethis(event)" data-Tablename="Systemcard" data-Columname="IsDeleted" data-Status="1" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_DELETE_CARD" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
+                                        <a onclick="deletethis(event)" data-Tablename="Systemcard" data-Columname="IsDeleted" data-Status="1" data-Columnidname="CardId" data-Entryid="@item.CardId" id="CAN_DELETE_CARD" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Delete</a>
                                     }
                                 </td>
                             </tr>

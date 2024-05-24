@@ -17,7 +17,7 @@
                                     <h4 class="text-sm">@Model.EquipmentNumber what can it Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountequipmentproductpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentProductId="0" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Equipment Product</a>
+                                    <a asp-action="Addcustomeraccountequipmentproductpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentProductId="0" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Equipment Product</a>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                                     <td class="font-weight-light">@item.LimitPeriod</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a asp-action="Addcustomeraccountequipmentproductpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentProductId="@item.EquipmentProductId" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        <a asp-action="Addcustomeraccountequipmentproductpolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentProductId="@item.EquipmentProductId" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     </td>
                                                 </tr>
                                             }
@@ -63,7 +63,7 @@
                                     <h4 class="text-sm">@Model.EquipmentNumber where can it Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountequipmentstationpolicy" asp-controller="CustomerManagement" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Equipment Station</a>
+                                    <a asp-action="Addcustomeraccountequipmentstationpolicy" asp-controller="CustomerManagement" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Equipment Station</a>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                                     <td class="font-weight-light">@item.Stationname</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a onclick="permanentdeleteequipmentthis(event)" data-Tablename="EquipmentStations" data-Columnidname="EquipmentStationId" data-Entryid="@item.EquipmentStationId" data-EquipmentId="@Model.EquipmentId" data-EquipmentNumber="@Model.EquipmentNumber" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase float-right">Remove</a>
+                                                        <a onclick="permanentdeleteequipmentthis(event)" data-Tablename="EquipmentStations" data-Columnidname="EquipmentStationId" data-Entryid="@item.EquipmentStationId" data-EquipmentId="@Model.EquipmentId" data-EquipmentNumber="@Model.EquipmentNumber" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right">Remove</a>
                                                     </td>
                                                 </tr>
                                             }
@@ -109,7 +109,7 @@
                                     <h4 class="text-sm">@Model.EquipmentNumber When can it Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountequipmentweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentWeekDaysId="0" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Equipment Weekday(s)</a>
+                                    <a asp-action="Addcustomeraccountequipmentweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentWeekDaysId="0" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Equipment Weekday(s)</a>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                                                     <td class="font-weight-light">@item.EndTime</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a asp-action="Addcustomeraccountequipmentweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentWeekDaysId="@item.EquipmentWeekDaysId" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        <a asp-action="Addcustomeraccountequipmentweekdaypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentWeekDaysId="@item.EquipmentWeekDaysId" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     </td>
                                                 </tr>
                                             }
@@ -155,7 +155,7 @@
                                     <h4 class="text-sm">@Model.EquipmentNumber how can it Consume?</h4>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a asp-action="Addcustomeraccountequipmentfrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentFrequencyId="0" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Equipment frequency</a>
+                                    <a asp-action="Addcustomeraccountequipmentfrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentFrequencyId="0" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Equipment frequency</a>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +180,7 @@
                                                     <td class="font-weight-light">@item.FrequencyPeriod</td>
                                                     <td class="font-weight-light">@item.DateCreated</td>
                                                     <td class="font-weight-light">
-                                                        <a asp-action="Addcustomeraccountequipmentfrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentFrequencyId="@item.EquipmentFrequencyId" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                        <a asp-action="Addcustomeraccountequipmentfrequencypolicy" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-EquipmentId="@Model.EquipmentId" asp-route-EquipmentFrequencyId="@item.EquipmentFrequencyId" asp-route-EquipmentNumber="@Model.EquipmentNumber" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     </td>
                                                     </tr>
                                             }

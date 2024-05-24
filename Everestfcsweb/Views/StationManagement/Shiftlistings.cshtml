@@ -12,7 +12,7 @@
                         <h6 class="font-weight-bold text-sm card-title text-uppercase">Stations Shifts</h6>
                     </div>
                     <div class="col-sm-4 float-right pull-right">
-                        <a asp-action="Addsystemstationshift" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-shiftcode="@Guid.NewGuid()" asp-route-ShiftId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" id="CAN_ADD_STATION_SHIFT">New Shift</a>
+                        <a asp-action="Addsystemstationshift" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-shiftcode="@Guid.NewGuid()" asp-route-ShiftId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_ADD_STATION_SHIFT">New Shift</a>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                                                     <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Closed</span>
                                                 }
                                             </td>
-                                            <td class="text-right"><a asp-action="Addsystemstationshift" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-shiftcode="@Guid.NewGuid()" asp-route-ShiftId="@item.ShiftId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_MANAGE_SHIFT_DETAILS">Shift Details</a></td>
+                                            <td class="text-right"><a asp-action="Addsystemstationshift" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-shiftcode="@Guid.NewGuid()" asp-route-ShiftId="@item.ShiftId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_MANAGE_SHIFT_DETAILS">Shift Details</a></td>
                                         </tr>
                                     }
                                 }

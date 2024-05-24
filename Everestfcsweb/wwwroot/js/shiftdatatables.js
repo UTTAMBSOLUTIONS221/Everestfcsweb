@@ -54,7 +54,7 @@
                     if (ShiftStatus != 1) {
                         return "<button class='btn-info btn-xs btn-outline-info editcreditinvoice text-white font-weight-bold text-uppercase m-1'>Edit</button>";
                     } else {
-                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1'>Edit</button>";
+                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main m-1'>Edit</button>";
                     }
                 }
             }
@@ -134,7 +134,7 @@
                     if (ShiftStatus != 1) {
                         return "<button class='btn-info btn-xs btn-outline-info editshiftwetstockpurchase text-white font-weight-bold text-uppercase m-1'>Edit</button>";
                     } else {
-                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1'>Edit</button>";
+                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main m-1'>Edit</button>";
                     }
                 }
             }
@@ -212,7 +212,7 @@
                     if (ShiftStatus != 1) {
                         return "<button class='btn-info btn-xs btn-outline-info editshiftdrystockpurchase text-white font-weight-bold text-uppercase m-1'>Edit</button>";
                     } else {
-                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1'>Edit</button>";
+                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main m-1'>Edit</button>";
                     }
                 }
             }
@@ -281,7 +281,7 @@
                     if (ShiftStatus != 1) {
                         return "<button class='btn-info btn-xs btn-outline-info editshiftexpense text-white font-weight-bold text-uppercase m-1'>Edit</button>";
                     } else {
-                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1'>Edit</button>";
+                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main m-1'>Edit</button>";
                     }
                 }
             }
@@ -347,7 +347,7 @@
                     if (ShiftStatus != 1) {
                         return "<button class='btn-info btn-xs btn-outline-info editshiftmpesacollection text-white font-weight-bold text-uppercase m-1'>Edit</button>";
                     } else {
-                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1'>Edit</button>";
+                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main m-1'>Edit</button>";
                     }
                 }
             }
@@ -416,7 +416,7 @@
                     if (ShiftStatus != 1) {
                         return "<button class='btn-info btn-xs btn-outline-info editshiftfuelcardcollection text-white font-weight-bold text-uppercase m-1'>Edit</button>";
                     } else {
-                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1'>Edit</button>";
+                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main m-1'>Edit</button>";
                     }
                 }
             }
@@ -488,7 +488,7 @@
                     if (ShiftStatus != 1) {
                         return "<button class='btn-info btn-xs btn-outline-info editshiftmerchantcollection text-white font-weight-bold text-uppercase m-1'>Edit</button>";
                     } else {
-                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1'>Edit</button>";
+                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main m-1'>Edit</button>";
                     }
                 }
             }
@@ -552,7 +552,7 @@
                     if (ShiftStatus != 1) {
                         return "<button class='btn-info btn-xs btn-outline-info editshifttopup text-white font-weight-bold text-uppercase m-1'>Edit</button>";
                     } else {
-                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1'>Edit</button>";
+                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main m-1'>Edit</button>";
                     }
                 }
             }
@@ -612,7 +612,7 @@
                     if (ShiftStatus != 1) {
                         return "<button class='btn-info btn-xs btn-outline-info editshiftpayment text-white font-weight-bold text-uppercase m-1'>Edit</button>";
                     } else {
-                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase m-1'>Edit</button>";
+                        return "<button class='btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main m-1'>Edit</button>";
                     }
                 }
             }

@@ -67,22 +67,22 @@
                                         }
                                     </td>
                                     <td>
-                                        <a asp-action="Addcommunicationtemplate" asp-controller="CommunicationTemplate" asp-route-Templateid="@item.Templateid" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" id="CAN_EDIT_TEMPLATES" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        <a asp-action="Addcommunicationtemplate" asp-controller="CommunicationTemplate" asp-route-Templateid="@item.Templateid" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_EDIT_TEMPLATES" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                         @if (item.Isactive)
                                         {
-                                            <a onclick="deactivatethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isactive" data-Status="0" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_DEACTIVATE_TEMPLATES" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
+                                            <a onclick="deactivatethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isactive" data-Status="0" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_DEACTIVATE_TEMPLATES" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Deactivate</a>
                                         }
                                         else
                                         {
-                                            <a onclick="activatethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isactive" data-Status="1" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_ACTIVATE_TEMPLATES" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
+                                            <a onclick="activatethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isactive" data-Status="1" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_ACTIVATE_TEMPLATES" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Activate</a>
                                         }
                                         @if (item.Isdeleted)
                                         {
-                                            <a onclick="restorethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isdeleted" data-Status="0" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_RESTORE_TEMPLATES" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
+                                            <a onclick="restorethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isdeleted" data-Status="0" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_RESTORE_TEMPLATES" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Restore</a>
                                         }
                                         else
                                         {
-                                            <a onclick="deletethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isdeleted" data-Status="1" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_DELETE_TEMPLATES" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
+                                            <a onclick="deletethis(event)" data-Tablename="Communicationtemplates" data-Columname="Isdeleted" data-Status="1" data-Columnidname="Templateid" data-Entryid="@item.Templateid" id="CAN_DELETE_TEMPLATES" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Delete</a>
                                         }
                                     </td>
                                 </tr>

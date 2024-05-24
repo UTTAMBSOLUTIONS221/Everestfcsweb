@@ -11,7 +11,7 @@
                         <h6 class="font-weight-bold text-sm card-title">Customers</h6>
                     </div>
                     <div class="col-sm-4">
-                        <a asp-action="Addsystemcustomer" asp-controller="CustomerManagement" asp-area="" id="CAN_CREATE_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Customer</a>
+                        <a asp-action="Addsystemcustomer" asp-controller="CustomerManagement" asp-area="" id="CAN_CREATE_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Customer</a>
                     </div>
                 </div>
             </div>
@@ -70,23 +70,23 @@
                                     <td>@item.Datecreated</td>
                                     <td>@item.CustomerCreatedBy</td>
                                     <td>
-                                        <a asp-action="Details" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-CustomerId="@item.CustomerId" asp-area="" id="CAN_VIEW_CUSTOMER_DETAILS" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Details</a>
-                                        <a asp-action="Addsystemcustomer" asp-controller="CustomerManagement" asp-route-CustomerId="@item.CustomerId" asp-area="" id="CAN_EDIT_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase " data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        <a asp-action="Details" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-CustomerId="@item.CustomerId" asp-area="" id="CAN_VIEW_CUSTOMER_DETAILS" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Details</a>
+                                        <a asp-action="Addsystemcustomer" asp-controller="CustomerManagement" asp-route-CustomerId="@item.CustomerId" asp-area="" id="CAN_EDIT_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main " data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                         @if (item.IsActive)
                                         {
-                                            <a onclick="deactivatethis(event)" data-Tablename="Customers" data-Columname="IsActive" data-Status="0" data-Columnidname="CustomerId" data-Entryid="@item.CustomerId" id="CAN_DEACTIVATE_CUSTOMER" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Deactivate</a>
+                                            <a onclick="deactivatethis(event)" data-Tablename="Customers" data-Columname="IsActive" data-Status="0" data-Columnidname="CustomerId" data-Entryid="@item.CustomerId" id="CAN_DEACTIVATE_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Deactivate</a>
                                         }
                                         else
                                         {
-                                            <a onclick="activatethis(event)" data-Tablename="Customers" data-Columname="IsActive" data-Status="1" data-Columnidname="CustomerId" data-Entryid="@item.CustomerId" id="CAN_ACTIVATE_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Activate</a>
+                                            <a onclick="activatethis(event)" data-Tablename="Customers" data-Columname="IsActive" data-Status="1" data-Columnidname="CustomerId" data-Entryid="@item.CustomerId" id="CAN_ACTIVATE_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Activate</a>
                                         }
                                         @if (item.IsDeleted)
                                         {
-                                            <a onclick="restorethis(event)" data-Tablename="Customers" data-Columname="IsDeleted" data-Status="0" data-Columnidname="CustomerId" data-Entryid="@item.CustomerId" id="CAN_RESTORE_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase">Restore</a>
+                                            <a onclick="restorethis(event)" data-Tablename="Customers" data-Columname="IsDeleted" data-Status="0" data-Columnidname="CustomerId" data-Entryid="@item.CustomerId" id="CAN_RESTORE_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Restore</a>
                                         }
                                         else
                                         {
-                                            <a onclick="deletethis(event)" data-Tablename="Customers" data-Columname="IsDeleted" data-Status="1" data-Columnidname="CustomerId" data-Entryid="@item.CustomerId" id="CAN_DELETE_CUSTOMER" class="btn-danger btn-xs btn-outline-danger text-white font-weight-bold text-uppercase">Delete</a>
+                                            <a onclick="deletethis(event)" data-Tablename="Customers" data-Columname="IsDeleted" data-Status="1" data-Columnidname="CustomerId" data-Entryid="@item.CustomerId" id="CAN_DELETE_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Delete</a>
                                         }
                                     </td>
                                 </tr>
