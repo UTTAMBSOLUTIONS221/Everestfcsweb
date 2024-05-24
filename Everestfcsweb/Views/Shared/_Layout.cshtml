@@ -137,19 +137,7 @@
                                 </li> *@
                             </ul>
                         </li>
-                        <li class="nav-item has-treeview main" id="CAN_MANAGE_SUPPLIERS" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-truck"></i><p>Suppliers<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_SUPPLIERS" style="display:none;">
-                                    <a asp-controller="SettingsManagement" asp-action="Systemsupplierslist" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Suppliers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
+                       
                         <li class="nav-item has-treeview main" id="CAN_MANAGE_STATIONS" style="display:none;">
                             <a href="javascript: void(0);" class="nav-link">
                                 <i class="nav-icon fa fa-charging-station"></i><p>Stations<i class="fa fa-angle-left right"></i></p>
@@ -181,6 +169,18 @@
                                 <li class="nav-item  ml-2 main" id="CAN_VIEW_STORE_PRODUCTS" style="display:none;">
                                     <a asp-controller="ProductManagement" asp-action="Mainstore" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i><p>Mainstore List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview main" id="CAN_MANAGE_SUPPLIERS" style="display:none;">
+                            <a href="javascript: void(0);" class="nav-link">
+                                <i class="nav-icon fa fa-truck"></i><p>Suppliers<i class="fa fa-angle-left right"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview ml-2">
+                                <li class="nav-item main" id="CAN_VIEW_SUPPLIERS" style="display:none;">
+                                    <a asp-controller="SettingsManagement" asp-action="Systemsupplierslist" class="nav-link">
+                                        <i class="nav-icon fas fa-list"></i><p>Suppliers</p>
                                     </a>
                                 </li>
                             </ul>

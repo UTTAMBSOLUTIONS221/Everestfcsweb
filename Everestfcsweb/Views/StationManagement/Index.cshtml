@@ -66,7 +66,7 @@
                                         }
                                     </td>
                                     <td>@item.Stationcode</td>
-                                    <td class="text-right">
+                                    <td class="nowrap text-nowrap">
                                         <a asp-action="Details" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-stationcode="@Guid.NewGuid()" asp-route-StationId="@item.StationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_VIEW_STATION_DETAILS">Tanks and Pumps</a>
                                         <a asp-action="Shiftlistings" asp-controller="StationManagement" asp-route-code="@Guid.NewGuid()" asp-route-stationcode="@Guid.NewGuid()" asp-route-StationId="@item.StationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_VIEW_STATION_SHIFTS">Manage Shifts</a>
                                         @if (item.Extra)

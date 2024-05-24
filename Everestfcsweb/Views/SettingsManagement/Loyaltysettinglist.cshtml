@@ -11,7 +11,7 @@
                         <h6 class="font-weight-bold text-sm card-title">Loyalty Settings</h6>
                     </div>
                     <div class="col-sm-4">
-                        <a asp-action="Addsystemloyaltysetting" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-LoyaltysettId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right main" id="CAN_ADD_LOTALTY_SETTINGS" style="display:none;" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Loyalty Setting</a>
+                        <a asp-action="Addsystemloyaltysetting" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-LoyaltysettId="0" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase float-right main" id="CAN_ADD_LOTALTY_SETTINGS" style="display:none;" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Loyalty Setting</a>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                                     <td>@item.DateCreated</td>
                                     <td>@item.Createdby</td>
                                     <td>
-                                        <a asp-action="Addsystemloyaltysetting" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-LoyaltysettId="@item.LoyaltysettId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right main" id="CAN_EDIT_LOTALTY_SETTINGS" style="display:none;" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                        <a asp-action="Addsystemloyaltysetting" asp-controller="SettingsManagement" asp-route-code="@Guid.NewGuid()" asp-route-LoyaltysettId="@item.LoyaltysettId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main float-right" id="CAN_EDIT_LOTALTY_SETTINGS" style="display:none;" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                     </td>
                                 </tr>
                             }
