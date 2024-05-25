@@ -134,52 +134,56 @@ namespace Everestfcsweb.Controllers
 
         private async Task SetUserLoggedIn(UsermodelResponce user, bool rememberMe)
         {
-            string userData = JsonConvert.SerializeObject(user);
+            UsermodelResponce UserData = new UsermodelResponce
+            {
+                RespStatus = user.RespStatus,
+                RespMessage = user.RespMessage,
+                Token = user.Token,
+                Usermodel = new UserModel
+                {
+                    Userid = user.Usermodel.Userid,
+                    Tenantid = user.Usermodel.Tenantid,
+                    Tenantname = user.Usermodel.Tenantname,
+                    Tenantsubdomain = user.Usermodel.Tenantsubdomain,
+                    TenantLogo = user.Usermodel.TenantLogo,
+                    Currencyname = user.Usermodel.Currencyname,
+                    Utcname = user.Usermodel.Utcname,
+                    Fullname = user.Usermodel.Fullname,
+                    Phonenumber = user.Usermodel.Phonenumber,
+                    Username = user.Usermodel.Username,
+                    Emailaddress = user.Usermodel.Emailaddress,
+                    Roleid = user.Usermodel.Roleid,
+                    Rolename = user.Usermodel.Rolename,
+                    Passharsh = user.Usermodel.Passharsh,
+                    Passwords = user.Usermodel.Passwords,
+                    LimitTypeId = user.Usermodel.LimitTypeId,
+                    LimitTypeValue = user.Usermodel.LimitTypeValue,
+                    Passwordresetdate = user.Usermodel.Passwordresetdate,
+                    Lastlogin = user.Usermodel.Lastlogin,
+                }
+            };
+            string userData = JsonConvert.SerializeObject(UserData);
 
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Usermodel.Userid.ToString()),
                 new Claim(ClaimTypes.Name, user.Usermodel.Fullname),
                 new Claim("Token", user.Token),
-                new Claim("FullNames", user.Usermodel.Fullname ?? string.Empty),
                 new Claim("Userid", user.Usermodel.Userid.ToString()),
-                new Claim("Tenantname", user.Usermodel.Tenantname ?? string.Empty),
-                new Claim("Tenantsubdomain", user.Usermodel.Tenantsubdomain ?? string.Empty),
-                new Claim("TenantLogo", user.Usermodel.TenantLogo ?? string.Empty),
-                new Claim("Currencyname", user.Usermodel.Currencyname ?? string.Empty),
-                new Claim("Utcname", user.Usermodel.Utcname ?? string.Empty),
-                new Claim("Phonenumber", user.Usermodel.Phonenumber ?? string.Empty),
-                new Claim("Username", user.Usermodel.Username ?? string.Empty),
-                new Claim("Emailaddress", user.Usermodel.Emailaddress ?? string.Empty),
-                new Claim("Roleid", user.Usermodel.Roleid.ToString()),
-                new Claim("Rolename", user.Usermodel.Rolename ?? string.Empty),
-                new Claim("Passharsh", user.Usermodel.Passharsh ?? string.Empty),
-                new Claim("Passwords", user.Usermodel.Passwords ?? string.Empty),
-                new Claim("LimitTypeId", user.Usermodel.LimitTypeId.ToString()),
-                new Claim("LimitTypeValue", user.Usermodel.LimitTypeValue.ToString("F2")),
-                new Claim("Isactive", user.Usermodel.Isactive.ToString()),
-                new Claim("Isdeleted", user.Usermodel.Isdeleted.ToString()),
-                new Claim("Loginstatus", user.Usermodel.Loginstatus.ToString()),
-                new Claim("Passwordresetdate", user.Usermodel.Passwordresetdate.ToString("o")),
-                new Claim("Createdby", user.Usermodel.Createdby.ToString()),
-                new Claim("Modifiedby", user.Usermodel.Modifiedby.ToString()),
-                new Claim("Lastlogin", user.Usermodel.Lastlogin.ToString("o")),
-                new Claim("Datemodified", user.Usermodel.Datemodified.ToString("o")),
-                new Claim("Datecreated", user.Usermodel.Datecreated.ToString("o")),
                 new Claim("userData", userData),
             };
 
-            if (user.Usermodel.Stations != null)
-            {
-                string stationsData = JsonConvert.SerializeObject(user.Usermodel.Stations);
-                claims.Add(new Claim("Stations", stationsData));
-            }
+            //if (user.Usermodel.Stations != null)
+            //{
+            //    string stationsData = JsonConvert.SerializeObject(user.Usermodel.Stations);
+            //    claims.Add(new Claim("Stations", stationsData));
+            //}
 
-            if (user.Usermodel.Permission != null)
-            {
-                string permissionsData = JsonConvert.SerializeObject(user.Usermodel.Permission);
-                claims.Add(new Claim("Permissions", permissionsData));
-            }
+            //if (user.Usermodel.Permission != null)
+            //{
+            //    string permissionsData = JsonConvert.SerializeObject(user.Usermodel.Permission);
+            //    claims.Add(new Claim("Permissions", permissionsData));
+            //}
 
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "ApplicationCookie");
