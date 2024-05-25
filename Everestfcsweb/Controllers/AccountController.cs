@@ -134,35 +134,35 @@ namespace Everestfcsweb.Controllers
 
         private async Task SetUserLoggedIn(UsermodelResponce user, bool rememberMe)
         {
-            UsermodelResponce UserData = new UsermodelResponce
-            {
-                RespStatus = user.RespStatus,
-                RespMessage = user.RespMessage,
-                Token = user.Token,
-                Usermodel = new UserModel
-                {
-                    Userid = user.Usermodel.Userid,
-                    Tenantid = user.Usermodel.Tenantid,
-                    Tenantname = user.Usermodel.Tenantname,
-                    Tenantsubdomain = user.Usermodel.Tenantsubdomain,
-                    TenantLogo = user.Usermodel.TenantLogo,
-                    Currencyname = user.Usermodel.Currencyname,
-                    Utcname = user.Usermodel.Utcname,
-                    Fullname = user.Usermodel.Fullname,
-                    Phonenumber = user.Usermodel.Phonenumber,
-                    Username = user.Usermodel.Username,
-                    Emailaddress = user.Usermodel.Emailaddress,
-                    Roleid = user.Usermodel.Roleid,
-                    Rolename = user.Usermodel.Rolename,
-                    Passharsh = user.Usermodel.Passharsh,
-                    Passwords = user.Usermodel.Passwords,
-                    LimitTypeId = user.Usermodel.LimitTypeId,
-                    LimitTypeValue = user.Usermodel.LimitTypeValue,
-                    Passwordresetdate = user.Usermodel.Passwordresetdate,
-                    Lastlogin = user.Usermodel.Lastlogin,
-                }
-            };
-            string userData = JsonConvert.SerializeObject(UserData);
+            //UsermodelResponce UserData = new UsermodelResponce
+            //{
+            //    RespStatus = user.RespStatus,
+            //    RespMessage = user.RespMessage,
+            //    Token = user.Token,
+            //    Usermodel = new UserModel
+            //    {
+            //        Userid = user.Usermodel.Userid,
+            //        Tenantid = user.Usermodel.Tenantid,
+            //        Tenantname = user.Usermodel.Tenantname,
+            //        Tenantsubdomain = user.Usermodel.Tenantsubdomain,
+            //        TenantLogo = user.Usermodel.TenantLogo,
+            //        Currencyname = user.Usermodel.Currencyname,
+            //        Utcname = user.Usermodel.Utcname,
+            //        Fullname = user.Usermodel.Fullname,
+            //        Phonenumber = user.Usermodel.Phonenumber,
+            //        Username = user.Usermodel.Username,
+            //        Emailaddress = user.Usermodel.Emailaddress,
+            //        Roleid = user.Usermodel.Roleid,
+            //        Rolename = user.Usermodel.Rolename,
+            //        Passharsh = user.Usermodel.Passharsh,
+            //        Passwords = user.Usermodel.Passwords,
+            //        LimitTypeId = user.Usermodel.LimitTypeId,
+            //        LimitTypeValue = user.Usermodel.LimitTypeValue,
+            //        Passwordresetdate = user.Usermodel.Passwordresetdate,
+            //        Lastlogin = user.Usermodel.Lastlogin,
+            //    }
+            //};
+            string userData = JsonConvert.SerializeObject(user);
 
             List<Claim> claims = new List<Claim>
             {
