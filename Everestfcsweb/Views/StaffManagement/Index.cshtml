@@ -80,7 +80,7 @@
                                             <span class="badge badge-danger danger-info-xs text-white  text-uppercase ">Account Blocked</span>
                                         }
                                     </td>
-                                    <td>
+                                    <td class="nowrap text-nowrap">
                                         <a asp-action="Resendstaffpassword" asp-controller="StaffManagement" asp-route-code="@Guid.NewGuid()" asp-route-Tenantstaffid="@item.Userid" asp-area="" id="CAN_RESEND_STAFF_PASSWORD" class="btn-info btn-xs btn-outline-info font-weight-bold text-white text-uppercase">Resend Password</a>
                                         <a asp-action="Addsystemstaff" asp-controller="StaffManagement" asp-route-code="@Guid.NewGuid()" asp-route-Userid="@item.Userid" asp-area="" id="CAN_EDIT_STAFF" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                         @if (item.IsActive)
