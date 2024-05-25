@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    @if (Model != null)
+                    @if (Model != null && Model.LoyaltyScheme!=null)
                     {
                         if (Model.LoyaltyScheme.Count() > 0)
                         {
