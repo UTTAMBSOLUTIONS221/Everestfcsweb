@@ -74,7 +74,7 @@
                                 <input id="systemLoggedinedTenantid" value="@currentUserData.Usermodel.Tenantid">
                                 <input id="systemLoggedinedUserid" value="@currentUserData.Usermodel.Userid">
                                 <input id="systemLoggedinedUserNameId" value="@currentUserData.Usermodel.Fullname">
-                                <select id="permissionList" asp-items="@currentUserData.Usermodel.Permission.Select(x => new SelectListItem { Text = x.Permissionname }).ToList()"></select>
+                                <select id="permissionList" asp-items="@permissionData.Select(x => new SelectListItem { Text = x.Permissionname }).ToList()"></select>
                             </div>
                         </div>
                        @*  <a asp-area="" asp-controller="Account" asp-action="Myprofile" class="dropdown-item text-dark text-sm font-weight-bold">My Profile</a> *@
