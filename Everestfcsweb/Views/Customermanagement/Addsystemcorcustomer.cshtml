@@ -137,7 +137,10 @@
                                 <a asp-controller="CustomerManagement" asp-action="Index" asp-area="" class="btn btn-sm btn-danger btn-block float-right font-weight-bold">Cancel</a>
                             </div>
                             <div class="col-sm-6">
-                                <button class="btn btn-sm btn-info btn-block float-right font-weight-bold" type="button" onclick="savecustomerdetails();">Save</button>
+                                <button class="btn btn-sm btn-info font-weight-bold" type="button" id="SaveSystemCustomerDataBtn" onclick="savesystemcustomerdata();">
+                                    <span id="buttonText">SAVE</span><span id="processingSpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                                </button>
+                               @*  <button class="btn btn-sm btn-info btn-block float-right font-weight-bold" type="button" onclick="savecustomerdetails();">Save</button> *@
                             </div>
                         </div>
                     </div>
