@@ -1125,6 +1125,21 @@ namespace Everestfcsweb.Services
             }
             return Customer;
         }
+        public async Task<Genericmodel> Resendcustomerpassword(string Tokenbearer, long? CustomerId)
+        {
+            Genericmodel model = new Genericmodel();
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Tokenbearer);
+                using (var response = await httpClient.GetAsync(BaseUrl + "/api/CustomerManagement/Resendcustomerpassword/" + CustomerId))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    model = JsonConvert.DeserializeObject<Genericmodel>(apiResponse);
+                }
+            }
+
+            return model;
+        }
         #endregion
 
         #region Customer Agreement Data

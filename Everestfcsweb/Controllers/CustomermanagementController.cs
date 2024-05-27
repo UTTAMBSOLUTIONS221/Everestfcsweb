@@ -803,5 +803,24 @@ namespace Everestfcsweb.Controllers
             }
         }
         #endregion
+
+        [HttpGet, HttpPost]
+        public async Task<IActionResult> Resendcustomerpassword(long CustomerId)
+        {
+            var Resp = await bl.Resendcustomerpassword(SessionUserData.Token, CustomerId);
+            if (Resp.RespStatus == 0)
+            {
+                Success(Resp.RespMessage, true);
+            }
+            else if (Resp.RespStatus == 1)
+            {
+                Warning(Resp.RespMessage, true);
+            }
+            else
+            {
+                Danger(Resp.RespMessage, true);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
