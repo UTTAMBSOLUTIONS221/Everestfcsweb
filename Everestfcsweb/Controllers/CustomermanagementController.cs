@@ -1,4 +1,5 @@
 ﻿
+using DocumentFormat.OpenXml.Drawing;
 using Everestfcsweb.Entities;
 using Everestfcsweb.Enum;
 using Everestfcsweb.Helpers;
@@ -41,7 +42,7 @@ namespace Everestfcsweb.Controllers
             var resp = await bl.Validatecustomeruser(model);
             if (resp.RespStatus == 200)
             {
-                SetUserLoggedIn(resp, false);
+                SetCustomerLoggedIn(resp, false);
                 return RedirectToLocal(returnUrl);
             }
             else if (resp.RespStatus == 401)
@@ -56,11 +57,14 @@ namespace Everestfcsweb.Controllers
 
         }
         #endregion
-        public async Task<IActionResult> Index(int Offset = 0, int Count = 10)
+
+        public async Task<IActionResult> Dashboard()
         {
-            var data = await bl.Getsystemtenantcustomers(SessionUserData.Token, SessionUserData.Usermodel.Tenantid, Offset, Count);
+            var data = await bl.GetSystemCustomerData(SessionCustomerData.Token, SessionCustomerData.CustomerModel.CustomerId);
             return View(data);
         }
+
+
         [HttpGet]
         public async Task<IActionResult> Addsystemindcustomer()
         {
@@ -763,18 +767,18 @@ namespace Everestfcsweb.Controllers
 
         #region Other Methods
 
-        private async void SetUserLoggedIn(CustomermodelResponce user, bool rememberMe)
+        private async void SetCustomerLoggedIn(CustomermodelResponce customer, bool rememberMe)
         {
-            string userData = JsonConvert.SerializeObject(user);
+            string customerData = JsonConvert.SerializeObject(customer);
 
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.CustomerModel.CustomerId.ToString()),
-                new Claim(ClaimTypes.Name, user.CustomerModel.Companyname),
-                new Claim("FullNames", user.CustomerModel.Companyname),
-                new Claim("Userid", user.CustomerModel.CustomerId.ToString()),
-                new Claim("Token", user.Token),
-                new Claim("userData", userData),
+                new Claim(ClaimTypes.NameIdentifier, customer.CustomerModel.CustomerId.ToString()),
+                new Claim(ClaimTypes.Name, customer.CustomerModel.Companyname),
+                new Claim("FullNames", customer.CustomerModel.Companyname),
+                new Claim("CustomerId", customer.CustomerModel.CustomerId.ToString()),
+                new Claim("Token", customer.Token),
+                new Claim("customerData", customerData),
             };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "ApplicationCookie");
@@ -791,7 +795,7 @@ namespace Everestfcsweb.Controllers
         {
             if (string.IsNullOrEmpty(returnUrl) || returnUrl == "/")
             {
-                return RedirectToAction(nameof(HomeController.Dashboard), "Home", new { area = "" });
+                return RedirectToAction(nameof(CustomerManagementController.Dashboard), "CustomerManagement", new { area = "" });
             }
             else if (Url.IsLocalUrl(returnUrl))
             {
@@ -799,7 +803,7 @@ namespace Everestfcsweb.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Dashboard), "Home", new { area = "" });
+                return RedirectToAction(nameof(CustomerManagementController.Dashboard), "CustomerManagement", new { area = "" });
             }
         }
         #endregion

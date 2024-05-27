@@ -35,6 +35,33 @@ namespace Everestfcsweb.Controllers
             }
         }
 
+        public CustomermodelResponce SessionCustomerData
+        {
+            get
+            {
+                {
+                    CustomermodelResponce customerDataSerializeModel = null;
+                    if (base.User is ClaimsPrincipal)
+                    {
+                        string claim = BaseController.GetClaim((base.User as ClaimsPrincipal).Claims.ToList<Claim>(), "customerData");
+                        if (!string.IsNullOrEmpty(claim))
+                        {
+                            customerDataSerializeModel = JsonConvert.DeserializeObject<CustomermodelResponce>(claim);
+                        }
+                    }
+
+                    base.ViewData["customerData"] = (customerDataSerializeModel ?? new CustomermodelResponce());
+                    if (customerDataSerializeModel == null)
+                    {
+                        string url = Url.Action("Signinuser", "Account");
+                        HttpContext.Response.Redirect(url);
+                    }
+
+                    return customerDataSerializeModel;
+                }
+            }
+        }
+
         public static string GetClaim(List<Claim> claims, string key)
         {
             Claim claim = claims.FirstOrDefault((Claim c) => c.Type == key);
