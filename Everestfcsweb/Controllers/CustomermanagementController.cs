@@ -52,7 +52,7 @@ namespace Everestfcsweb.Controllers
             {
                 ModelState.AddModelError(string.Empty, resp.RespMessage);
             }
-            return View();
+            return RedirectToAction("Signinuser", "Account");
 
         }
         #endregion
