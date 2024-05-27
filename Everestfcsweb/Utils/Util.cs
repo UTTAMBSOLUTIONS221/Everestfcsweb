@@ -1,4 +1,5 @@
-﻿using Everestfcsweb.Models;
+﻿using DocumentFormat.OpenXml.Presentation;
+using Everestfcsweb.Models;
 using Everestfcsweb.Services;
 using Newtonsoft.Json;
 using System.Security.Claims;
@@ -79,6 +80,21 @@ namespace Everestfcsweb
 
             // Perform any additional processing if needed
             return userData;
+        }
+        public static CustomermodelResponce GetCurrentCustomerData(IEnumerable<ClaimsIdentity> claims)
+        {
+            // Find the claim that contains the user data
+            var claim = claims.FirstOrDefault(u => u.IsAuthenticated && u.HasClaim(c => c.Type == "customerData"))?.FindFirst("customerData");
+
+            // If the claim is not found or the value is null/empty, return null
+            if (claim == null || string.IsNullOrEmpty(claim.Value))
+                return null;
+
+            // Deserialize the user data JSON to the UsermodelResponce object
+            var customerData = JsonConvert.DeserializeObject<CustomermodelResponce>(claim.Value);
+
+            // Perform any additional processing if needed
+            return customerData;
         }
 
         //public static UsermodelResponce GetCurrentUserData(IEnumerable<ClaimsIdentity> claims)

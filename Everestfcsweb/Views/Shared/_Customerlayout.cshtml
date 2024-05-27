@@ -3,14 +3,12 @@
 @using Microsoft.Extensions.Configuration
 @{
     bool authenticated = false;
-    UsermodelResponce currentUserData = null;
-    List<SystemPermissions>? permissionData = null;
+    CustomermodelResponce currentCustomerData = null;
     if (User.Identities.Any(u => u.IsAuthenticated))
     {
         authenticated = true;
-        currentUserData = Util.GetCurrentUserData(User.Identities);
+        currentCustomerData = Util.GetCurrentCustomerData(User.Identities);
         IConfiguration config = (IConfiguration)Context.RequestServices.GetService(typeof(IConfiguration));
-        permissionData = await Util.GetCurrentUserPermissionsData(User.Identities, config);
     }
 }
 <!DOCTYPE html>
@@ -77,15 +75,14 @@
                     </a>
                 </li>
                 <li class="nav-link dropdown">
-                    <a class="font-weight-bold text-uppercase text-xs text-dark text-muted dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-circle text-dark text-muted font-weight-bold fa-1x img-circle rounded-circle"></i>&nbsp; @currentUserData.Usermodel.Fullname</a>
+                    <a class="font-weight-bold text-uppercase text-xs text-dark text-muted dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-circle text-dark text-muted font-weight-bold fa-1x img-circle rounded-circle"></i>&nbsp; @currentCustomerData.CustomerModel.Companyname</a>
                     <div class="dropdown-menu bg-white">
                         <div class="row" hidden>
                             <div class="col-sm-12">
-                                <input id="systemLoggedinedUtcnameid" value="@currentUserData.Usermodel.Utcname">
-                                <input id="systemLoggedinedTenantid" value="@currentUserData.Usermodel.Tenantid">
-                                <input id="systemLoggedinedUserid" value="@currentUserData.Usermodel.Userid">
-                                <input id="systemLoggedinedUserNameId" value="@currentUserData.Usermodel.Fullname">
-                                <select id="permissionList" asp-items="@permissionData.Select(x => new SelectListItem { Text = x.Permissionname }).ToList()"></select>
+                               @*  <input id="systemLoggedinedUtcnameid" value="@currentCustomerData.CustomerModel.Utcname"> *@
+                                <input id="systemLoggedinedTenantid" value="@currentCustomerData.CustomerModel.Tenantid">
+                                <input id="systemLoggedinedUserid" value="@currentCustomerData.CustomerModel.CustomerId">
+                                <input id="systemLoggedinedUserNameId" value="@currentCustomerData.CustomerModel.Companyname">
                             </div>
                         </div>
                         @*  <a asp-area="" asp-controller="Account" asp-action="Myprofile" class="dropdown-item text-dark text-sm font-weight-bold">My Profile</a> *@
@@ -105,7 +102,7 @@
                 var logoSrc = currentUserData.Usermodel.TenantLogo == null ? "~/imgs/everestlogo.png" : Url.Content(currentUserData.Usermodel.TenantLogo);
                 }
                 <img src="@logoSrc" alt="EVEREST FCS" class="brand-image img-circle" style="opacity: .8" /> *@
-                <span class="brand-text font-weight-bold text-dark text-muted text-uppercase text-xs">@currentUserData.Usermodel.Tenantname</span>
+                <span class="brand-text font-weight-bold text-dark text-muted text-uppercase text-xs">@currentCustomerData.CustomerModel.Companyname</span>
             </a>
             <div class="sidebar" style="height: calc(100vh - 56px); overflow-y: auto;">
                 <nav class="mt-2">
@@ -124,161 +121,6 @@
                                 <li class="nav-item main" id="CAN_VIEW_PERMISSION" style="display:none;">
                                     <a asp-controller="SettingsManagement" asp-action="Systempermissionlist" asp-area="" class="nav-link">
                                         <i class="nav-icon fas fa-list"></i><p>Permissions</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item main" id="CAN_VIEW_TEMPLATES" style="display:none;">
-                                    <a asp-controller="CommunicationTemplate" asp-action="Index" asp-area="" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Templates</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item main" id="CAN_VIEW_TENANTS" style="display:none;">
-                                    <a asp-controller="SettingsManagement" asp-action="Systemtenantlist" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Tenants</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item main" id="CAN_VIEW_LOYALTY_SETTINGS" style="display:none;">
-                                    <a asp-controller="SettingsManagement" asp-action="Loyaltysettinglist" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Loyalty</p>
-                                    </a>
-                                </li>
-                                @*  <li class="nav-item main" id="CAN_MANAGE_LOYALTY_SETTING" style="display:none;">
-                                <a asp-controller="SettingsManagement" asp-action="LoyaltySettings" class="nav-link">
-                                <i class="nav-icon fas fa-list"></i><p>Loyalty Settings</p>
-                                </a>
-                                </li> *@
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-treeview main" id="CAN_MANAGE_STATIONS" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-charging-station"></i><p>Stations<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_STATIONS" style="display:none;">
-                                    <a asp-controller="StationManagement" asp-action="Index" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Stations</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item main" id="CAN_VIEW_STATION_SHIFTS" style="display:none;">
-                                    <a asp-controller="StationManagement" asp-action="Shiftlistings" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Shifts</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li id="CAN_MANAGE_PRODUCTS" class="nav-item has-treeview main" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-store"></i><p>Products<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item  ml-2 main" id="CAN_VIEW_PRODUCTS" style="display:none;">
-                                    <a asp-controller="ProductManagement" asp-action="Index" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Products List</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ml-2 main" id="CAN_VIEW_STORE_PRODUCTS" style="display:none;">
-                                    <a asp-controller="ProductManagement" asp-action="Mainstore" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Mainstore List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview main" id="CAN_MANAGE_SUPPLIERS" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-truck"></i><p>Suppliers<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_SUPPLIERS" style="display:none;">
-                                    <a asp-controller="SettingsManagement" asp-action="Systemsupplierslist" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Suppliers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview main" id="CAN_MANAGE_PRICES" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-object-group"></i><p>Price<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_PRICELISTS" style="display:none;">
-                                    <a asp-controller="PriceManagement" asp-action="Pricelists" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Price List</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item main" id="CAN_VIEW_DISCOUNTS" style="display:none;">
-                                    <a asp-controller="PriceManagement" asp-action="Discountlists" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Discount List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview main" id="CAN_MANAGE_HARDWARES" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-university "></i><p>Hardware<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_HARDWARE" style="display:none;">
-                                    <a asp-controller="HardwareManagement" asp-action="Cardlists" class="nav-link">
-                                        <i class="nav-icon fa fa-solid fa-credit-card"></i><p>Cards List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview main" id="CAN_MANAGE_LOYALTY" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-gift"></i><p>Loyalty<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_FORMULA_LISTINGS" style="display:none;">
-                                    <a asp-controller="LoyaltyManagement" asp-action="Formulalist" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Formula List</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item main" id="CAN_VIEW_SCHEME_LISTINGS" style="display:none;">
-                                    <a asp-controller="LoyaltyManagement" asp-action="Schemelist" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Schemes List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview main" id="CAN_MANAGE_CUSTOMERS" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-users"></i><p>Customers<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_CUSTOMERS" style="display:none;">
-                                    <a asp-controller="Customermanagement" asp-action="Index" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Customers</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview main" id="CAN_MANAGE_SALES" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-receipt"></i><p>Sales<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_SALES" style="display:none;">
-                                    <a asp-controller="SaleManagement" asp-action="Index" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Sales List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview main" id="CAN_MANAGE_ADMIN" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-users"></i><p>Staff<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview ml-2">
-                                <li class="nav-item main" id="CAN_VIEW_ROLES" style="display:none;">
-                                    <a asp-controller="StaffManagement" asp-action="Roles" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Role List</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item main" id="CAN_VIEW_STAFFS" style="display:none;">
-                                    <a asp-controller="StaffManagement" asp-action="Index" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Staffs List</p>
                                     </a>
                                 </li>
                             </ul>
@@ -348,18 +190,6 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var _perms = document.getElementById("permissionList");
-            if (!_perms) {
-                window.location.href = '/Account/Signinuser';
-            } else {
-                var permissionValues = Array.from(_perms.options).map(option => option.value);
-                document.querySelectorAll('.main').forEach(function (node) {
-                    if (permissionValues.includes(node.id)) {
-                        console.log("Displaying element with ID:", node.id);
-                        node.style.display = "block";
-                    }
-                });
-            }
             document.addEventListener('DOMContentLoaded', function () {
                 var numberInputs = document.querySelectorAll('input[type="number"]');
                 numberInputs.forEach(function (input) {
