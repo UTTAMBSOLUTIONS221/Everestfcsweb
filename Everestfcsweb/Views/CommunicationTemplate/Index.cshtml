@@ -66,7 +66,7 @@
                                             <span class="badge badge-info badge-info-xs text-uppercase font-weight-bold">Notdeleted</span>
                                         }
                                     </td>
-                                    <td>
+                                    <td class="nowrap text-nowrap no-wrap-buttons">
                                         <a asp-action="Addcommunicationtemplate" asp-controller="CommunicationTemplate" asp-route-Templateid="@item.Templateid" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_EDIT_TEMPLATES" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                         @if (item.Isactive)
                                         {

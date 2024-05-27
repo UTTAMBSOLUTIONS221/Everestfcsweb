@@ -48,6 +48,17 @@
         input[type=number] {
             -moz-appearance: textfield; /* Firefox */
         }
+
+        .no-wrap-buttons {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 5px; /* Adjust the gap as needed */
+        }
+
+            .no-wrap-buttons a {
+                white-space: nowrap;
+            }
+
      </style>
     @RenderSection("Css", required: false)
 </head>

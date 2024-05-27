@@ -69,7 +69,7 @@
                                     </td>
                                     <td>@item.Datecreated</td>
                                     <td>@item.CustomerCreatedBy</td>
-                                    <td>
+                                    <td class="nowrap text-nowrap no-wrap-buttons">
                                         <a asp-action="Details" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-CustomerId="@item.CustomerId" asp-area="" id="CAN_VIEW_CUSTOMER_DETAILS" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Details</a>
                                         <a asp-action="Addsystemcustomer" asp-controller="CustomerManagement" asp-route-CustomerId="@item.CustomerId" asp-area="" id="CAN_EDIT_CUSTOMER" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main " data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                         @if (item.IsActive)

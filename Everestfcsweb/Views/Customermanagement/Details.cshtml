@@ -37,7 +37,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-sm font-weight-normal" colspan="5">AGREEMENT: @item.Agreementtypename Overview</th>
-                                                <th class="text-sm font-weight-normal text-right">
+                                                <th class="text-sm font-weight-normal text-right nowrap text-nowrap no-wrap-buttons">
                                                     <a asp-action="AddcustomeragreementTransfer" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TRANSFER_FROM_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Transfer</a>
                                                     <a asp-action="AddcustomeragreementAccountTopup" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TOPUP_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Topup</a>
                                                     <a asp-action="AddcustomeragreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_ADD_AGREEMENT_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
@@ -80,7 +80,7 @@
                                                 <td class="text-right">@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="6" class="text-right">
+                                                <td colspan="6" class="text-right nowrap text-nowrap no-wrap-buttons">
                                                     <a asp-action="CustomerAgreementTopupTransferList" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TRANSFER_FROM_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Topup-transfer</a>
                                                     <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" id="CAN_VIEW_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
                                                     <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" id="CAN_VIEW_DISCOUNTLIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
@@ -152,7 +152,7 @@
                                                                         <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Notdeleted</span>
                                                                     }
                                                                 </td>
-                                                                <td class="text-right">
+                                                                <td class="text-right nowrap text-nowrap no-wrap-buttons">
                                                                     <a asp-action="Customeraccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" id="CAN_VIEW_AGREEMENT_DETAILS"  class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Details</a>
                                                                     <a asp-action="Replacecustomeraccountcard" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-CardId="@card.CardId" asp-route-Masknumber="@card.CardSNO" id="CAN_REPLACE_ACCOUNT_CARD"  class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Replace</a>
                                                                     <a asp-action="Customeraccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" id="CAN_VIEW_ACCOUNT_POLICIES" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
@@ -198,7 +198,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-sm font-weight-normal" colspan="7">AGREEMENT: @item.Agreementtypename Overview</th>
-                                                <th class="text-sm font-weight-normal text-right">
+                                                <th class="text-sm font-weight-normal text-right nowrap text-nowrap no-wrap-buttons">
                                                     <a asp-action="Addcustomeragreementpayment" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AgreementId="@item.AgreementId" asp-area="" id="CAN_PAY_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pay</a>
                                                     <a asp-action="AddcustomeragreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_ADD_AGREEMENT_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
                                                 </th>
@@ -244,7 +244,7 @@
                                                 <td>@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="8" class="text-right">
+                                                <td colspan="8" class="text-right nowrap text-nowrap no-wrap-buttons">
                                                     <a asp-action="CustomerAgreementPaymentList" asp-controller="CustomerManagement" asp-route-AgreementId="@item.AgreementId" asp-area="" id="CAN_VIEW_AGREEMENT_PAYMENTS" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Payments</a>
                                                     <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
                                                     <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
@@ -327,7 +327,7 @@
                                                                         <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Notdeleted</span>
                                                                     }
                                                                 </td>
-                                                                <td>
+                                                                <td class="nowrap text-nowrap no-wrap-buttons">
                                                                     <a asp-action="Customeraccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" id="CAN_VIEW_AGREEMENT_DETAILS" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Details</a>
                                                                     <a asp-action="Replacecustomeraccountcard" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-CardId="@card.CardId" asp-route-Masknumber="@card.CardSNO" id="CAN_REPLACE_ACCOUNT_CARD" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Replace</a>
                                                                     <a asp-action="Customeraccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
@@ -373,7 +373,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-sm font-weight-normal" colspan="9">AGREEMENT: @item.Agreementtypename Overview</th>
-                                                <th class="text-sm font-weight-normal text-right">
+                                                <th class="text-sm font-weight-normal text-right nowrap text-nowrap no-wrap-buttons">
                                                     <a asp-action="Addcustomeragreementpayment" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pay</a>
                                                     <a asp-action="AddcustomeragreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
                                                 </th>
@@ -457,7 +457,7 @@
                                                 <td>@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="10" class="text-right">
+                                                <td colspan="10" class="text-right nowrap text-nowrap no-wrap-buttons">
                                                     <a asp-action="CustomerAgreementPaymentList" asp-controller="CustomerManagement" asp-route-AgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Payments</a>
                                                     <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
                                                     <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
@@ -547,7 +547,7 @@
                                                                         <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Notdeleted</span>
                                                                     }
                                                                 </td>
-                                                                <td>
+                                                                <td class="nowrap text-nowrap no-wrap-buttons">
                                                                     <a asp-action="Customeraccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Details</a>
                                                                     <a asp-action="Replacecustomeraccountcard" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-CardId="@card.CardId" asp-route-Masknumber="@card.CardSNO" id="CAN_REPLACE_ACCOUNT_CARD" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Replace</a>
                                                                     <a asp-action="Customeraccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
