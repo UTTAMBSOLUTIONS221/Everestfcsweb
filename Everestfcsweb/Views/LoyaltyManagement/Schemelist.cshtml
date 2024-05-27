@@ -85,7 +85,7 @@
                                                                                         <span class="badge badge-danger badge-info-xs font-weight-bold text-uppercase">Pending</span>
                                                                                     }
                                                                                 </td>
-                                                                                <td>
+                                                                                <td class="nowrap text-nowrap no-wrap-buttons">
                                                                                     <a asp-action="Editsystemschemerule" asp-controller="LoyaltyManagement" asp-area="" asp-route-code="@Guid.NewGuid()" asp-route-LSchemeRuleId="@item.LSchemeRuleId" id="CAN_EDIT_SCHEME_RULE" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                                                     @if (item.IsApproved)
                                                                                     {

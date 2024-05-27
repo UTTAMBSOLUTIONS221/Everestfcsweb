@@ -72,7 +72,7 @@
                                                                 </td>
                                                                 <td>@data.Datecreated</td>
                                                                 <td>@data.Createdby</td>
-                                                                <td class="text-right">
+                                                                <td class="text-right nowrap text-nowrap no-wrap-buttons">
                                                                     <a asp-action="Editpricelist" asp-controller="PriceManagement" asp-route-code="@Guid.NewGuid()" asp-route-PricelistId="@data.PriceListId" asp-area="" id="CAN_EDIT_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                                     @if (!data.IsDefault)
                                                                     {

@@ -59,7 +59,7 @@
                                     </td>
                                     <td>@item.CreatedBy</td>
                                     <td>@item.DateCreated</td>
-                                    <td>
+                                    <td class="nowrap text-nowrap no-wrap-buttons">
                                         <a asp-action="Editsystemproduct" asp-controller="ProductManagement" asp-route-code="@Guid.NewGuid()" asp-route-ProductvariationId="@item.ProductVariationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_EDIT_PRODUCT" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                         @if (item.IsActive)
                                         {

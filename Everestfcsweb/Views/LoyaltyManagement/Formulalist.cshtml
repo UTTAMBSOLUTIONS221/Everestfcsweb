@@ -79,7 +79,7 @@
                                                                                         <span class="badge badge-danger badge-info-xs font-weight-bold text-uppercase">Pending</span>
                                                                                     }
                                                                                 </td>
-                                                                                <td>
+                                                                                <td class="nowrap text-nowrap no-wrap-buttons">
                                                                                     <a asp-action="Editsystemformularule" asp-controller="LoyaltyManagement" asp-route-code="@Guid.NewGuid()" asp-route-FormulaRuleId="@item.FormulaRuleId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_EDIT_FORMULA_RULES" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                                                     @if (item.IsApproved)
                                                                                     {

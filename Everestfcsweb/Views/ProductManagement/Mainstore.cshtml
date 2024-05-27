@@ -33,7 +33,7 @@
                                     <td class="text-right">@item.Quantity</td>
                                     <td>@item.Createdby</td>
                                     <td>@item.DateCreated</td>
-                                    <td class="text-right">
+                                    <td class="text-right nowrap text-nowrap no-wrap-buttons">
                                         <a asp-action="Transfertoaccessories" asp-controller="ProductManagement" asp-route-code="@Guid.NewGuid()" asp-route-DryStockStoreId="@item.DryStockStoreId" asp-route-ProductVariationId="@item.ProductVariationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_TRANSFER_TO_ACCESSORIES" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Transfer to Accessory</a>
                                         <a asp-action="Transferfromaccessories" asp-controller="ProductManagement" asp-route-code="@Guid.NewGuid()" asp-route-DryStockStoreId="@item.DryStockStoreId" asp-route-ProductVariationId="@item.ProductVariationId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_TRANSFER_FROM_ACCESSORIES" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Transfer from Accessory</a>
                                     </td>
