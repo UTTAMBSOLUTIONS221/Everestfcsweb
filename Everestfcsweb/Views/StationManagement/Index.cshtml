@@ -80,19 +80,19 @@
                                         <a asp-action="AddSystemStation" asp-controller="StationManagement" asp-route-StationId="@item.StationId" asp-route-code="@Guid.NewGuid()" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_EDIT_STATION" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                         @if (item.IsActive)
                                         {
-                                            <a onclick="tenantdeactivatethis(event)" data-Tablename="SystemStations" data-Columname="IsActive" data-Status="0" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_DEACTIVATE_STATION">Deactivate</a>
+                                            <a onclick="deactivatethis(event)" data-Tablename="SystemStations" data-Columname="IsActive" data-Status="0" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_DEACTIVATE_STATION">Deactivate</a>
                                         }
                                         else
                                         {
-                                            <a onclick="tenantactivatethis(event)" data-Tablename="SystemStations" data-Columname="IsActive" data-Status="1" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_ACTIVATE_STATION">Activate</a>
+                                            <a onclick="activatethis(event)" data-Tablename="SystemStations" data-Columname="IsActive" data-Status="1" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_ACTIVATE_STATION">Activate</a>
                                         }
                                         @if (item.IsDeleted)
                                         {
-                                            <a onclick="tenantrestorethis(event)" data-Tablename="SystemStations" data-Columname="IsDeleted" data-Status="0" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_RESTORE_STATION">Restore</a>
+                                            <a onclick="restorethis(event)" data-Tablename="SystemStations" data-Columname="IsDeleted" data-Status="0" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_RESTORE_STATION">Restore</a>
                                         }
                                         else
                                         {
-                                            <a onclick="tenantdeletethis(event)" data-Tablename="SystemStations" data-Columname="IsDeleted" data-Status="1" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_DELETE_STATION">Delete</a>
+                                            <a onclick="deletethis(event)" data-Tablename="SystemStations" data-Columname="IsDeleted" data-Status="1" data-Columnidname="StationId" data-Entryid="@item.StationId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" id="CAN_DELETE_STATION">Delete</a>
                                         }
                                     </td>
                                 </tr>
