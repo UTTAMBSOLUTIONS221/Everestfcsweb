@@ -63,7 +63,11 @@ namespace Everestfcsweb.Controllers
             var data = await bl.GetSystemCustomerData(SessionCustomerData.Token, SessionCustomerData.CustomerModel.CustomerId);
             return View(data);
         }
-
+        public async Task<IActionResult> Index(int Offset = 0, int Count = 10)
+        {
+            var data = await bl.Getsystemtenantcustomers(SessionUserData.Token, SessionUserData.Usermodel.Tenantid, Offset, Count);
+            return View(data);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Addsystemindcustomer()
