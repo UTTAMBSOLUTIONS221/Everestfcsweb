@@ -81,7 +81,7 @@
                                                 <td class="text-right">@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="5" class="nowrap text-nowrap no-wrap-buttons">
+                                                <td colspan="6">
                                                     <a asp-action="CustomerAgreementTopupTransferList" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TRANSFER_FROM_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Topup-transfer</a>
                                                     <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" id="CAN_VIEW_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
                                                     <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" id="CAN_VIEW_DISCOUNTLIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
