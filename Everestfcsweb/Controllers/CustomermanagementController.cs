@@ -60,7 +60,7 @@ namespace Everestfcsweb.Controllers
 
         public async Task<IActionResult> Dashboard()
         {
-            var data = await bl.GetSystemCustomerData(SessionCustomerData.Token, SessionCustomerData.CustomerModel.CustomerId);
+            var data = await bl.GetSystemCustomerDetailData(SessionCustomerData.Token, SessionCustomerData.CustomerModel.CustomerId);
             return View(data);
         }
         public async Task<IActionResult> Index(int Offset = 0, int Count = 10)
@@ -144,6 +144,12 @@ namespace Everestfcsweb.Controllers
         public async Task<IActionResult> Customeraccountdetail(long AccountId)
         {
             var data = await bl.GetCustomerAccountDetailData(SessionUserData.Token, AccountId);
+            return View(data);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Customerportalaccountdetail(long AccountId)
+        {
+            var data = await bl.GetCustomerAccountDetailData(SessionCustomerData.Token, AccountId);
             return View(data);
         }
         #endregion
@@ -269,7 +275,15 @@ namespace Everestfcsweb.Controllers
             model = await bl.GetSystemCustomerAccountPolicyDetailData(SessionUserData.Token, AccountId);
             return PartialView(model);
         }
-
+        [HttpGet]
+        public async Task<IActionResult> Customerportalaccountpoliciesdetail(long AccountId, string Masknumber)
+        {
+            CustomerAccountDetails model = new CustomerAccountDetails();
+            model.AccountId = AccountId;
+            model.MaskNumber = Masknumber;
+            model = await bl.GetSystemCustomerAccountPolicyDetailData(SessionCustomerData.Token, AccountId);
+            return PartialView(model);
+        }
         [HttpGet]
         public async Task<IActionResult> Addcustomeraccountproductpolicy(long AccountId, long? AccountProductId, string Masknumber)
         {

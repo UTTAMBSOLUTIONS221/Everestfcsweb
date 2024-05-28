@@ -1,5 +1,1065 @@
 ﻿
+@model Everestfcsweb.Models.SystemCustomerDetails
 @{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_Customerlayout.cshtml";
+}
+<style>
+    .product-img-class {
+        background-image: url('imgs\default-image.jpg');
+        width: 40px;
+        height: 40px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-info card-outline pl-1 pr-1 pt-0">
+            <div class="card-body pl-1 pr-1 pt-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-sm borderless">
+                            <tbody>
+                                <tr><td colspan="4">CUSTOMER:  @Model.Customername Agreements </td><td><a asp-action="Addcustomeragreement" asp-controller="CustomerManagement" asp-route-CustomerId="@Model.CustomerId" asp-area="" id="CAN_ADD_CUSTOMER_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold float-right text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Agreement</a></td></tr>
+                                <tr><td>Email: @Model.Emailaddress</td><td>Phone: @Model.Phonenumber</td><td>Station: @Model.Stationname</td><td>Created By: @Model.Createdby</td><td>Date Created: @Model.CustomerDatecreated</td><td></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @if (Model.CustomerAgreements != null)
+                {
+                    foreach (var item in Model.CustomerAgreements)
+                    {
+                        if (item.Agreementtypename.Contains("Prepaid"))
+                        {
+                            <div class="row card card-primary card-outline">
+                                <div class="col-sm-12 table-responsive">
+                                    <table class="table table-sm table-bordered nowrap text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-sm font-weight-normal" colspan="5">AGREEMENT: @item.Agreementtypename Overview</th>
+                                                <th class="text-sm font-weight-normal text-right nowrap text-nowrap no-wrap-buttons">
+                                                    <a asp-action="AddcustomeragreementTransfer" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TRANSFER_FROM_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Transfer</a>
+                                                    <a asp-action="AddcustomeragreementAccountTopup" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TOPUP_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Topup</a>
+                                                    <a asp-action="AddcustomeragreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_ADD_AGREEMENT_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-sm font-weight-normal">Customer Balance</th>
+                                                <th class="text-sm font-weight-normal">Accounts Balance</th>
+                                                <th class="text-sm font-weight-normal">Agreement Balance</th>
+                                                <th class="text-sm font-weight-normal">Status</th>
+                                                <th class="text-sm font-weight-normal">Createdby</th>
+                                                <th class="text-sm font-weight-normal text-right">Createdon</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>@(Model.Currency + ". " + item.CustomerBalance.ToString("#,#00.00"))</td>
+                                                <td>@(Model.Currency + ". " + item.CustomerAccountBalance.ToString("#,#00.00"))</td>
+                                                <td>@(Model.Currency + ". " + item.CustomerAgreementBalance.ToString("#,#00.00"))</td>
+                                                <td>
+                                                    @if (item.IsActive)
+                                                    {
+                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Active</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Inactive</span>
+                                                    }
+                                                    @if (item.IsDeleted)
+                                                    {
+                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Deleted</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Notdeleted</span>
+                                                    }
+                                                </td>
+                                                <td>@Model.Createdby</td>
+                                                <td class="text-right">@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6" class="text-right nowrap text-nowrap no-wrap-buttons">
+                                                    <a asp-action="CustomerAgreementTopupTransferList" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TRANSFER_FROM_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Topup-transfer</a>
+                                                    <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" id="CAN_VIEW_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
+                                                    <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" id="CAN_VIEW_DISCOUNTLIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
+                                                    <a asp-action="Editcustomerprepaidagreement" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_EDIT_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    @if (item.IsActive)
+                                                    {
+                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAgreements" data-Columname="IsActive" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_DEACTIVATE_AGREEMENT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase mr-1">Deactivate</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsActive" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_ACTIVATE_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase mr-1">Activate</a>
+                                                    }
+                                                    @if (item.IsDeleted)
+                                                    {
+                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_RESTORE_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase mr-1">Restore</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_DELETE_AGREEMENT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase mr-1">Delete</a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-12 table-responsive">
+                                            <table class="table table-sm nowrap text-nowrap table-stripped table-bordered" id="AllsystemDataTables1">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-sm font-weight-normal">Mask</th>
+                                                        <th class="text-sm font-weight-normal">Balance</th>
+                                                        <th class="text-sm font-weight-normal">Limit Value</th>
+                                                        <th class="text-sm font-weight-normal">Limit Type</th>
+                                                        <th class="text-sm font-weight-normal">Limit Period</th>
+                                                        <th class="text-sm font-weight-normal">Equipments</th>
+                                                        <th class="text-sm font-weight-normal">Users</th>
+                                                        <th class="text-sm font-weight-normal">Status</th>
+                                                        <th class="text-sm font-weight-normal">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (item.CustomerAccounts != null)
+                                                    {
+                                                        foreach (var card in item.CustomerAccounts.Where(x => x.ParentId != 0))
+                                                        {
+                                                            <tr>
+                                                                <td>@card.CardSNO</td>
+                                                                <td>@Model.Currency @card.PrepaidAccountBalance.ToString("#,#00.00")</td>
+                                                                <td>@Model.Currency @card.AccountLimit.ToString("#,#00.00")</td>
+                                                                <td>@card.LimitTypename</td>
+                                                                <td>@card.ConsumptionPeriod</td>
+                                                                <td>@card.EquipmentAssigned</td>
+                                                                <td>@card.UsersAssigned</td>
+                                                                <td>
+                                                                    @if (card.IsActive)
+                                                                    {
+                                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Active</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Inactive</span>
+                                                                    }
+                                                                    @if (card.IsDeleted)
+                                                                    {
+                                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Deleted</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Notdeleted</span>
+                                                                    }
+                                                                </td>
+                                                                <td class="text-right nowrap text-nowrap no-wrap-buttons">
+                                                                    <a asp-action="Customerportalaccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" id="CAN_VIEW_AGREEMENT_DETAILS" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Details</a>
+                                                                    <a asp-action="Replacecustomeraccountcard" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-CardId="@card.CardId" asp-route-Masknumber="@card.CardSNO" id="CAN_REPLACE_ACCOUNT_CARD" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Replace</a>
+                                                                    <a asp-action="Customerportalaccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" id="CAN_VIEW_ACCOUNT_POLICIES" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
+                                                                    @if (card.IsActive)
+                                                                    {
+                                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAccount" data-Columname="IsActive" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" id="CAN_DEACTIVATE_ACCOUNT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase">Deactivate</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAccount" data-Columname="IsActive" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" id="CAN_ACTIVATE_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Activate</a>
+                                                                    }
+                                                                    @if (card.IsDeleted)
+                                                                    {
+                                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" id="CAN_RESTORE_ACCOUNT" class="btn-info btn-xs btn-outline-inf text-white  font-weight-bold text-uppercase">Restore</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" id="CAN_DELETE_ACCOUNT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase">Delete</a>
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td></td>
+                                                        </tr>
+
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (item.Agreementtypename.Contains("Credit"))
+                        {
+                            <div class="row card card-warning card-outline">
+                                <div class="col-sm-12">
+                                    <table class="table table-sm table-bordered nowrap text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-sm font-weight-normal" colspan="7">AGREEMENT: @item.Agreementtypename Overview</th>
+                                                <th class="text-sm font-weight-normal text-right nowrap text-nowrap no-wrap-buttons">
+                                                    <a asp-action="Addcustomeragreementpayment" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AgreementId="@item.AgreementId" asp-area="" id="CAN_PAY_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pay</a>
+                                                    <a asp-action="AddcustomeragreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_ADD_AGREEMENT_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-sm font-weight-normal">Customer Creditlimit</th>
+                                                <th class="text-sm font-weight-normal">Limit Balance</th>
+                                                <th class="text-sm font-weight-normal">Credit Debt</th>
+                                                <th class="text-sm font-weight-normal">Consumption To Date</th>
+                                                <th class="text-sm font-weight-normal">Paymentterms</th>
+                                                <th class="text-sm font-weight-normal">Status</th>
+                                                <th class="text-sm font-weight-normal">Createdby</th>
+                                                <th class="text-sm font-weight-normal">Createdon</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>@(Model.Currency + ". " + item.CreditAgreementLimit.ToString("#,#00.00"))</td>
+                                                <td>@(Model.Currency + ". " + item.CreditAgreementBalance.ToString("#,#00.00"))</td>
+                                                <td>@(Model.Currency + ". " + item.CreditAgreementActualDebt.ToString("#,#00.00"))</td>
+                                                <td>@(Model.Currency + ". " + item.ConsumptiontoDate.ToString("#,#00.00"))</td>
+                                                <td>@(item.Paymentterms + " Days")</td>
+                                                <td>
+                                                    @if (item.IsActive)
+                                                    {
+                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Active</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Inactive</span>
+                                                    }
+                                                    @if (item.IsDeleted)
+                                                    {
+                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Deleted</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Notdeleted</span>
+                                                    }
+                                                </td>
+                                                <td>@Model.Createdby</td>
+                                                <td>@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="8" class="text-right nowrap text-nowrap no-wrap-buttons">
+                                                    <a asp-action="CustomerAgreementPaymentList" asp-controller="CustomerManagement" asp-route-AgreementId="@item.AgreementId" asp-area="" id="CAN_VIEW_AGREEMENT_PAYMENTS" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Payments</a>
+                                                    <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
+                                                    <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
+                                                    <a asp-action="Editpostpaidcreditagreement" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    @if (item.IsActive)
+                                                    {
+                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAgreements" data-Columname="IsActive" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase mr-1">Deactivate</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsActive" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase mr-1">Activate</a>
+                                                    }
+                                                    @if (item.IsDeleted)
+                                                    {
+                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase mr-1">Restore</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase mr-1">Delete</a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-12 table-responsive table-responsive-sm">
+                                            <table class="table table-sm nowrap text-nowrap table-stripped table-bordered" id="AllsystemDataTables2">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-sm font-weight-normal">Mask</th>
+                                                        <th class="text-sm font-weight-normal">Limit Value</th>
+                                                        <th class="text-sm font-weight-normal">Consumption</th>
+                                                        <th class="text-sm font-weight-normal">Balance</th>
+                                                        <th class="text-sm font-weight-normal">Limit Type</th>
+                                                        <th class="text-sm font-weight-normal">Limit Period</th>
+                                                        <th class="text-sm font-weight-normal">Equipments</th>
+                                                        <th class="text-sm font-weight-normal">Users</th>
+                                                        <th class="text-sm font-weight-normal">Status</th>
+                                                        <th class="text-sm font-weight-normal">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (item.CustomerAccounts != null)
+                                                    {
+                                                        foreach (var card in item.CustomerAccounts.Where(x => x.ParentId != 0))
+                                                        {
+                                                            <tr>
+                                                                <td>@card.CardSNO</td>
+                                                                @if (card.LimitTypename == "Litres")
+                                                                {
+                                                                    <td>@card.AccountLimit.ToString("#,#00.00") Ltrs</td>
+                                                                    <td>@card.CreditConsumptionBalance.ToString("#,#00.00") Ltrs</td>
+                                                                    <td>@card.CreditAccountBalance.ToString("#,#00.00") Ltrs</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td>@Model.Currency @card.AccountLimit.ToString("#,#00.00")</td>
+                                                                    <td>@Model.Currency @card.CreditConsumptionBalance.ToString("#,#00.00")</td>
+                                                                    <td>@Model.Currency @card.CreditAccountBalance.ToString("#,#00.00")</td>
+                                                                }
+                                                                <td>@card.LimitTypename</td>
+                                                                <td>@card.ConsumptionPeriod</td>
+                                                                <td>@card.EquipmentAssigned</td>
+                                                                <td>@card.UsersAssigned</td>
+                                                                <td>
+                                                                    @if (item.IsActive)
+                                                                    {
+                                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Active</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Inactive</span>
+                                                                    }
+                                                                    @if (item.IsDeleted)
+                                                                    {
+                                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Deleted</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Notdeleted</span>
+                                                                    }
+                                                                </td>
+                                                                <td class="nowrap text-nowrap no-wrap-buttons">
+                                                                    <a asp-action="Customeraccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" id="CAN_VIEW_AGREEMENT_DETAILS" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Details</a>
+                                                                    <a asp-action="Replacecustomeraccountcard" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-CardId="@card.CardId" asp-route-Masknumber="@card.CardSNO" id="CAN_REPLACE_ACCOUNT_CARD" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Replace</a>
+                                                                    <a asp-action="Customeraccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
+                                                                    @if (card.IsActive)
+                                                                    {
+                                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAccount" data-Columname="IsActive" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Deactivate</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAccount" data-Columname="IsActive" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Activate</a>
+                                                                    }
+                                                                    @if (card.IsDeleted)
+                                                                    {
+                                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-inf text-white font-weight-bold text-uppercase">Restore</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Delete</a>
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td></td>
+                                                        </tr>
+
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (item.Agreementtypename.Contains("Recurrent"))
+                        {
+                            <div class="row card card-success card-outline">
+                                <div class="col-sm-12 table-responsive">
+                                    <table class="table table-sm table-bordered nowrap text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-sm font-weight-normal" colspan="9">AGREEMENT: @item.Agreementtypename Overview</th>
+                                                <th class="text-sm font-weight-normal text-right nowrap text-nowrap no-wrap-buttons">
+                                                    <a asp-action="Addcustomeragreementpayment" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pay</a>
+                                                    <a asp-action="AddcustomeragreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-sm font-weight-normal">TotalLimit: </th>
+                                                <th class="text-sm font-weight-normal">LimitBalance</th>
+                                                <th class="text-sm font-weight-normal">Consumption ToDate</th>
+                                                <th class="text-sm font-weight-normal">BillingBasis</th>
+                                                <th class="text-sm font-weight-normal">BillingCycleType</th>
+                                                <th class="text-sm font-weight-normal">G. Period</th>
+                                                <th class="text-sm font-weight-normal">BillingDate</th>
+                                                <th class="text-sm font-weight-normal">Status</th>
+                                                <th class="text-sm font-weight-normal">Createdby</th>
+                                                <th class="text-sm font-weight-normal">Createdon</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    @if (item.Agreementtypename.Contains("Litres"))
+                                                    {
+                                                        @(item.RecurrentAgreementLimit.ToString("#,#00.00") + " Ltrs")
+                                                    }
+                                                    else
+                                                    {
+                                                        @(Model.Currency + ". " + item.RecurrentAgreementLimit.ToString("#,#00.00"))
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (item.Agreementtypename.Contains("Litres"))
+                                                    {
+                                                        @(item.RecurrentAgreementBalance.ToString("#,#00.00") + " Ltrs")
+                                                    }
+                                                    else
+                                                    {
+                                                        @(Model.Currency + ". " + item.RecurrentAgreementBalance.ToString("#,#00.00"))
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (item.Agreementtypename.Contains("Litres"))
+                                                    {
+                                                        @(item.ConsumptiontoDate.ToString("#,#00.00") + " Ltrs")
+                                                    }
+                                                    else
+                                                    {
+                                                        @(Model.Currency + ". " + item.ConsumptiontoDate.ToString("#,#00.00"))
+                                                    }
+                                                </td>
+                                                <td>@item.BillingBasis</td>
+                                                <td>
+                                                    @if (item.BillingCycleType == "Monthly")
+                                                    {
+                                                        @(item.BillingCycleType + " - " + item.BillingCycle + "th")
+                                                    }
+                                                    else
+                                                    {
+                                                        @(item.BillingCycleType + " " + item.BillingCycle)
+                                                    }
+                                                </td>
+                                                <td>@item.RecurrentGracePeriod</td>
+                                                <td>@item.NextBillingDate.ToString("dd/MM/yyyy HH:MM:ss")</td>
+                                                <td>
+                                                    @if (item.IsActive)
+                                                    {
+                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Active</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Inactive</span>
+                                                    }
+                                                    @if (item.IsDeleted)
+                                                    {
+                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Deleted</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Notdeleted</span>
+                                                    }
+                                                </td>
+                                                <td>@Model.Createdby</td>
+                                                <td>@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="10" class="text-right nowrap text-nowrap no-wrap-buttons">
+                                                    <a asp-action="CustomerAgreementPaymentList" asp-controller="CustomerManagement" asp-route-AgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Payments</a>
+                                                    <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
+                                                    <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
+                                                    <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                                                    @if (item.IsActive)
+                                                    {
+                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAgreements" data-Columname="IsActive" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase mr-1">Deactivate</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsActive" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase mr-1">Activate</a>
+                                                    }
+                                                    @if (item.IsDeleted)
+                                                    {
+                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase mr-1">Restore</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase mr-1">Delete</a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-12 table-responsive table-responsive-sm">
+                                            <table class="table table-sm nowrap text-nowrap table-stripped table-bordered" id="AllsystemDataTables3">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-sm font-weight-normal">Mask</th>
+                                                        <th class="text-sm font-weight-normal">Balance</th>
+                                                        <th class="text-sm font-weight-normal">Limit Value</th>
+                                                        <th class="text-sm font-weight-normal">Limit Type</th>
+                                                        <th class="text-sm font-weight-normal">Limit Period</th>
+                                                        <th class="text-sm font-weight-normal">Equipments</th>
+                                                        <th class="text-sm font-weight-normal">Users</th>
+                                                        <th class="text-sm font-weight-normal">Status</th>
+                                                        <th class="text-sm font-weight-normal">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (item.CustomerAccounts != null)
+                                                    {
+                                                        foreach (var card in item.CustomerAccounts.Where(x => x.ParentId != 0))
+                                                        {
+                                                            <tr>
+                                                                <td>@card.CardSNO</td>
+                                                                <td>
+                                                                    @if (card.LimitTypename.Contains("Litres"))
+                                                                    {
+                                                                        @(card.RecurrentAccountBalance.ToString("#,#00.00") + " Ltrs")
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @(Model.Currency + ". " + @card.RecurrentAccountBalance.ToString("#,#00.00"))
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    @if (card.LimitTypename.Contains("Litres"))
+                                                                    {
+                                                                        @(card.AccountLimit.ToString("#,#00.00") + " Ltrs")
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @(Model.Currency + ". " + @card.AccountLimit.ToString("#,#00.00"))
+                                                                    }
+                                                                </td>
+                                                                <td>@card.LimitTypename</td>
+                                                                <td>@card.ConsumptionPeriod</td>
+                                                                <td>@card.EquipmentAssigned</td>
+                                                                <td>@card.UsersAssigned</td>
+                                                                <td>
+                                                                    @if (item.IsActive)
+                                                                    {
+                                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Active</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Inactive</span>
+                                                                    }
+                                                                    @if (item.IsDeleted)
+                                                                    {
+                                                                        <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Deleted</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Notdeleted</span>
+                                                                    }
+                                                                </td>
+                                                                <td class="nowrap text-nowrap no-wrap-buttons">
+                                                                    <a asp-action="Customeraccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Details</a>
+                                                                    <a asp-action="Replacecustomeraccountcard" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-CardId="@card.CardId" asp-route-Masknumber="@card.CardSNO" id="CAN_REPLACE_ACCOUNT_CARD" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Replace</a>
+                                                                    <a asp-action="Customeraccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
+                                                                    @if (card.IsActive)
+                                                                    {
+                                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAccount" data-Columname="IsActive" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Deactivate</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAccount" data-Columname="IsActive" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Activate</a>
+                                                                    }
+                                                                    @if (card.IsDeleted)
+                                                                    {
+                                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-inf text-white font-weight-bold text-uppercase">Restore</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Delete</a>
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td></td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @*  else if (item.Agreementtypename.Contains("OneOff"))
+                {
+                <div class="row card card-secondary card-outline">
+                <div class="col-sm-12">
+                <table class="table table-sm table-bordered nowrap text-nowrap">
+                <thead>
+                <tr>
+                <th class="text-sm font-weight-normal" colspan="9">AGREEMENT: @item.Agreementtypename Overview</th>
+                <th class="text-sm font-weight-normal text-right">
+                <a asp-action="AddcustomeragreementAccountTopup" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pay</a>
+                <a asp-action="AddcustomeragreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
+                </th>
+                </tr>
+                <tr>
+                <th class="text-sm font-weight-normal">TotalLimit: </th>
+                <th class="text-sm font-weight-normal">LimitBalance</th>
+                <th class="text-sm font-weight-normal">Consumption ToDate</th>
+                <th class="text-sm font-weight-normal">BillingBasis</th>
+                <th class="text-sm font-weight-normal">BillingCycleType</th>
+                <th class="text-sm font-weight-normal">G. Period</th>
+                <th class="text-sm font-weight-normal">BillingDate</th>
+                <th class="text-sm font-weight-normal">Status</th>
+                <th class="text-sm font-weight-normal">Createdby</th>
+                <th class="text-sm font-weight-normal">Createdon</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr>
+                <td>@(Model.Currency + ". " + item.CustomerCreditLimit.ToString("#,#00.00"))</td>
+                <td>@(Model.Currency + ". " + item.CustomerCreditBalance.ToString("#,#00.00"))</td>
+                <td>@(Model.Currency + ". " + item.ConsumptiontoDate.ToString("#,#00.00"))</td>
+                <td>@item.BillingBasis</td>
+                <td>
+                @if (item.BillingCycleType=="Monthly")
+                {
+                @(item.BillingCycleType+" - "+item.BillingCycle +"th")
+                }
+                else
+                {
+                @(item.BillingCycleType+" "+item.BillingCycle)
+                }
+                </td>
+                <td>@item.RecurrentGracePeriod</td>
+                <td>@item.NextBillingDate.ToString("dd/MM/yyyy HH:MM:ss")</td>
+                <td>
+                @if (item.IsActive)
+                {
+                <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Active</span>
+                }
+                else
+                {
+                <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Inactive</span>
+                }
+                @if (item.IsDeleted)
+                {
+                <span class="badge badge-danger badge-info-xs text-white font-weight-bold text-uppercase">Deleted</span>
+                }
+                else
+                {
+                <span class="badge badge-info badge-info-xs text-white font-weight-bold text-uppercase">Notdeleted</span>
+                }
+                </td>
+                <td>@Model.Createdby</td>
+                <td>@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
+                </tr>
+                <tr>
+                <td colspan="10" class="text-right">
+                <a href="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">View Lpos</a>
+                <a asp-action="CustomerAgreementPaymentList" asp-controller="CustomerManagement" asp-route-AgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Payments</a>
+                <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
+                <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
+                <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
+                @if (item.IsActive)
+                {
+                <a onclick="deactivatethis(event)" data-tablename="CustomerAgreements" data-Columname="IsActive" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase mr-1">Deactivate</a>
+                }
+                else
+                {
+                <a onclick="activatethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsActive" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase mr-1">Activate</a>
+                }
+                @if (item.IsDeleted)
+                {
+                <a onclick="restorethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase mr-1">Restore</a>
+                }
+                else
+                {
+                <a onclick="deletethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase mr-1">Delete</a>
+                }
+                </td>
+                </tr>
+                </tbody>
+                </table>
+                <div class="row">
+                <div class="col-sm-12 table-responsive table-responsive-sm">
+                <table class="table table-sm nowrap text-nowrap table-stripped table-bordered" id="AllsystemDataTables3">
+                <thead>
+                <tr>
+                <th class="text-sm font-weight-normal">Mask</th>
+                <th class="text-sm font-weight-normal">Balance</th>
+                <th class="text-sm font-weight-normal">Limit Value</th>
+                <th class="text-sm font-weight-normal">Limit Type</th>
+                <th class="text-sm font-weight-normal">Limit Period</th>
+                <th class="text-sm font-weight-normal">Users</th>
+                <th class="text-sm font-weight-normal">Status</th>
+                <th class="text-sm font-weight-normal">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (item.CustomerAccounts != null)
+                {
+                foreach (var card in item.CustomerAccounts.Where(x => x.ParentId != 0))
+                {
+                <tr>
+                <td>@card.CardSNO</td>
+                <td>@Model.Currency @card.CreditAccountBalance.ToString("#,#00.00")</td>
+                <td>@Model.Currency @card.CreditAccountLimitBalance.ToString("#,#00.00")</td>
+                <td>@card.LimitTypename</td>
+                <td>@card.ConsumptionPeriod</td>
+                <td>@card.UsersAssigned</td>
+                <td>
+                @if (card.IsActive)
+                {
+                <span class="badge badge-info badge-info-xs">Active</span>
+                }
+                else
+                {
+                <span class="badge badge-danger badge-info-xs">Inactive</span>
+                }
+                @if (card.IsDeleted)
+                {
+                <span class="badge badge-danger badge-info-xs">Deleted</span>
+                }
+                else
+                {
+                <span class="badge badge-info badge-info-xs">Notdeleted</span>
+                }
+                </td>
+                <td>
+                <a asp-action="Customeraccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Details</a>
+                <a asp-action="Customeraccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
+                @if (card.IsActive)
+                {
+                <a onclick="deactivatethis(event)" data-tablename="CustomerAccount" data-Columname="IsActive" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Deactivate</a>
+                }
+                else
+                {
+                <a onclick="activatethis(event)" data-Tablename="CustomerAccount" data-Columname="IsActive" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold font-weight-bold text-uppercase">Activate</a>
+                }
+                @if (card.IsDeleted)
+                {
+                <a onclick="restorethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-inf text-white font-weight-bold text-uppercase">Restore</a>
+                }
+                else
+                {
+                <a onclick="deletethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Delete</a>
+                }
+                </td>
+                </tr>
+                }
+                }
+                else
+                {
+                <tr>
+                <td></td>
+                </tr>
+
+                }
+                </tbody>
+                </table>
+                </div>
+                </div>
+                </div>
+                </div>
+                } *@
+
+                        else
+                        {
+
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="parentModal" role="dialog" aria-labelledby="parentModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-sm modal-title" id="SocialPesaModalLabel">Customer Account Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="parentModalContent">
+                Loading...
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="childModal" role="dialog" aria-labelledby="childModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        function showsystemprepaidagreementfields() {
+            $('#AgreementTypeId').val("prepaid");
+            $(".prepaidAgreementFields").show();
+            $(".postpaidAgreementFields").hide();
+            $(".postpaidcreditagreementfields").hide();
+            $(".postpaidrecurrentagreementfields").hide();
+            $(".postpaidoneoffagreementfields").hide();
+        }
+        function showsystempostpaidagreementfields() {
+            $(".postpaidAgreementFields").show();
+            $(".prepaidAgreementFields").hide();
+        }
+
+        function showsystempostpaidCreditagreementfields() {
+            $('#AgreementTypeId').val("credit");
+            $(".postpaidcreditagreementfields").show();
+            $(".prepaidAgreementFields").hide();
+            $(".postpaidrecurrentagreementfields").hide();
+            $(".postpaidoneoffagreementfields").hide();
+        }
+        function showsystempostpaidRecurrentagreementfields() {
+            $(".postpaidAgreementFields").show();
+            $(".postpaidrecurrentagreementfields").show();
+            $(".postpaidcreditagreementfields").hide();
+            $(".prepaidAgreementFields").hide();
+            $(".postpaidoneoffagreementfields").hide();
+        }
+        function showsystempostpaidOneoffagreementfields() {
+            $(".postpaidAgreementFields").show();
+            $(".postpaidoneoffagreementfields").show();
+            $(".prepaidAgreementFields").hide();
+            $(".postpaidcreditagreementfields").hide();
+            $(".postpaidrecurrentagreementfields").hide();
+        }
+
+        function Getsystemstationstaffbyid(stationid) {
+            var onj = "<option value=''>Select staff</option>";
+            if (stationid == "") { $('#SystemstationstaffId').html(onj); return; }
+            $.get("/CustomerManagement/GetSystemStationStaffDropDownDataById/" + stationid, null, function (data) {
+                $.each(data, function (a, x) { onj = onj + "<option value='" + x.Value + "'>" + x.Text + "</option>"; })
+                $('#SystemstationstaffId').html(onj);
+            });
+        }
+
+        function GetEquipmentModels(equippmentmakeid) {
+            var onj = "<option value=''>Select Model</option>";
+            if (equippmentmakeid == "") { $('#EquipmentModelId').html(onj); return; }
+            $.get("/CustomerManagement/GetSEquipmentModelDropDownDataById/" + equippmentmakeid, null, function (data) {
+                $.each(data, function (a, x) { onj = onj + "<option value='" + x.Value + "'>" + x.Text + "</option>"; })
+                $('#EquipmentModelId').html(onj);
+            });
+        }
+        function savecustomeragreementaccount() {
+            var selectedStations = document.getElementById("CustomerAccountStationId")
+            var selectedStationsOptions = Array.from(selectedStations.selectedOptions).map(option => option.value);
+            var selectedWeekDays = document.getElementById("CustomerAccountWeekdaysId")
+            var selectedWeekDaysOptions = Array.from(selectedWeekDays.selectedOptions).map(option => option.value);
+            var uil = {
+                "CustomerAgreementId": $('#CustomerAgreementId').val(),
+                "LoyaltyGroupingId": $('#LoyaltyGroupingId').val(),
+                "CreditTypeId": $('#CreditTypeId').val(),
+                "EquipmentNumber": $('#EquipmentNumberId').val(),
+                "EquipmentMakeId": $('#EquipmentMakeId').val(),
+                "EquipmentModelId": $('#EquipmentModelId').val(),
+                "EquipmentTankCapacity": $('#EquipmentTankCapacityId').val(),
+                "Fullname": $('#fullnameId').val(),
+                "EmailAddress": $('#phonenumberId').val(),
+                "PhoneNumber": $('#emailaddressId').val(),
+                "ProductVariationId": $('#CustomerAccountProductId').val(),
+                "Productlimitvalue": $('#CustomerAccountProductLimitId').val(),
+                "ProductLimitTypeId": $('#ConsumptionLimitTypeId').val(),
+                "ProductlimitPeriod": $('#CustomerAccountProductLimitPeriodId').val(),
+                "AccountStationId": selectedStationsOptions,
+                "AccountWeekdays": selectedWeekDaysOptions,
+                "AccountWeekdaysStartTime": $('#CustomerAccountWeekdaysStartTimeId').val(),
+                "AccountWeekdaysEndTime": $('#CustomerAccountWeekdaysEndTimeId').val(),
+                "AccountFrequency": $('#CustomerAccountFrequencyId').val(),
+                "AccountFrequencyPeriod": $('#CustomerAccountFrequencyPeriodId').val()
+            };
+            $.post("/CustomerManagement/AddcustomeragreementAccountdata", uil, function (response) {
+                if (response.respStatus == 0) {
+                    Swal.fire('Saved!', 'Agreement Account details has been added.', 'success')
+                    $('#FuelcardsystemModalLarge').hide();
+                    setTimeout(function () { location.reload(); }, 1000);
+                } else {
+                    Swal("Agreement Account details has Not Created", response.respMessage, "error"); //$('.blockOverlay').hide();
+                }
+            });
+        }
+
+
+        function savecustomerpostpaidagreementdetails() {
+            var uil1 = {
+                AgreementType: $('#AgreementTypeId').val(),
+                CustomerId: $('#CustomerId').val(), LoyaltyGroupingId: $('#PostLoyaltyGroupingId').val(), PricelistId: $('#PostPricelistId').val(), DiscountlistId: $('#PostDiscountlistId').val(),
+                AgreementDoc: $('#PostAgreementDocId').val(), AgreementReference: $('#AgreementReferenceId').val(), LimitValue: $('#LimitValueId').val(), ConsumptionLimitType: $('#ConsumptionLimitTypeId').val(),
+                StartDate: $('#AgreementStartDateId').val(), PaymentTerms: $('#PaymentTermDaysId').val(), Agreementnote: $('#PostAgreementnoteId').val()
+            };
+            $.post("/CustomerManagement/Addcustomeragreementdetaildata", uil1, function (response) {
+                if (response.respStatus == 0) {
+                    Swal.fire('Saved!', 'Acccount topup details has been added.', 'success')
+                    $('#FuelcardsystemModalLarge').hide();
+                    setTimeout(function () { location.reload(); }, 1000);
+                } else {
+                    Swal("Acccount topup details Not saved", response.respMessage, "error"); //$('.blockOverlay').hide();
+                }
+            });
+        }
+
+        function LoadStationProductsandStaff() {
+            var e = document.getElementById("AgreementsaleStationId");
+            if (e.value == 0) {
+                $("#CustomerStationsCardWithNoProduct").show();
+                $("#CustomerStationsCardWithProduct").hide();
+            } else {
+                $("#CustomerStationsCardWithNoProduct").hide();
+                $("#CustomerStationsCardWithProduct").show();
+                //GetStaffAttached to a Station
+                $.getJSON("/CustomerManagement/GetSystemDropDownDataById/" + e.value, function (result) {
+                    var $dropdown = $("#StationUserid");
+                    $.each(result, function () {
+                        $dropdown.append($("<option/>").val(this.value).text(this.text));
+                    });
+                });
+                //Get Products Attached with Station With Prices
+                $.getJSON("/ProductManagement/GetSystemStationProductDataById/" + e.value, function (result) {
+                    let item = result;
+                    for (let i = 0; i < item.length; i++) {
+                        let product = '<div class="col-sm-2">';
+                        product += '<div id="' + item[i].productVariationId + '"class="card card' + i + '" >';
+                        product += '<img class="card-img-top product-img-class" alt="' + item[i].productvariationname + '" />';
+                        product += '<div class="card-body p-1">';
+                        product += '<p class="card-text text-center">' + item[i].productvariationname + "</p>";
+                        product += '<p class="card-text text-center">' + item[i].productPrice + "</p>";
+                        product += '<button  class="card-text btn btn-sm btn-block btn-info pt-0"  onclick="AddStationProducttoCart(' + item[i].productVariationId + ',\'' + item[i].productvariationname + '\',' + item[i].productPrice + ',' + 0 + ',' + 0 + ')">Add to Cart</button>';
+                        product += "</div>";
+                        product += "</div>";
+                        product += "</div>";
+                        $("#CustomerStationsCardWithProductDataId").append(product);
+                    }
+                });
+            }
+        }
+
+        function AddStationProducttoCart(productVariationId, productName, productPrice, productDiscount, productCode) {
+            var data = { "ProductVariationId": productVariationId, "ProductName": productName, "ProductPrice": productPrice, "ProductDiscount": productDiscount, "ProductCode": productCode };
+            $.ajax({
+                type: "POST",
+                url: "/CustomerManagement/AddProductdatatocart",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#CustomerStationsCardWithProductCartDataId').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function DeleteSaleItem(ProductVariationId) {
+            var data = { "ProductVariationId": ProductVariationId };
+            $.ajax({
+                type: "POST",
+                url: "/CustomerManagement/DeleteSaleItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function UpdateSaleItem(ProductVariationId, qty) {
+            var data = {
+                "ProductVariationId": ProductVariationId,
+                "Qty": qty
+            };
+            $.ajax({
+                type: "POST",
+                url: "/CustomerManagement/UpdateSaleItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+        function UpdatePriceItem(ProductVariationId, amount) {
+            var data = {
+                "ProductVariationId": ProductVariationId,
+                "Amt": amount
+            };
+            $.ajax({
+                type: "POST",
+                url: "/CustomerManagement/UpdatePriceItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+        function UpdateAmountItem(ProductVariationId, Amt) {
+            var data = {
+                "ProductVariationId": ProductVariationId,
+                "Amt": Amt
+            };
+            $.ajax({
+                type: "POST",
+                url: "/CustomerManagement/UpdateAmountItem",
+                cache: false,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    $('#productList').html(data);
+                },
+                error: function () {
+                }
+            });
+        }
+
+
+        function SaveCustomerAccountPolicies() {
+            var selectedStations = document.getElementById("CustomerAccountStationId")
+            var selectedStationsOptions = Array.from(selectedStations.selectedOptions).map(option => option.value);
+            var selectedWeekDays = document.getElementById("CustomerAccountWeekdaysId")
+            var selectedWeekDaysOptions = Array.from(selectedWeekDays.selectedOptions).map(option => option.value);
+            var uil = {
+                "AccountId": $('#CustomerAccountId').val(),
+                "ProductVariationId": $('#CustomerAccountProductId').val(),
+                "Productlimitvalue": $('#CustomerAccountProductLimitId').val(),
+                "ProductlimitPeriod": $('#CustomerAccountProductLimitPeriodId').val(),
+                "AccountStationId": selectedStationsOptions,
+                "AccountWeekdays": selectedWeekDaysOptions,
+                "AccountWeekdaysStartTime": $('#CustomerAccountWeekdaysStartTimeId').val(),
+                "AccountWeekdaysEndTime": $('#CustomerAccountWeekdaysEndTimeId').val(),
+                "AccountFrequency": $('#CustomerAccountFrequencyId').val(),
+                "AccountFrequencyPeriod": $('#CustomerAccountFrequencyPeriodId').val()
+            };
+            $.post("/CustomerManagement/RegisterCustomerAccountPolicies", uil, function (response) {
+                if (response.respStatus == 0) {
+                    Swal.fire('Saved!', 'Acccount Policy details has been added.', 'success')
+                    $('#FuelcardsystemModalLarge').hide();
+                    setTimeout(function () { location.reload(); }, 1000);
+                } else {
+                    Swal("Acccount Policy details Not saved", response.respMessage, "error"); //$('.blockOverlay').hide();
+                }
+            });
+        }
+    </script>
 }

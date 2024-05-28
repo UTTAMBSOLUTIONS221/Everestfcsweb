@@ -60,14 +60,9 @@
     </style>
     @RenderSection("Css", required: false)
 </head>
-<body class="hold-transition sidebar-mini sidebar-white layout-navbar-white layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition layout-top-nav layout-navbar-white layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
-        <nav class="main-header navbar navbar-expand bg-white">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars text-dark"></i></a>
-                </li>
-            </ul>
+        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <ul class="nav-item order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                 <li class="nav-link">
                     <a asp-action="Index" asp-controller="ReportManagement" asp-area="" id="CAN_MANAGE_REPORTS" style="display:none;" class="text-muted font-weight-bold text-uppercase text-xs main">
@@ -91,45 +86,6 @@
                 </li>
             </ul>
         </nav>
-        @*@if (authenticated && currentUserData != null)
-        {
-        @await Component.InvokeAsync("Menu", new { profilecode = currentUserData.ProfileCode })
-        }*@
-
-        <aside class="main-sidebar sidebar-white bg-white position-fixed">
-            <a asp-controller="Home" asp-action="Dashboard" class="brand-link bg-white">
-                @*  @{
-                var logoSrc = currentUserData.Usermodel.TenantLogo == null ? "~/imgs/everestlogo.png" : Url.Content(currentUserData.Usermodel.TenantLogo);
-                }
-                <img src="@logoSrc" alt="EVEREST FCS" class="brand-image img-circle" style="opacity: .8" /> *@
-                <span class="brand-text font-weight-bold text-dark text-muted text-uppercase text-xs">@currentCustomerData.CustomerModel.Companyname</span>
-            </a>
-            <div class="sidebar" style="height: calc(100vh - 56px); overflow-y: auto;">
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Dashboard" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item has-treeview main" id="CAN_MANANE_SETTINGS" style="display:none;">
-                            <a href="javascript: void(0);" class="nav-link">
-                                <i class="nav-icon fa fa-cogs"></i><p>Settings<i class="fa fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item main" id="CAN_VIEW_PERMISSION" style="display:none;">
-                                    <a asp-controller="SettingsManagement" asp-action="Systempermissionlist" asp-area="" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i><p>Permissions</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-
         <div class="content-wrapper">
             <section class="content">
                 <div class="container-fluid text-sm font-weight-light text-dark">
