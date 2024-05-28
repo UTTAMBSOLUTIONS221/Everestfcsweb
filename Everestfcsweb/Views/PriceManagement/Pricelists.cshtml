@@ -76,7 +76,7 @@
                                                                     <a asp-action="Editpricelist" asp-controller="PriceManagement" asp-route-code="@Guid.NewGuid()" asp-route-PricelistId="@data.PriceListId" asp-area="" id="CAN_EDIT_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                                     @if (!data.IsDefault)
                                                                     {
-                                                                        <a onclick="singledefaultthis(event)" data-Tablename="PriceList" data-Columname="IsActive" data-Status="1" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_DEFAULT_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Default</a>
+                                                                        <a onclick="singledefaultthis(event)" data-Tablename="PriceList" data-Columname="IsDefault" data-Status="1" data-Columnidname="PriceListId" data-Entryid="@data.PriceListId" id="CAN_DEFAULT_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Default</a>
                                                                     }
                                                                     @if (data.IsActive)
                                                                     {

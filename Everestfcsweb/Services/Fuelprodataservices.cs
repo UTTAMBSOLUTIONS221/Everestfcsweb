@@ -2026,6 +2026,7 @@ namespace Everestfcsweb.Services
         }
         public async Task<Genericmodel> DefaultThisTableColumnData(string Tokenbearer, ActivateDeactivateActions model)
         {
+            var data = JsonConvert.SerializeObject(model);
             var resp = await POSTTOAPI(Tokenbearer, "/api/CustomerManagement/DefaultThisTableColumnData", model);
             return resp;
         }
