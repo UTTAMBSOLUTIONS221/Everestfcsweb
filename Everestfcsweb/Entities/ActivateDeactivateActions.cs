@@ -2,6 +2,7 @@
 {
     public class ActivateDeactivateActions
     {
+        public long TenantId { get; set; }
         public string? Tablename { get; set; }
         public string? Columname { get; set; }
         public int Status { get; set; }

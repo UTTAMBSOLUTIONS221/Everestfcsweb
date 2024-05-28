@@ -1162,7 +1162,7 @@
                     var Entryid = activateBtn.getAttribute('data-Entryid');
                     var uil =
                     {
-                        Tablename: Tablename, Columname: Columname, Status: Status, Columnidname: Columnidname, Entryid: Entryid,
+                        TenantId: $('#systemLoggedinedTenantid').val(), Tablename: Tablename, Columname: Columname, Status: Status, Columnidname: Columnidname, Entryid: Entryid,
                         CreatedbyId: $('#systemLoggedinedUserId').val(), Createdby: $('#systemLoggedinedUserNameId').val(), ModifiedId: $('#systemLoggedinedUserId').val(), Modifiedby: $('#systemLoggedinedUserNameId').val(),
                         Datecreated: new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0].replace('T', ' '), Datemodified: new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0].replace('T', ' '),
                     };
