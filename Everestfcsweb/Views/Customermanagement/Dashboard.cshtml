@@ -88,19 +88,19 @@
                                                     <a asp-action="Editcustomerprepaidagreement" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_EDIT_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
                                                     @if (item.IsActive)
                                                     {
-                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAgreements" data-Columname="IsActive" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_DEACTIVATE_AGREEMENT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase">Deactivate</a>
+                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAgreements" data-Columname="IsActive" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_DEACTIVATE_AGREEMENT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase  main">Deactivate</a>
                                                     }
                                                     else
                                                     {
-                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsActive" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_ACTIVATE_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Activate</a>
+                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsActive" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_ACTIVATE_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase main">Activate</a>
                                                     }
                                                     @if (item.IsDeleted)
                                                     {
-                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_RESTORE_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Restore</a>
+                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_RESTORE_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase main">Restore</a>
                                                     }
                                                     else
                                                     {
-                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_DELETE_AGREEMENT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase">Delete</a>
+                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_DELETE_AGREEMENT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase main">Delete</a>
                                                     }
                                                 </td>
                                             </tr>
