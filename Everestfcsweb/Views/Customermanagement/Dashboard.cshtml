@@ -20,7 +20,7 @@
                     <div class="col-sm-12">
                         <table class="table table-sm borderless">
                             <tbody>
-                                <tr><td colspan="4">CUSTOMER:  @Model.Customername Agreements </td><td><a asp-action="Addcustomeragreement" asp-controller="CustomerManagement" asp-route-CustomerId="@Model.CustomerId" asp-area="" id="CAN_ADD_CUSTOMER_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold float-right text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Agreement</a></td></tr>
+                                <tr><td colspan="5">CUSTOMER:  @Model.Customername Agreements </td></tr>
                                 <tr><td>Email: @Model.Emailaddress</td><td>Phone: @Model.Phonenumber</td><td>Station: @Model.Stationname</td><td>Created By: @Model.Createdby</td><td>Date Created: @Model.CustomerDatecreated</td><td></td></tr>
                             </tbody>
                         </table>
@@ -40,9 +40,8 @@
                                             <tr>
                                                 <th class="text-sm font-weight-normal" colspan="5">AGREEMENT: @item.Agreementtypename Overview</th>
                                                 <th class="text-sm font-weight-normal text-right nowrap text-nowrap no-wrap-buttons">
-                                                    <a asp-action="AddcustomeragreementTransfer" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TRANSFER_FROM_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Transfer</a>
-                                                    <a asp-action="AddcustomeragreementAccountTopup" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TOPUP_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Topup</a>
-                                                    <a asp-action="AddcustomeragreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_ADD_AGREEMENT_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
+                                                    <a asp-action="AddcustomerportalagreementTransfer" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TRANSFER_FROM_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Transfer</a>
+                                                    <a asp-action="AddcustomerportalagreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_ADD_AGREEMENT_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
                                                 </th>
                                             </tr>
                                             <tr>
@@ -82,7 +81,7 @@
                                                 <td class="text-right">@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="6" class="text-right nowrap text-nowrap no-wrap-buttons">
+                                                <td colspan="5" class="text-right nowrap text-nowrap no-wrap-buttons">
                                                     <a asp-action="CustomerAgreementTopupTransferList" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TRANSFER_FROM_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Topup-transfer</a>
                                                     <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" id="CAN_VIEW_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
                                                     <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" id="CAN_VIEW_DISCOUNTLIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>

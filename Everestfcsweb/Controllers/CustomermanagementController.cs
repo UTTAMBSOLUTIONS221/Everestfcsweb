@@ -224,6 +224,19 @@ namespace Everestfcsweb.Controllers
             ViewData["SystemProductslists"] = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.SystemProduct, SessionUserData.Usermodel.Tenantid).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
             return PartialView(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> AddcustomerportalagreementAccount(long CustomerAgreementId)
+        {
+            CustomerAgreementAccountData model = new CustomerAgreementAccountData();
+            model.AgreementId = CustomerAgreementId;
+            ViewData["SystemEquimentMakeslists"] = bl.GetSystemDropDownData(SessionCustomerData.Token, ListModelType.SystemEquipmentMakes).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
+            ViewData["SystemConsumptionTypelists"] = bl.GetSystemDropDownData(SessionCustomerData.Token, ListModelType.ConsumptionType).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
+            ViewData["SystemCardTypelists"] = bl.GetSystemDropDownData(SessionCustomerData.Token, ListModelType.CardType).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
+            ViewData["Systemstationslists"] = bl.GetSystemDropDownDataById(SessionCustomerData.Token, ListModelType.Stations, SessionCustomerData.CustomerModel.Tenantid).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
+            ViewData["SystemProductslists"] = bl.GetSystemDropDownDataById(SessionCustomerData.Token, ListModelType.SystemProduct, SessionCustomerData.CustomerModel.Tenantid).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
+            return PartialView(model);
+        }
+        
         public async Task<JsonResult> AddcustomeragreementAccountdata(CustomerAgreementAccountData model)
         {
             var resp = await bl.AddcustomeragreementAccount(SessionUserData.Token, model);
@@ -387,6 +400,15 @@ namespace Everestfcsweb.Controllers
             ViewData["Systemagreementaccountlists"] = bl.GetSystemDropDownDataById(SessionUserData.Token, ListModelType.SystemAccountNumbers, AccountId).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
             return PartialView(model);
         }
+        [HttpGet]
+        public IActionResult AddcustomerportalagreementTransfer(long AccountId)
+        {
+            CustomerAccountTransfer model = new CustomerAccountTransfer();
+            model.FromAccountId = AccountId;
+            ViewData["Systemagreementaccountlists"] = bl.GetSystemDropDownDataById(SessionCustomerData.Token, ListModelType.SystemAccountNumbers, AccountId).Result.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }).ToList();
+            return PartialView(model);
+        }
+
         [HttpGet]
         public IActionResult AddcustomeragreementAccountTransfer(long AccountId)
         {
