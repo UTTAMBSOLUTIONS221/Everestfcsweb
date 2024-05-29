@@ -38,11 +38,7 @@
                                     <table class="table table-sm table-bordered nowrap text-nowrap">
                                         <thead>
                                             <tr>
-                                                <th class="text-sm font-weight-normal" colspan="5">AGREEMENT: @item.Agreementtypename Overview</th>
-                                                <th class="text-sm font-weight-normal text-right nowrap text-nowrap no-wrap-buttons">
-                                                    <a asp-action="AddcustomerportalagreementTransfer" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TRANSFER_FROM_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Transfer</a>
-                                                    <a asp-action="AddcustomerportalagreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_ADD_AGREEMENT_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
-                                                </th>
+                                                <th class="text-sm font-weight-normal" colspan="6">AGREEMENT: @item.Agreementtypename Overview</th>
                                             </tr>
                                             <tr>
                                                 <th class="text-sm font-weight-normal">Customer Balance</th>
@@ -80,30 +76,7 @@
                                                 <td>@Model.Createdby</td>
                                                 <td class="text-right">@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
                                             </tr>
-                                            <tr>
-                                                <td colspan="6">
-                                                    <a asp-action="CustomerAgreementTopupTransferList" asp-controller="CustomerManagement" asp-route-AccountId="@item.AgreementAccountId" asp-area="" id="CAN_TRANSFER_FROM_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Topup-transfer</a>
-                                                    <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" id="CAN_VIEW_PRICELIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
-                                                    <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" id="CAN_VIEW_DISCOUNTLIST" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
-                                                    <a asp-action="Editcustomerprepaidagreement" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_EDIT_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
-                                                    @if (item.IsActive)
-                                                    {
-                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAgreements" data-Columname="IsActive" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_DEACTIVATE_AGREEMENT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase  main">Deactivate</a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsActive" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_ACTIVATE_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase main">Activate</a>
-                                                    }
-                                                    @if (item.IsDeleted)
-                                                    {
-                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_RESTORE_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase main">Restore</a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" id="CAN_DELETE_AGREEMENT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase main">Delete</a>
-                                                    }
-                                                </td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                     <div class="row">
@@ -155,24 +128,7 @@
                                                                 </td>
                                                                 <td class="text-right nowrap text-nowrap no-wrap-buttons">
                                                                     <a asp-action="Customerportalaccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" id="CAN_VIEW_AGREEMENT_DETAILS" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Details</a>
-                                                                    <a asp-action="Replacecustomeraccountcard" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-CardId="@card.CardId" asp-route-Masknumber="@card.CardSNO" id="CAN_REPLACE_ACCOUNT_CARD" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Replace</a>
-                                                                    <a asp-action="Customerportalaccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" id="CAN_VIEW_ACCOUNT_POLICIES" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
-                                                                    @if (card.IsActive)
-                                                                    {
-                                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAccount" data-Columname="IsActive" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" id="CAN_DEACTIVATE_ACCOUNT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase">Deactivate</a>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAccount" data-Columname="IsActive" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" id="CAN_ACTIVATE_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Activate</a>
-                                                                    }
-                                                                    @if (card.IsDeleted)
-                                                                    {
-                                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" id="CAN_RESTORE_ACCOUNT" class="btn-info btn-xs btn-outline-inf text-white  font-weight-bold text-uppercase">Restore</a>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" id="CAN_DELETE_ACCOUNT" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase">Delete</a>
-                                                                    }
+                                                                    <a asp-action="Customerportalaccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" id="CAN_VIEW_ACCOUNT_POLICIES" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>                                                                    
                                                                 </td>
                                                             </tr>
                                                         }
@@ -198,11 +154,7 @@
                                     <table class="table table-sm table-bordered nowrap text-nowrap">
                                         <thead>
                                             <tr>
-                                                <th class="text-sm font-weight-normal" colspan="7">AGREEMENT: @item.Agreementtypename Overview</th>
-                                                <th class="text-sm font-weight-normal text-right nowrap text-nowrap no-wrap-buttons">
-                                                    <a asp-action="Addcustomeragreementpayment" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AgreementId="@item.AgreementId" asp-area="" id="CAN_PAY_AGREEMENT" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pay</a>
-                                                    <a asp-action="AddcustomeragreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" id="CAN_ADD_AGREEMENT_ACCOUNT" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
-                                                </th>
+                                                <th class="text-sm font-weight-normal" colspan="8">AGREEMENT: @item.Agreementtypename Overview</th>
                                             </tr>
                                             <tr>
                                                 <th class="text-sm font-weight-normal">Customer Creditlimit</th>
@@ -243,30 +195,6 @@
                                                 </td>
                                                 <td>@Model.Createdby</td>
                                                 <td>@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="8" class="text-right nowrap text-nowrap no-wrap-buttons">
-                                                    <a asp-action="CustomerAgreementPaymentList" asp-controller="CustomerManagement" asp-route-AgreementId="@item.AgreementId" asp-area="" id="CAN_VIEW_AGREEMENT_PAYMENTS" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Payments</a>
-                                                    <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
-                                                    <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
-                                                    <a asp-action="Editpostpaidcreditagreement" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
-                                                    @if (item.IsActive)
-                                                    {
-                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAgreements" data-Columname="IsActive" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase">Deactivate</a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsActive" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Activate</a>
-                                                    }
-                                                    @if (item.IsDeleted)
-                                                    {
-                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Restore</a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase">Delete</a>
-                                                    }
-                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -329,25 +257,8 @@
                                                                     }
                                                                 </td>
                                                                 <td class="nowrap text-nowrap no-wrap-buttons">
-                                                                    <a asp-action="Customeraccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" id="CAN_VIEW_AGREEMENT_DETAILS" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Details</a>
-                                                                    <a asp-action="Replacecustomeraccountcard" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-CardId="@card.CardId" asp-route-Masknumber="@card.CardSNO" id="CAN_REPLACE_ACCOUNT_CARD" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Replace</a>
-                                                                    <a asp-action="Customeraccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
-                                                                    @if (card.IsActive)
-                                                                    {
-                                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAccount" data-Columname="IsActive" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Deactivate</a>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAccount" data-Columname="IsActive" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Activate</a>
-                                                                    }
-                                                                    @if (card.IsDeleted)
-                                                                    {
-                                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-inf text-white font-weight-bold text-uppercase">Restore</a>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Delete</a>
-                                                                    }
+                                                                    <a asp-action="Customerportalaccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" id="CAN_VIEW_AGREEMENT_DETAILS" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase">Details</a>
+                                                                    <a asp-action="Customerportalaccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
                                                                 </td>
                                                             </tr>
                                                         }
@@ -373,11 +284,8 @@
                                     <table class="table table-sm table-bordered nowrap text-nowrap">
                                         <thead>
                                             <tr>
-                                                <th class="text-sm font-weight-normal" colspan="9">AGREEMENT: @item.Agreementtypename Overview</th>
-                                                <th class="text-sm font-weight-normal text-right nowrap text-nowrap no-wrap-buttons">
-                                                    <a asp-action="Addcustomeragreementpayment" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pay</a>
-                                                    <a asp-action="AddcustomeragreementAccount" asp-controller="CustomerManagement" asp-route-CustomerAgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Account</a>
-                                                </th>
+                                                <th class="text-sm font-weight-normal" colspan="10">AGREEMENT: @item.Agreementtypename Overview</th>
+
                                             </tr>
                                             <tr>
                                                 <th class="text-sm font-weight-normal">TotalLimit: </th>
@@ -459,30 +367,6 @@
                                                 <td>@Model.Createdby</td>
                                                 <td>@Model.CustomerDatecreated.ToString("dd/MM/yyyy HH:MM:ss")</td>
                                             </tr>
-                                            <tr>
-                                                <td colspan="10" class="text-right nowrap text-nowrap no-wrap-buttons">
-                                                    <a asp-action="CustomerAgreementPaymentList" asp-controller="CustomerManagement" asp-route-AgreementId="@item.AgreementId" asp-area="" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Payments</a>
-                                                    <a asp-action="CustomerAgreementPriceList" asp-controller="CustomerManagement" asp-route-PriceListId="@item.PriceListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Pricelist</a>
-                                                    <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Discountlist</a>
-                                                    <a asp-action="CustomerAgreementDiscountList" asp-controller="CustomerManagement" asp-route-DiscountListId="@item.DiscountListId" asp-area="" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main mr-1" data-target="#FuelcardsystemModalLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Edit</a>
-                                                    @if (item.IsActive)
-                                                    {
-                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAgreements" data-Columname="IsActive" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase mr-1">Deactivate</a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsActive" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase mr-1">Activate</a>
-                                                    }
-                                                    @if (item.IsDeleted)
-                                                    {
-                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase mr-1">Restore</a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAgreements" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AgreementId" data-Entryid="@item.AgreementId" class="btn-danger btn-xs btn-outline-danger text-white  font-weight-bold text-uppercase mr-1">Delete</a>
-                                                    }
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                     <div class="row">
@@ -551,25 +435,8 @@
                                                                     }
                                                                 </td>
                                                                 <td class="nowrap text-nowrap no-wrap-buttons">
-                                                                    <a asp-action="Customeraccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Details</a>
-                                                                    <a asp-action="Replacecustomeraccountcard" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-CardId="@card.CardId" asp-route-Masknumber="@card.CardSNO" id="CAN_REPLACE_ACCOUNT_CARD" class="btn-info btn-xs btn-outline-info text-white  font-weight-bold text-uppercase" data-target="#FuelcardsystemModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Replace</a>
-                                                                    <a asp-action="Customeraccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
-                                                                    @if (card.IsActive)
-                                                                    {
-                                                                        <a onclick="deactivatethis(event)" data-tablename="CustomerAccount" data-Columname="IsActive" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Deactivate</a>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <a onclick="activatethis(event)" data-Tablename="CustomerAccount" data-Columname="IsActive" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Activate</a>
-                                                                    }
-                                                                    @if (card.IsDeleted)
-                                                                    {
-                                                                        <a onclick="restorethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="0" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-inf text-white font-weight-bold text-uppercase">Restore</a>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <a onclick="deletethis(event)" data-Tablename="CustomerAccount" data-Columname="IsDeleted" data-Status="1" data-Columnidname="AccountId" data-Entryid="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Delete</a>
-                                                                    }
+                                                                    <a asp-action="Customerportalaccountdetail" asp-controller="CustomerManagement" asp-route-code="@Guid.NewGuid()" asp-route-AccountId="@card.AccountId" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main">Details</a>
+                                                                    <a asp-action="Customerportalaccountpoliciesdetail" asp-controller="CustomerManagement" asp-route-AccountId="@card.AccountId" asp-route-Masknumber="@card.CardSNO" class="btn-info btn-xs btn-outline-info text-white font-weight-bold text-uppercase main" data-target="#FuelcardsystemModalExtraLarge" data-toggle="modal" data-backdrop="static" data-keyboard="false">Policies</a>
                                                                 </td>
                                                             </tr>
                                                         }

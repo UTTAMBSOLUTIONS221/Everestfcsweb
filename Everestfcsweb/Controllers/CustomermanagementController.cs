@@ -480,6 +480,12 @@ namespace Everestfcsweb.Controllers
             return PartialView(data);
         }
         [HttpGet]
+        public async Task<IActionResult> CustomerPortalAccountEmployeePolicies(long EmployeeId)
+        {
+            var data = await bl.GetCustomerAccountEmployeePoliciesdata(SessionCustomerData.Token, EmployeeId);
+            return PartialView(data);
+        }
+        [HttpGet]
         public async Task<IActionResult> Addcustomeraccountemployeeproductpolicy(long EmployeeId, long? EmployeeProductId, string EmployeeName)
         {
             AccountEmployeeProductpolicy model = new AccountEmployeeProductpolicy();
@@ -574,6 +580,12 @@ namespace Everestfcsweb.Controllers
         public async Task<IActionResult> CustomerAccountEquipmentPolicies(long EquipmentId)
         {
             var data = await bl.GetCustomerAccountEquipmentPoliciesdata(SessionUserData.Token, EquipmentId);
+            return PartialView(data);
+        }
+        [HttpGet]
+        public async Task<IActionResult> CustomerPortalAccountEquipmentPolicies(long EquipmentId)
+        {
+            var data = await bl.GetCustomerAccountEquipmentPoliciesdata(SessionCustomerData.Token, EquipmentId);
             return PartialView(data);
         }
         [HttpGet]

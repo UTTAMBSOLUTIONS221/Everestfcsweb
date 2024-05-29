@@ -1,0 +1,171 @@
+﻿@model Everestfcsweb.Models.CustomerAccountEquipmentPolicyDetails
+<div class="modal-header">
+    <h5 class="text-sm modal-title" id="SocialPesaModalLabel">@Model.EquipmentNumber Account Policies</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="text-sm">@Model.EquipmentNumber what can it Consume?</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-0">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Product</th>
+                                            <th class="font-weight-light">Limit</th>
+                                            <th class="font-weight-light">Period</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(Model!=null){
+                                            if (Model.AccountEquipmentproductspolicy != null)
+                                            {
+                                                foreach (var item in Model.AccountEquipmentproductspolicy)
+                                                {
+                                                    <tr>
+                                                        <td class="font-weight-light">@item.Productvariationname</td>
+                                                        <td class="font-weight-light">@item.LimitValue</td>
+                                                        <td class="font-weight-light">@item.LimitPeriod</td>
+                                                        <td class="font-weight-light">@item.DateCreated</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="text-sm">@Model.EquipmentNumber where can it Consume?</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-0">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables1">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Station</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.AccountEquipmentstationspolicy != null)
+                                        {
+                                            foreach (var item in Model.AccountEquipmentstationspolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light">@item.Stationname</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="text-sm">@Model.EquipmentNumber When can it Consume?</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-0">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables2">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Days</th>
+                                            <th class="font-weight-light">Starttime</th>
+                                            <th class="font-weight-light">Endtime</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.AccountEquipmentweekdayspolicy != null)
+                                        {
+                                            foreach (var item in Model.AccountEquipmentweekdayspolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light text-wrap">@item.WeekDays</td>
+                                                    <td class="font-weight-light">@item.StartTime</td>
+                                                    <td class="font-weight-light">@item.EndTime</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header py-1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="text-sm">@Model.EquipmentNumber how can it Consume?</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-0">
+                            <div class="col-sm-12 table-responsive table-responsive-sm">
+                                <table class="table table-bordered table-striped compact table-sm table-responsive-sm nowrap text-nowrap" id="AllsystemDataTables3">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-weight-light">Frequency</th>
+                                            <th class="font-weight-light">Period</th>
+                                            <th class="font-weight-light">Datecreated</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.AccountEquipmentfrequencypolicy != null)
+                                        {
+                                            foreach (var item in Model.AccountEquipmentfrequencypolicy)
+                                            {
+                                                <tr>
+                                                    <td class="font-weight-light">@item.Frequency</td>
+                                                    <td class="font-weight-light">@item.FrequencyPeriod</td>
+                                                    <td class="font-weight-light">@item.DateCreated</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
