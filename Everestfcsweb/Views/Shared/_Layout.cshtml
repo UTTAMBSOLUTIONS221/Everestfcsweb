@@ -356,7 +356,8 @@
                 document.querySelectorAll('.main').forEach(function (node) {
                     if (permissionValues.includes(node.id)) {
                         console.log("Displaying element with ID:", node.id);
-                        node.style.display = "inline-block";
+                        //node.style.display = "inline-block";
+                        node.style.display = "";
                     }
                 });
             }
