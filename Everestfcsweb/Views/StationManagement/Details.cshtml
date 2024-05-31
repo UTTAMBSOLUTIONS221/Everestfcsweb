@@ -109,6 +109,9 @@
 
 @section Scripts {
     <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            makenozzleifdoublesidedreadonly();
+        });
         var tanks = @Html.Raw(Json.Serialize(SystemTanks));
         function makenozzleifdoublesidedreadonly() {
             var isChecked = $("#StationIsDoubleSidedId").prop("checked");

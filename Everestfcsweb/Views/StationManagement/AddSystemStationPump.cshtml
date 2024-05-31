@@ -68,17 +68,7 @@
                 <table class="table table-sm nowrap text-nowrap" style="width:100%" id="stationpumpnozzletable">
                     <thead><tr><th class="font-weight-light text-sm" hidden>Name</th><th class="font-weight-light" hidden>Side</th><th class="font-weight-light" hidden>Tank</th></tr></thead>
                     <tbody class="font-weight-light text-sm">
-                        @if (Model.StationPumpNozzles != null && Model.StationPumpNozzles.Any())
-                        {
-                            foreach (var nozzle in Model.StationPumpNozzles)
-                            {
-                                <tr>
-                                    <td>@nozzle.Nozzle</td>
-                                    <td hidden>@nozzle.Side</td>
-                                    <td hidden>@nozzle.TankName</td>
-                                </tr>                            
-                            }
-                        }
+                        
                     </tbody>
                 </table>
             </div>
