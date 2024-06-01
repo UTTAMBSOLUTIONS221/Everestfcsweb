@@ -1021,7 +1021,7 @@ namespace Everestfcsweb.Controllers
                         worksheet.Cell(currentRow, 10).Value = data.PointsStatementData.Sum(x => x.Credit).ToString("#,##0.00");
                         worksheet.Cell(currentRow, 10).Style.Font.Bold = true;
 
-                        worksheet.Cell(currentRow, 11).Value = data.PointsStatementData.Sum(x => x.Balance).ToString("#,##0.00");
+                        worksheet.Cell(currentRow, 11).Value = data.PointsStatementData.Sum(x => x.Credit- x.Debit).ToString("#,##0.00");
                         worksheet.Cell(currentRow, 11).Style.Font.Bold = true;
                     }
                     using (var stream = new MemoryStream())
