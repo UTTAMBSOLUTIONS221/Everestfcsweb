@@ -4,7 +4,7 @@
     {
         public long FromAccountId { get; set; }
         public long ToAccountId { get; set; }
-        public long TenanttId { get; set; }
+        public long TenantId { get; set; }
         public decimal TransferAmount { get; set; }
         public string? TransactionDescription { get; set; }
         public long CreatedbyId { get; set; }
