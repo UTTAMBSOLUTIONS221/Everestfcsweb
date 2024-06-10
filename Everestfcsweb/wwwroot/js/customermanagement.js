@@ -780,7 +780,7 @@ function savecustomeragreementaccounttransfer() {
 
     $.post("/CustomerManagement/AddcustomeragreementAccountTransferdata", uil, function (response) {
         if (response.RespStatus == 0) {
-            Swal.fire('Saved!', 'Topup details has been added.', 'success')
+            Swal.fire('Saved!', 'Topup Transfer details has been added.', 'success')
             $('#FuelcardsystemModalLarge').hide();
             setTimeout(function () { location.reload(); }, 1000);
         } else if (response.RespStatus == 1) {
