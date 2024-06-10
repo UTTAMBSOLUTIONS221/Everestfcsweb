@@ -773,7 +773,7 @@ function savecustomeragreementaccounttransfer() {
     }
     var uil =
     {
-        TenantId: $('#systemLoggedinedTenantid').val(), FromAccountId: $('#TransferFromAccountId').val(), ToAccountId: $('#TransferToAccountId').val(), TransferAmount: $('#TransferAmountId').val(),
+        TenantId: $('#systemLoggedinedTenantid').val(), , FromAccountId: $('#TransferFromAccountId').val(), ToAccountId: $('#TransferToAccountId').val(), TransferAmount: $('#TransferAmountId').val(),
         CreatedbyId: $('#systemLoggedinedUserid').val(), ModifiedId: $('#systemLoggedinedUserid').val(),
         Datecreated: new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0].replace('T', ' '), Datemodified: new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0].replace('T', ' ')
     };
