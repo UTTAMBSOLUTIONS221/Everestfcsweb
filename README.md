@@ -1,17 +1,20 @@
-👋 Hello! I'm Francis Kingori, a dedicated full stack developer specializing in creating robust web applications, with a particular focus on fuel management systems (FMS) for gas stations. My current project, Everest FCS Web, encompasses a comprehensive suite of features tailored for optimizing gas station operations.
+Everest FCS Web - Fuel Management System for Gas Stations
 
-🚀 Everest FCS Web integrates advanced functionalities such as:
+Everest FCS Web is a comprehensive fuel management system designed to optimize operations at gas stations, featuring advanced functionalities tailored for efficiency and customer satisfaction.
+Features
 
-    Fuel Management System (FMS): Streamlining fuel inventory and transactions, ensuring efficient operations and reduced overhead costs.
-    Loyalty Programs: Enhancing customer engagement through personalized rewards and incentives.
-    Customer Profile Management: Tailoring customer preferences and restrictions on fuel consumption, enhancing user experience and security.
-    Staff Profile Management: Facilitating role-based access control for employees, ensuring operational integrity and security.
-    Point of Sale (POS) Application: Empowering station attendants with a user-friendly interface to handle daily operations seamlessly.
-    Reporting Module: Equipping station owners with insightful analytics to make informed decisions, optimizing business strategies.
-    Inventory Management: Transitioning to a web-based platform for efficient stock management and replenishment.
+    Fuel Management System (FMS): Efficient management of fuel inventory and transactions.
+    Loyalty Programs: Personalized customer rewards and incentives.
+    Customer Profile Management: Customizable preferences and consumption restrictions.
+    Staff Profile Management: Role-based access control for employees.
+    Point of Sale (POS) Application: User-friendly interface for daily operations.
+    Reporting Module: Analytics for informed decision-making.
+    Inventory Management: Web-based platform for stock management.
 
-💡 My development approach emphasizes scalability, security, and usability, leveraging technologies like React.js and Node.js to deliver responsive front-end interfaces and robust back-end services. I prioritize clean code and agile methodologies to ensure high-quality deliverables.
+API
 
-🌱 Currently, I'm enhancing Everest FCS Web with serverless architectures and continuous integration (CI/CD) pipelines to further optimize performance and deployment processes. I'm passionate about leveraging technology to innovate within the fuel management sector and tackle new challenges head-on.
-
-📫 Let's connect and discuss how Everest FCS Web can transform your gas station operations. Feel free to explore my GitHub repositories for more insights into my development projects and methodologies.
+The Everest FCS Web includes a robust API for seamless integration with third-party services and applications, providing flexibility and scalability.
+Technologies Used
+    Backend: ASP.NET CORE API
+    Database: SQL SERVER
+    Others: CI/CD pipelines
