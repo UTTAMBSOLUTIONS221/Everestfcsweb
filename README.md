@@ -1,8 +1,20 @@
-Everest FCS Web is a Fuel management system for Gas stations. 
-The system offers Loyalty Programs
-The system also offers Customer Profile Management And setting the how, when,where and what the customer and his employees can consume
-The system also manages the Staffs Profiles
-The system is Role based
-The system also consist of a POS app which is used by station attendants to process day to day operations.
-The system has a reporting Module which the Station Owners can use to Make informed Decision
-The System also has the Inventory management system which is now the Web based FMS.
+Everest FCS Web - Fuel Management System for Gas Stations
+
+Everest FCS Web is a comprehensive fuel management system designed to optimize operations at gas stations, featuring advanced functionalities tailored for efficiency and customer satisfaction.
+Features
+
+    Fuel Management System (FMS): Efficient management of fuel inventory and transactions.
+    Loyalty Programs: Personalized customer rewards and incentives.
+    Customer Profile Management: Customizable preferences and consumption restrictions.
+    Staff Profile Management: Role-based access control for employees.
+    Point of Sale (POS) Application: User-friendly interface for daily operations.
+    Reporting Module: Analytics for informed decision-making.
+    Inventory Management: Web-based platform for stock management.
+
+API
+
+The Everest FCS Web includes a robust API for seamless integration with third-party services and applications, providing flexibility and scalability.
+Technologies Used
+    Backend: ASP.NET CORE API
+    Database: SQL SERVER
+    Others: CI/CD pipelines
